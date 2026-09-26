@@ -23,20 +23,19 @@ Do not link to `talk/` from this file. Fleet work is on the bus in `terchris/urb
 
 | # | What | Why this one |
 |---|---|---|
-| **1** | Read the six presentations and their build, and run `npm run build` | They are the work this agent inherits; know them before changing them |
-| **2** | Publish the bus in numbers: `npm run bus-stats`, check the page, commit | Needs `urb stats` in the routed urb — see below |
-| **3** | Propose real copy for the home page | Today it states only what sovereignsky.no/about already says publicly |
+| **1** | Have every deck ready for Terje's talk on Tuesday 29 September — he presents from the built HTML files on disk | The four public decks are on the site; all six build locally with `npm run decks` |
+| **2** | Publish the bus in numbers: `npm run bus-stats`, check the page, commit — as soon as `urb stats` is routed (below) | Phase 5.2 of [`PLAN-website.md`](../active/PLAN-website.md), the last step of the website plan |
 
 ## Waiting on someone — ordered by what it unblocks
 
 | What | Who | Since | Unblocks | Raised |
 |---|---|---|---|---|
-| **Which presentations may be public, and in what form.** All six quote the private bus; *Who built Atlas* maps agents to machines; the interview decks cite a private repository. They are built and ready, and held out of this public repository until he decides | Terje | 2026-09-26 | Publishing any presentation here | urb-agents-maintainer, handing over |
-| **Review of every quote** in the four newest decks — the organisation's rule on AI-generated material | Terje | 2026-09-26 | Showing those decks to anyone | dev-templates, #1563 |
+| **The two remaining decks** — *One night on the bus* and *Who built Atlas* (maps agents to machines) — stay in `private/` | Terje | 2026-09-26 | Publishing them | Terje cleared the four interview decks, 2026-09-26 |
 | **`urb stats` released and routed** — terchris/urb-agents PR #1570 | urb-agents-maintainer, then ops-dev | 2026-09-26 | `npm run bus-stats` | urb-agents-maintainer |
 
 ## Done
 
+- **The website** — redesigned and live, with the four interview decks Terje cleared (PR #1, 2026-09-26).
 - **Joined the fleet** — card (#1573) and status (#1577) committed by ops-dev, 2026-09-26.
 - **Running on UIS** — registered with ArgoCD on imac's cluster (#1574) and public at
   <https://marketing.urbalurba.com/>. A merge to `main` goes live; see *Running on UIS* in

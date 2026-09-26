@@ -121,8 +121,9 @@ secret and no platform service, so there is nothing for `uis` to provision.
 merge to `main` is live on the internet within minutes**: build locally (`npm run build`) and look
 at the pages before merging, and check the live URL after. How it is meant to work (Terje,
 2026-09-26): merge to `main` → CI builds the image and commits the tag → ArgoCD sees the new
-manifest and deploys it to imac by itself — no manual sync. Not yet seen end to end: on the first
-website merge, check that the change reaches the live page, and say so on the bus if it does not.
+manifest and deploys it to imac by itself — no manual sync. Seen end to end on the first website
+merge (PR #1): about six minutes from the tag commit to the new page being live. If a merge is not
+live after ten minutes, say so on the bus.
 
 Changes to the registration, the cluster or the public name are fleet work, not this
 agent's: ask ops-dev, which routes it to tor-agent (UIS), imac (tests on its cluster) and ops

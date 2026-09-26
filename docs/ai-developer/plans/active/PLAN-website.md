@@ -12,7 +12,7 @@ Turns marketing.urbalurba.com from four plain pages into a designed site: the to
 
 **Last Updated**: 2026-09-26
 
-**Progress:** phases 1–4 and 5.1 built on branch `website-redesign`. Checked before merge: `npm run build` and `npm run typecheck` pass; `check-quotes` on the four published decks (only the maintainer's two framing lines are NOT FOUND); every page at 360, 390 and 1280 px in light and dark, no horizontal scroll; no IP, hostname or Red Cross mention in `dist/`.
+**Progress:** phases 1–4 and 5.1 merged in PR #1 and live. The pipeline worked with no manual step: CI committed tag `da9a4e0-20260926171326` at 17:13:44Z, and the new site answered on marketing.urbalurba.com at 17:19:58Z (UTC). **Left:** 5.2, when `urb stats` is released; then 6.3 and completion. Checked before merge: `npm run build` and `npm run typecheck` pass; `check-quotes` on the four published decks (only the maintainer's two framing lines are NOT FOUND); every page at 360, 390 and 1280 px in light and dark, no horizontal scroll; no IP, hostname or Red Cross mention in `dist/`.
 
 **Priority**: High — Terje asked for it, 2026-09-26 ("create a great looking website with the content").
 
@@ -109,8 +109,8 @@ Every figure comes from `bus-stats.json`; none is typed by hand.
 
 ### Tasks
 
-- [ ] 6.1 Merge; watch CI build the image and commit the tag
-- [ ] 6.2 Confirm that ArgoCD deployed it by itself: the change is visible on marketing.urbalurba.com. If not, report it on the bus
+- [x] 6.1 Merge; watch CI build the image and commit the tag
+- [x] 6.2 Confirm that ArgoCD deployed it by itself: the change is visible on marketing.urbalurba.com. If not, report it on the bus
 - [ ] 6.3 Update `1PRIORITY.md` and `fleet/status/marketing.md`; move this plan to `completed/`
 
 ---
