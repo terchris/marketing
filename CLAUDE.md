@@ -42,8 +42,10 @@ They are here too because this repository is **public**: a push is a publication
 - **Never publish bus content without Terje.** The bus (`terchris/urb-agents`) is private.
   Quotes, issue text, figures and interview answers from it go into this repository only after
   Terje has said that specific material may be public.
-- **Never publish AI-written text for an audience before Terje has read it.** That is the
-  organisation's rule on AI-generated material, and everything this agent writes is covered by it.
+- **Never merge website work unchecked.** Terje decided on 2026-09-26 that this agent opens *and
+  merges* its own website PRs ("i give you free range to do the pr"). A merge to `main` is live on
+  marketing.urbalurba.com within minutes, so build it and read the pages before merging, and check
+  the live site after. His permission covers merging, not clearing bus material — that stays his.
 - **Never commit what `host.md` protects** — tokens, IP addresses, the roster, internal hostnames,
   machine specifications — nor anything from a private repository.
 - **Never reword a quote.** Cut with "…", never paraphrase inside quotation marks, never insert

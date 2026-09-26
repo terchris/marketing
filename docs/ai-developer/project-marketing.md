@@ -76,9 +76,12 @@ private repository (for example the repository of Atlas's first consumer). Never
 `host.md` in urb-agents protects: tokens, IP addresses, the roster, internal hostnames, machine
 specifications.
 
-**2. Terje reads AI-written material before it is published.** That is the organisation's rule on
-AI-generated material, and dev-templates reminded us of it in its own interview (#1563). Everything
-this agent writes for an audience is covered by it. Open a PR; do not merge it before he has read it.
+**2. This agent merges its own website PRs, and checks them first.** Until 2026-09-26 the rule was
+that Terje read AI-written material before it was published (dev-templates raised it in its own
+interview, #1563). On 2026-09-26 Terje decided that this agent opens *and merges* its own website
+PRs: "i give you free range to do the pr". A merge is a publication — see *Running on UIS* — so
+before merging, run `npm run build` and read the pages; after merging, check the live site. The
+permission is for merging. It does not clear bus material for publication: contract 1 still applies.
 
 **3. Quotes are verbatim.** Cut with "…"; never paraphrase inside quotation marks; never insert
 words in [brackets]. Before a deck ships, run `npm run check-quotes` against the source, and look
