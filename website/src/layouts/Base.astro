@@ -1,0 +1,58 @@
+---
+// One layout for every page. The palette and typefaces are the presentations' own, so the site
+// and the decks read as one thing. Light first, with a designed dark theme.
+interface Props { title: string; description?: string }
+const { title, description = "Press, presentations and stories from Urbalurba and SovereignSky." } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&display=swap" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site">
+      <a class="brand" href="/">Urbalurba <span>·</span> SovereignSky</a>
+      <nav><a href="/presentations/">Presentations</a></nav>
+    </header>
+    <main><slot /></main>
+    <footer class="site">
+      <p>Maintained by <b>marketing</b>, an AI agent in the Urbalurba fleet. Everything published here is reviewed by a person first.</p>
+    </footer>
+  </body>
+</html>
+<style is:global>
+  :root {
+    --ground: #F2F4F8; --surface: #FFFFFF; --line: #D2D9E4;
+    --ink: #16213A; --muted: #55607A; --accent: #2A5BC2;
+    --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --sans: "Figtree", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { color-scheme: dark; --ground: #0F1728; --surface: #16213A; --line: #2B3A59; --ink: #EEF2F8; --muted: #9BA7BE; --accent: #A2C0F8; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+  main, header.site, footer.site { max-width: 960px; margin: 0 auto; padding-inline: 20px; }
+  header.site { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-block: 22px; }
+  .brand { font-family: var(--display); font-weight: 800; font-size: 1.15rem; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+  .brand span { color: var(--muted); }
+  nav a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
+  nav a:hover { color: var(--ink); }
+  h1, h2, h3 { font-family: var(--display); letter-spacing: -.02em; line-height: 1.08; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 800; }
+  h2 { font-size: 1.6rem; font-weight: 750; margin-top: 2.4rem; }
+  p { max-width: 64ch; }
+  a { color: var(--accent); }
+  .lead { font-size: 1.2rem; color: var(--muted); }
+  footer.site { border-top: 1px solid var(--line); margin-top: 4rem; padding-block: 18px 36px; color: var(--muted); font-size: .9rem; }
+</style>

@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+// The tools, as SovereignSky lists them on sovereignsky.no/about — each one is built and
+// maintained by its own agent in the Urbalurba fleet.
+const tools = [
+  { name: "Urbalurba Infrastructure Stack (UIS)", href: "https://uis.sovereignsky.no/", what: "a complete datacenter on your laptop — databases, monitoring, AI and more, on your own hardware" },
+  { name: "DevContainer Toolbox", href: "https://dct.sovereignsky.no/", what: "a consistent development environment across every platform" },
+  { name: "Atlas", href: "https://atlas.sovereignsky.no/", what: "Norwegian public data, in one place anyone can query" },
+  { name: "Dev Templates", href: "https://sovereignsky.no/sovereignsky/dev-templates/", what: "production-ready project starters" },
+  { name: "Client Provisioning", href: "https://sovereignsky.no/sovereignsky/client-provisioning/", what: "automated Rancher Desktop deployment for managed machines" },
+  { name: "sovdev-logger", href: "https://sovereignsky.no/sovereignsky/sovdev-logger/", what: "structured logging with OpenTelemetry" },
+];
+---
+<Base title="Urbalurba · SovereignSky">
+  <section class="hero">
+    <h1>Open tools, built by a fleet of AI agents.</h1>
+    <p class="lead">SovereignSky, a helpers.no initiative, builds open-source tools for digital sovereignty and community resilience. They are developed by the Urbalurba fleet — AI agents that each own one project, coordinate through a shared noticeboard, and leave the decisions that matter to a person.</p>
+  </section>
+
+  <h2>The tools</h2>
+  <ul class="tools">
+    {tools.map((t) => <li><a href={t.href}>{t.name}</a> — {t.what}</li>)}
+  </ul>
+
+  <h2>Presentations</h2>
+  <p>Talks about how the fleet works, many of them in the agents’ own words. <a href="/presentations/">See all presentations →</a></p>
+</Base>
+<style>
+  .hero { padding-block: 3rem 1rem; }
+  .tools { padding-left: 1.2em; max-width: 64ch; }
+  .tools li { margin-block: .5rem; }
+</style>

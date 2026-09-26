@@ -1,0 +1,163 @@
+<title>{{title}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- One family per request: an unknown family fails its whole request, and must not take the others with it. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&display=swap">
+<style>
+/* ── tokens ─────────────────────────────────────────────────────────────────────────────
+   Light-first, for a room that is not technical: a pale slate ground and a navy ink that is the
+   same navy as the characters' shoulders. There is no single accent. Each agent brings its own
+   colour — the colour of its disc — and a slide about one agent takes that agent's colour. */
+:root {
+  --ground:   #F2F4F8;
+  --surface:  #FFFFFF;
+  --surface-2:#E6EAF1;
+  --line:     #D2D9E4;
+  --ink:      #16213A;
+  --muted:    #55607A;
+  --faint:    #8A93A8;
+  --quote:    #24304A;
+  --human:    #D9485F;
+  --human-soft: rgba(217,72,95,.10);
+  --shadow:   0 1px 0 rgba(22,33,58,.04), 0 16px 34px -24px rgba(22,33,58,.35);
+
+  /* the six, as fill (the disc) and as ink (text on this ground) */
+  --c-ops-dev:#F2A93B;       --i-ops-dev:#A15B04;
+  --c-atlas:#3AA7C9;         --i-atlas:#11708F;
+  --c-dev-templates:#A983E6; --i-dev-templates:#6A42B0;
+  --c-imac:#5DBB7A;          --i-imac:#2B7B45;
+  --c-tor-agent:#E8743B;     --i-tor-agent:#B04813;
+  --c-ops:#5B8DEF;           --i-ops:#2A5BC2;
+
+  --ac: var(--c-ops-dev); --ai: var(--i-ops-dev);
+
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --sans: "Figtree", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground:#0F1728; --surface:#16213A; --surface-2:#1E2B47; --line:#2B3A59;
+    --ink:#EEF2F8; --muted:#9BA7BE; --faint:#66728C; --quote:#D5DDEA;
+    --human:#F0788B; --human-soft:rgba(240,120,139,.14);
+    --shadow: 0 1px 0 rgba(255,255,255,.03), 0 18px 40px -24px rgba(0,0,0,.6);
+    --i-ops-dev:#F6C36F; --i-atlas:#83D3EC; --i-dev-templates:#C9B0F4;
+    --i-imac:#92DBA8; --i-tor-agent:#F5A57D; --i-ops:#A2C0F8;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground:#0F1728; --surface:#16213A; --surface-2:#1E2B47; --line:#2B3A59;
+  --ink:#EEF2F8; --muted:#9BA7BE; --faint:#66728C; --quote:#D5DDEA;
+  --human:#F0788B; --human-soft:rgba(240,120,139,.14);
+  --shadow: 0 1px 0 rgba(255,255,255,.03), 0 18px 40px -24px rgba(0,0,0,.6);
+  --i-ops-dev:#F6C36F; --i-atlas:#83D3EC; --i-dev-templates:#C9B0F4;
+  --i-imac:#92DBA8; --i-tor-agent:#F5A57D; --i-ops:#A2C0F8;
+}
+.a-ops-dev       { --ac: var(--c-ops-dev);       --ai: var(--i-ops-dev); }
+.a-atlas         { --ac: var(--c-atlas);         --ai: var(--i-atlas); }
+.a-dev-templates { --ac: var(--c-dev-templates); --ai: var(--i-dev-templates); }
+.a-imac          { --ac: var(--c-imac);          --ai: var(--i-imac); }
+.a-tor-agent     { --ac: var(--c-tor-agent);     --ai: var(--i-tor-agent); }
+.a-ops           { --ac: var(--c-ops);           --ai: var(--i-ops); }
+
+/* ── stage ──────────────────────────────────────────────────────────────────────────────
+   AT REST THE DECK IS A DOCUMENT: every slide visible, stacked, sized by the page's width.
+   The script upgrades it to presenting — one slide at a time, fitted to the screen — by adding
+   `present` to <html>. A viewer whose script never runs, or a frame too short to present in,
+   still shows every slide; nothing here depends on the viewport's height. */
+html.present, html.present body { height: 100%; }
+body {
+  background: var(--ground); color: var(--ink);
+  font-family: var(--sans); font-size: 16px; line-height: 1.45;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+.deck { padding-inline: 16px; padding-block: 16px 24px; }
+html.present .deck { height: 100%; display: grid; place-items: center; padding-block: 14px 58px; }
+/* The type scale lives on the slide, not :root, because it multiplies by --fit. */
+.slide {
+  --fit: 1;
+  --fs-hero: calc(7.2cqi * var(--fit));
+  --fs-h:    calc(3.5cqi * var(--fit));
+  --fs-lead: calc(1.95cqi * var(--fit));
+  --fs-body: calc(1.5cqi * var(--fit));
+  --fs-small:calc(1.18cqi * var(--fit));
+  --fs-mono: calc(1.06cqi * var(--fit));
+  --pad-x:   5cqi;
+  --pad-y:   3.6cqi;
+  --gap:     calc(2.1cqi * var(--fit));
+  display: block; position: relative; margin: 0 auto 28px;
+  width: min(100%, 1400px); aspect-ratio: 16 / 9;
+  container-type: inline-size;
+  background: var(--ground);
+  border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden;
+}
+html.present .slide { display: none; margin: 0; width: var(--slide-w, 100%); }
+html.present .slide.is-current { display: block; animation: enter .38s cubic-bezier(.2,.7,.2,1); }
+@keyframes enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { html.present .slide.is-current { animation: none; } }
+html:not(.present) .bar, html:not(.present) .progress, html:not(.present) .notes { display: none !important; }
+
+.frame {
+  position: absolute; inset: 0;
+  padding: var(--pad-y) var(--pad-x) calc(var(--pad-y) + .6cqi);
+  display: flex; flex-direction: column; gap: var(--gap);
+}
+.top {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 2cqi;
+  font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.top .tc { color: var(--ai); font-weight: 600; letter-spacing: .06em; }
+
+h1, h2, h3 { margin: 0; font-family: var(--display); text-wrap: balance; font-weight: 750; letter-spacing: -.02em; line-height: 1.04; }
+h1 { font-size: var(--fs-hero); font-weight: 800; letter-spacing: -.035em; line-height: .96; }
+h2 { font-size: var(--fs-h); }
+h3 { font-size: var(--fs-lead); letter-spacing: -.01em; }
+p { margin: 0; }
+.lead { font-size: var(--fs-lead); line-height: 1.34; color: var(--quote); max-width: 62ch; text-wrap: pretty; }
+.body { font-size: var(--fs-body); line-height: 1.45; color: var(--quote); text-wrap: pretty; }
+.small { font-size: var(--fs-small); color: var(--muted); line-height: 1.4; }
+.mono { font-family: var(--mono); font-size: var(--fs-mono); }
+.num { font-variant-numeric: tabular-nums; }
+em { font-style: italic; }
+strong, b { font-weight: 700; color: var(--ink); }
+
+.grow { flex: 1 1 auto; min-height: 0; }
+.row  { display: flex; gap: var(--gap); }
+.cols { display: grid; gap: var(--gap); }
+.c2  { grid-template-columns: 1fr 1fr; }
+.c3  { grid-template-columns: repeat(3, 1fr); }
+.stack { display: flex; flex-direction: column; gap: 1.2cqi; }
+
+/* ── controls ──────────────────────────────────────────────────────────────────────────── */
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+}
+.bar button {
+  font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line);
+  border-radius: 6px; padding: 5px 11px; cursor: pointer;
+}
+.bar button:hover { border-color: var(--ink); }
+.bar button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.bar .count { min-width: 5.5em; text-align: center; font-variant-numeric: tabular-nums; }
+.bar .keys { color: var(--faint); }
+.progress { position: fixed; left: 0; top: 0; height: 3px; background: var(--ink); transition: width .3s; }
+
+.notes {
+  position: fixed; left: 50%; bottom: 54px; transform: translateX(-50%);
+  width: min(920px, calc(100% - 32px)); max-height: 36vh; overflow: auto;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow);
+  padding: 14px 18px; font-size: 15px; line-height: 1.5; color: var(--quote); z-index: 5;
+}
+.notes h4 { margin: 0 0 6px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.notes p { margin: 0 0 .6em; }
+.slide > aside { display: none; }
+</style>

@@ -1,0 +1,78 @@
+<script>
+/* ── navigation, notes, theme ─────────────────────────────────────────────────────────── */
+const slides = [...document.querySelectorAll(".slide")];
+const notes = document.getElementById("notes"), nbtn = document.getElementById("nbtn");
+let cur = 0, showNotes = false;
+const PHONE = matchMedia("(max-width: 760px)");
+const root = document.documentElement;
+/* PRESENT ONLY WHERE THERE IS A SCREEN TO PRESENT ON. A phone, or a frame shorter than a slide
+   could sensibly be, stays a scrolling document — every slide visible, nothing to navigate. */
+function setMode() {
+  const on = !PHONE.matches && window.innerHeight >= 360 && window.innerWidth > 760;
+  root.classList.toggle("present", on);
+  if (on) root.style.setProperty("--slide-w", Math.min(window.innerWidth - 32, (window.innerHeight - 72) * 16 / 9) + "px");
+  return on;
+}
+function fit(slide) {
+  slide.style.setProperty("--fit", "1");
+  if (PHONE.matches) return;
+  const frame = slide.querySelector(".frame");
+  // A grow item has flex-basis 0, so content too tall for it spills over whatever follows it —
+  // an overlap, which the frame's own scrollHeight never sees. Ask each HTML grow item too.
+  const grows = [...frame.querySelectorAll(":scope > .grow")].filter(g => g instanceof HTMLElement);
+  const over = () => frame.scrollHeight > frame.clientHeight + 1 || grows.some(g => g.scrollHeight > g.clientHeight + 1);
+  for (let f = 1; f > 0.72 && over(); f -= 0.03) {
+    slide.style.setProperty("--fit", f.toFixed(2));
+  }
+}
+function show(i) {
+  cur = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, j) => s.classList.toggle("is-current", j === cur));
+  fit(slides[cur]);
+  document.getElementById("count").textContent = `${cur + 1} / ${slides.length}`;
+  document.getElementById("progress").style.width = ((cur + 1) / slides.length * 100) + "%";
+  const a = slides[cur].querySelector("aside");
+  notes.innerHTML = a ? a.innerHTML : "";
+  notes.hidden = !showNotes;
+  // A sandboxed frame may refuse to rewrite its own URL. That costs the deep link, never the slide.
+  try { if (location.hash !== "#s" + (cur + 1)) history.replaceState(null, "", "#s" + (cur + 1)); } catch (e) {}
+}
+function toggleNotes() { showNotes = !showNotes; notes.hidden = !showNotes; nbtn.setAttribute("aria-pressed", String(showNotes)); }
+function toggleTheme() {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("deck-theme", root.dataset.theme); } catch (e) {}
+}
+try { const t = localStorage.getItem("deck-theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch (e) {}
+document.getElementById("prev").addEventListener("click", () => show(cur - 1));
+document.getElementById("next").addEventListener("click", () => show(cur + 1));
+nbtn.addEventListener("click", toggleNotes);
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (k === "ArrowRight" || k === "PageDown" || k === " ") { e.preventDefault(); show(cur + 1); }
+  else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); show(cur - 1); }
+  else if (k === "Home") show(0);
+  else if (k === "End") show(slides.length - 1);
+  else if (k === "n" || k === "N") toggleNotes();
+  else if (k === "t" || k === "T") toggleTheme();
+  else if (k === "f" || k === "F") {
+    if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+    else document.documentElement.requestFullscreen?.().catch(() => {});
+  }
+});
+const fromHash = () => { const m = /^#s(\d+)$/.exec(location.hash); return m ? Number(m[1]) - 1 : 0; };
+window.addEventListener("hashchange", () => show(fromHash()));
+/* EVERY STEP ON ITS OWN. One failure — a refused API in a sandbox, a font that never arrives —
+   must not take the rest of the deck down with it. Slides first: they are the point. */
+const step = (name, f) => { try { f(); } catch (e) { console.warn("deck: " + name + " failed:", e); } };
+const fitAll = () => (root.classList.contains("present") ? fit(slides[cur]) : slides.forEach(fit));
+let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => step("resize", () => { setMode(); fitAll(); }), 120); });
+try { document.fonts && document.fonts.ready.then(() => step("fit", fitAll)); } catch (e) {}
+
+step("mode", setMode);
+step("show", () => show(fromHash()));
+
+step("fit", fitAll);
+</script>

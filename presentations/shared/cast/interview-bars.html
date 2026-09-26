@@ -1,0 +1,23 @@
+<style>
+.bars { display: flex; flex-direction: column; gap: .9cqi; }
+.bar-row { display: grid; grid-template-columns: 13cqi 1fr 4cqi; gap: 1cqi; align-items: center; font-size: var(--fs-small); }
+.bar-row .who { font-family: var(--mono); font-size: var(--fs-mono); color: var(--ai); font-weight: 600; flex-direction: row; }
+.bar-row .track { height: 1.5cqi; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.bar-row .fill { height: 100%; background: var(--ac); border-radius: 999px; }
+.bar-row .v { font-family: var(--mono); font-size: var(--fs-mono); color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+.clock { font-family: var(--display); font-weight: 800; font-size: calc(2.8cqi * var(--fit)); letter-spacing: -.02em; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.quad { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3cqi; }
+.quad .cell { border-radius: 10px; padding: 1.2cqi 1.4cqi; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .6cqi; }
+.quad .k { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .07em; text-transform: uppercase; font-weight: 600; }
+.quad .fast .k { color: var(--i-imac); } .quad .slow .k { color: var(--i-ops-dev); } .quad .new .k { color: var(--i-atlas); } .quad .worse .k { color: var(--human); }
+.quad p { font-size: var(--fs-small); color: var(--ink); line-height: 1.38; text-wrap: pretty; }
+.quad .big { font-family: var(--display); font-weight: 700; font-size: calc(1.55cqi * var(--fit)); line-height: 1.2; }
+.four { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2cqi; counter-reset: f; }
+.four li { counter-increment: f; background: var(--human-soft); border-radius: 10px; padding: 1.2cqi 1.4cqi 1.2cqi 4.4cqi; position: relative; font-size: var(--fs-body); color: var(--ink); line-height: 1.35; }
+.four li::before { content: counter(f); position: absolute; left: 1.4cqi; top: 1cqi; font-family: var(--display); font-weight: 800; font-size: var(--fs-lead); color: var(--human); }
+@media (max-width: 760px) {
+  .quad, .four { grid-template-columns: 1fr; }
+  .bar-row { grid-template-columns: 110px 1fr 40px; } .bar-row .track { height: 10px; }
+  .clock { font-size: 1.6rem; } .four li { padding-left: 40px; } .four li::before { left: 12px; }
+}
+</style>

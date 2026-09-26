@@ -1,0 +1,34 @@
+---
+import Base from "../../layouts/Base.astro";
+// Every deck is presentations/<slug>/deck.json beside the site; `npm run decks` builds it into
+// public/presentations/<slug>.html. This page lists whatever decks exist — nothing is typed twice.
+interface Deck { title: string; audience: string; slides: number; summary?: string; interview?: number }
+const files = import.meta.glob<Deck>("../../../../presentations/*/deck.json", { eager: true, import: "default" });
+const decks = Object.entries(files)
+  .map(([path, d]) => ({ ...d, slug: path.split("/").at(-2)! }))
+  .sort((a, b) => (a.audience === b.audience ? a.title.localeCompare(b.title) : a.audience === "anyone" ? -1 : 1));
+---
+<Base title="Presentations · Urbalurba" description="Talks about the Urbalurba agent fleet.">
+  <h1>Presentations</h1>
+  <p class="lead">Each deck is a single HTML file. Open it, then use the arrow keys; <kbd>N</kbd> shows the speaker notes, <kbd>T</kbd> switches theme, <kbd>F</kbd> goes full screen.</p>
+  {decks.length === 0
+    ? <p class="empty">No presentations are published yet.</p>
+    : <ul class="decks">
+        {decks.map((d) => (
+          <li>
+            <a href={`/presentations/${d.slug}.html`}><b>{d.title}</b></a>
+            <span class="meta">{d.slides} slides · for {d.audience}{d.interview ? ` · interview #${d.interview}` : ""}</span>
+            {d.summary && <p>{d.summary}</p>}
+          </li>
+        ))}
+      </ul>}
+</Base>
+<style>
+  .decks { list-style: none; padding: 0; display: grid; gap: 14px; margin-top: 2rem; }
+  .decks li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .decks a { font-family: var(--display); font-size: 1.25rem; text-decoration: none; }
+  .meta { display: block; font-family: var(--mono); font-size: .78rem; color: var(--muted); letter-spacing: .04em; margin-top: 4px; }
+  .decks p { margin: .5rem 0 0; }
+  .empty { color: var(--muted); }
+  kbd { font-family: var(--mono); font-size: .85em; border: 1px solid var(--line); border-radius: 4px; padding: 0 .35em; }
+</style>
