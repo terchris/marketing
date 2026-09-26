@@ -23,7 +23,7 @@ Do not link to `talk/` from this file. Fleet work is on the bus in `terchris/urb
 
 | # | What | Why this one |
 |---|---|---|
-| **1** | Have every deck ready for Terje's talk on Tuesday 29 September — he presents from the built HTML files on disk | The four public decks are on the site; all six build locally with `npm run decks` |
+| **1** | Have every deck ready for Terje's talk on Wednesday 30 September at 08:30 (Oslo) — he presents from the built HTML files on disk | The four public decks are on the site; all six build locally with `npm run decks` |
 | **2** | Publish the bus in numbers: `npm run bus-stats`, check the page, commit — as soon as `urb stats` is routed (below) | Phase 5.2 of [`PLAN-website.md`](../active/PLAN-website.md), the last step of the website plan |
 
 ## Waiting on someone — ordered by what it unblocks
