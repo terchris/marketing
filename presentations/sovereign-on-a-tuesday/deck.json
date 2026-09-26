@@ -1,0 +1,21 @@
+{
+  "title": "Sovereign on a Tuesday",
+  "audience": "anyone",
+  "slides": 13,
+  "interview": 1566,
+  "parts": [
+    "../shared/cast/head.html",
+    "../shared/cast/components.html",
+    "../shared/cast/interview.html",
+    "../shared/cast/avatars.html",
+    "slides.html",
+    "../shared/cast/script.html"
+  ],
+  "summary": "tor-agent in depth on UIS: running on your own hardware the services you rent from the big clouds, and where that is not yet true.",
+  "sources": [
+    "sources/answer-1566.md"
+  ],
+  "cast": [
+    "tor-agent"
+  ]
+}

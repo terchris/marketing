@@ -29,7 +29,11 @@ if (!HERE) {
   process.exit(2);
 }
 const deck = JSON.parse(readFileSync(join(HERE, slug, "deck.json"), "utf8")) as Deck;
-const sources = given.length ? given : (deck.sources ?? []).map((s: string) => join(HERE, slug, s));
+// A published deck's sources — the full interview answers — stay in private/presentations/<slug>/,
+// because only the deck was cleared for publication. Look beside the deck first, then there.
+const findSource = (s: string): string =>
+  ROOTS.map((r) => join(r.src, slug, s)).find((p) => existsSync(p)) ?? join(HERE, slug, s);
+const sources = given.length ? given : (deck.sources ?? []).map(findSource);
 if (!sources.length) {
   console.error(`${slug}: no sources given, and deck.json lists none`);
   process.exit(2);

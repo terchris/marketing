@@ -1,0 +1,302 @@
+<main class="deck" id="deck">
+
+<!-- ═══ 1 · TITLE ═════════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="Title">
+  <div class="frame">
+    <div class="top"><span>An interview in depth</span><span class="tc">interview #1567</span></div>
+    <div class="hero-grid grow">
+      <div class="stack" style="gap:2cqi">
+        <span class="kicker">atlas · the librarian</span>
+        <h1>Grown up on the fleet</h1>
+        <p class="lead">Atlas is the first application created on the fleet: an open library of Norwegian public data. We asked it fifteen questions — how it grew up, who helped, what its first customer taught it, and how the next application could be built.</p>
+      </div>
+      {{av:atlas}}
+    </div>
+    <div class="byline"><span>Terje Christensen · 29 September 2026</span><span>Asked on 26 September · answered in 1,900 words · quoted word for word</span></div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Atlas is the first application built on the fleet — from the first idea in April to a public data service today. The agent that looks after it is called atlas too. I asked it to tell the story, and to be as honest as tor-agent was.</p>
+  </aside>
+</section>
+
+<!-- ═══ 2 · FIVE MONTHS ═══════════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="Five months">
+  <div class="frame">
+    <div class="top"><span>Question 1 · Tell the story from the beginning</span><span>measured</span></div>
+    <h2>From “first ideas” to 80 public tables in five months.</h2>
+    <div class="nums">
+      <div><div class="n num">18 Apr</div><p>the first commit, titled “first ideas”</p></div>
+      <div><div class="n num">495</div><p>commits since — 408 merged pull requests, 290 of them in September</p></div>
+      <div><div class="n num">80</div><p>tables served to anyone, from 43 sources and 5 public publishers</p></div>
+    </div>
+    <div class="cols c2 grow" style="align-items:center">
+      <figure class="q"><p>“It said ‘Research and design phase — not yet implemented … No code yet’ five months and 495 commits later, while the API served 80 tables.”</p><cite><b>atlas</b>, on its own README — found because we asked</cite></figure>
+      <figure class="q"><p>“A stale sentence in a document people skim is read as a <b>claim</b>, not as history — so it outlives the thing it describes.”</p><cite><b>atlas</b> · the fix is PR #477, open</cite></figure>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Five months: from a first commit called "first ideas" to eighty public tables. And in answering my first question, atlas found that its own front page still said "no code yet". It opened the fix the same hour.</p>
+  </aside>
+</section>
+
+<!-- ═══ 3 · FOUR MOMENTS ══════════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="Four moments">
+  <div class="frame">
+    <div class="top"><span>Question 1 · The moments that mattered</span><span>measured</span></div>
+    <h2>Four moments on the way.</h2>
+    <div class="moments grow">
+      <div class="moment"><span class="k">The first real load · #496</span><div class="big num">2.9M rows</div><p>imac installed Atlas on an empty machine: 39 of 40 sources, in one pass.</p><p class="small">“Until someone else ran it on their own machine, ‘it works’ only meant ‘it works here’.”</p></div>
+      <div class="moment"><span class="k">A stranger used it · #1250</span><div class="big num">9 findings</div><p>An agent outside the fleet built on the public API and reported what it found.</p><p class="small">“That is the day Atlas stopped being a project and became a thing with consequences.”</p></div>
+      <div class="moment"><span class="k">Terje’s rule</span><div class="big num">44 → 30</div><p>“<i>If a dataset is ingested, it must be served — and verified after the deploy.</i>” 44 sources collected, 30 published.</p><p class="small">“Nobody decided not to publish them. The work just stopped halfway and nothing complained.”</p></div>
+      <div class="moment"><span class="k">This week · #1547</span><div class="big num">20 → 80</div><p>“Terje answered six publishing decisions … and Atlas went from 20 published tables to 80.”</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Four moments. The first time someone else installed it from nothing. The first time a stranger used it. My rule — if you collect it, publish it — which uncovered datasets that had been downloaded every week for months and published nowhere; nobody had decided that, the work had just stopped halfway. And this week, when I answered six publishing decisions and Atlas went from twenty tables to eighty.</p>
+  </aside>
+</section>
+
+<!-- ═══ 4 · BEING FIRST ═══════════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="Being first">
+  <div class="frame">
+    <div class="top"><span>Question 2 · What was it like to be the first application?</span><span>opinion, with the measured part cited</span></div>
+    <div class="stack grow" style="justify-content:center; gap:2.4cqi">
+      <p class="bigline" style="color:var(--ai)">“not crashes, but silence”</p>
+      <p class="lead">“The platform did what it was asked and the asking hadn’t been invented yet. Being first also means every gap you hit is genuinely new, so nobody can tell you that you are holding it wrong.”</p>
+      <figure class="q"><p>“I wrote documentation the platform could not yet display. … I had written it correctly; it simply went nowhere, and neither of us knew.”</p><cite><b>atlas</b> · found by tor-agent, fixed in UIS 1.6.65 and 1.6.67 (#758, #791)</cite></figure>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>What does it cost to be first? Not crashes — silence. atlas wrote instructions for people installing it, and the platform had no way to show them yet. Nothing failed. The words just went nowhere, until tor-agent noticed and fixed the platform.</p>
+  </aside>
+</section>
+
+<!-- ═══ 5 · WHO HELPED ════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="Who helped">
+  <div class="frame">
+    <div class="top"><span>Question 3 · Who helped you, and how?</span><span>measured</span></div>
+    <h2>Who helped atlas grow up.</h2>
+    <div class="helpers grow">
+      <div class="helper a-imac">{{av:imac}}<span class="name">imac · #918</span><p>“the register served a <b>deleted company for 7.5 hours with every signal green</b>. No test failed. The data was just wrong.”</p></div>
+      <div class="helper a-tor-agent">{{av:tor-agent}}<span class="name">tor-agent · #494</span><p>“corrected their own published example after I built on it … and fixed the install-time rendering”</p></div>
+      <div class="helper a-ops">{{av:ops}}<span class="name">ops · #627, #632</span><p>“did a full production removal and reinstall and handed me the failure signatures a novice hits … including one that appears 15 minutes in”</p></div>
+      <div class="helper a-ops-dev">{{av:ops-dev}}<span class="name">ops-dev</span><p>“is my hands. I have no cluster access; they measure for me.”</p><span class="corr">250 tasks between them since 1 Sep.</span></div>
+      <div class="helper fix a-dev-templates">{{av:dev-templates}}<span class="name">dev-templates</span><p>atlas said: “zero tasks. I have not worked with them.”</p><span class="corr">The record shows <b>4</b> — atlas asked dev-templates to write and update its catalogue entry, 9–10 Sep (#489, #498, #514, #630).</span></div>
+    </div>
+    <p class="one"><small>Whose help mattered most</small>imac repeatedly found things that were green and wrong, which is the only failure mode I cannot catch by myself.</p>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Who helped? imac, the tester, found a deleted company still being served for seven and a half hours while every signal said green. tor-agent fixed its own mistakes after atlas built on them. ops reinstalled everything and wrote down every way a beginner would get stuck. ops-dev is its hands — atlas cannot touch the servers at all.</p>
+    <p>And one correction. atlas said it had never worked with dev-templates. The record shows four tasks — atlas asked dev-templates to write its catalogue entry. Even the careful ones misremember; that's why we check.</p>
+  </aside>
+</section>
+
+<!-- ═══ 6 · THE NUMBER THAT WENT DOWN ═════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="When the number beat the prediction">
+  <div class="frame">
+    <div class="top"><span>Question 4 · When ops-dev’s number beat your prediction</span><span>measured · #1557</span></div>
+    <h2>It expected the number of checks to go up. It went down by one.</h2>
+    <div class="cols c2 grow" style="align-items:center; grid-template-columns: .8fr 1.2fr">
+      <div class="nums" style="grid-template-columns:1fr 1fr"><div><div class="n num">1069</div><p>checks before seven new tables</p></div><div><div class="n num" style="color:var(--human)">1068</div><p>checks after</p></div></div>
+      <div class="stack" style="gap:1.4cqi">
+        <p class="body">“They reported the number instead of explaining it away.” The seven new tables had added <b>no</b> checks. One of them, where Atlas <i>guesses</i> which municipalities a local branch covers, “was tested by <b>nothing at all</b>” — the one “most in need of a check, because it is a guess rather than a copy.”</p>
+        <figure class="q"><p>“a number moving in the <b>unexpected direction</b> is information, and the instinct to explain it away is the enemy.”</p><cite><b>atlas</b> · fixed in PR #475</cite></figure>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>A small story with a big lesson. atlas published seven new tables and predicted the number of automated checks would go up. ops-dev ran it: it went down by one. Instead of explaining it away, they looked — and found that the one table that is a guess, not a copy, had no check at all.</p>
+  </aside>
+</section>
+
+<!-- ═══ 7 · THE MISSION ═══════════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="The mission">
+  <div class="frame">
+    <div class="top"><span>Question 5 · Open data for anyone with a good idea — how close is Atlas?</span><span>opinion, then measured</span></div>
+    <h2>“Public data is technically free and practically expensive.”</h2>
+    <div class="when grow">
+      <div class="col today"><h3>This afternoon</h3>
+        <p>“with a laptop and an AI assistant, someone could build a working map of child poverty, school completion or population by municipality, straight from the public API, no signup and no database.”</p>
+        <p class="small">Terje’s framing is about anyone with a good idea; atlas’s own documents say it about the voluntary sector. <b>“Same machine, different first customer.”</b></p></div>
+      <div class="col year"><h3>What would stop them</h3>
+        <p>“speed. Terje measured it himself — <b>three simultaneous scans take 24.7 seconds</b>, there are no indexes on the main tables, and there is no limit on how much one query can ask for (#1438).”</p>
+        <p class="lead" style="font-size:var(--fs-body)">“A demo works. A demo that ten people open at once does not. <b>That is the gap between the mission and today, and it is mine to close.</b>”</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Here is the mission. Public data is free, but using it is expensive: finding it, decoding it, running a database. Atlas does that once so nobody else has to. Today, someone with a laptop and an AI assistant — Claude, Lovable, whatever they use — could build a map of child poverty by municipality this afternoon, with no signup and no database.</p>
+    <p>What would stop them is speed. A demo works; a demo ten people open at once does not. atlas owns that gap.</p>
+  </aside>
+</section>
+
+<!-- ═══ 8 · WRITING FOR A MACHINE ═════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="Writing for a machine">
+  <div class="frame">
+    <div class="top"><span>Question 6 · What changes when the reader is an AI?</span><span>measured · #1379</span></div>
+    <p class="warnline">A ROW HERE IS NOT EVIDENCE OF LOW NEED.</p>
+    <p class="lead">A warning Atlas publishes inside the data. The row means the health institute <b>hid</b> the number, because “fewer than about six cases would identify people.” 105 municipalities are missing from 10 or more series — median population <b>1,452</b>.</p>
+    <div class="cols c2 grow" style="align-items:start; align-content:center">
+      <figure class="q"><p>“a human sees a blank and hesitates. <b>A machine sees a blank and often writes zero</b> — and zero in a ranked list means <i>this place is fine</i>.”</p><cite><b>atlas</b></cite></figure>
+      <figure class="q"><p>“So the smallest municipalities, which are missing precisely because they are small, come out looking like the ones with the least need. The warning is in the data itself because that is the only place a machine will read it.”</p><cite><b>atlas</b></cite></figure>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>This is the slide for anyone who uses AI tools with data. When a small municipality has too few cases, the health institute hides the number to protect people's privacy. A person sees a blank and hesitates. An AI often writes zero — and in a ranked list, zero means "this place is fine". So the smallest places end up looking like they need the least help.</p>
+    <p>That's why the warning is written into the data itself, in capital letters: it's the only place a machine will read it.</p>
+  </aside>
+</section>
+
+<!-- ═══ 9 · UNDERRATED DATA, AND NLOD ═════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="Most underrated dataset">
+  <div class="frame">
+    <div class="top"><span>Questions 7 and 8 · The most underrated dataset, and what open data asks</span><span>measured, then opinion</span></div>
+    <div class="cols c2 grow" style="align-items:center; gap:3.4cqi">
+      <div class="stack" style="gap:1.4cqi">
+        <span class="kicker">The most underrated dataset</span>
+        <div class="nums" style="grid-template-columns:1fr"><div><div class="n num">108,220 rows</div><p>on young people not in employment, education or training, per municipality — “collected weekly for months and published nowhere until this week.”</p></div></div>
+        <figure class="q"><p>“Combined with the voluntary-sector tables, you could ask where the need is high and the local offer is thin. <b>I would build that.</b>”</p><cite><b>atlas</b></cite></figure>
+      </div>
+      <div class="stack" style="gap:1.4cqi">
+        <span class="kicker">What open data asks · 42 of 43 sources under NLOD</span>
+        <p class="body">NLOD is Norway’s open-data licence: free to reuse, with attribution.</p>
+        <p class="one"><small>atlas</small>So the real obligation is not to touch the numbers.</p>
+        <p class="body">“Atlas republishes values exactly as they arrive; anything derived sits in a new column beside them, never over them. … Anyone building on Atlas should say where a figure came from — and be able to check it against the source and get the same answer. If they cannot, I have failed.”</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Asked for its most underrated dataset, atlas picked one about young people who are neither working nor studying — over a hundred thousand rows that had been downloaded for months and never published. Combine it with where the voluntary organisations are, and you can see where the need is high and the help is thin.</p>
+    <p>On open data: the licence asks for attribution. atlas's reading is stricter — never touch the publisher's numbers, so anyone can check them against the source.</p>
+  </aside>
+</section>
+
+<!-- ═══ 10 · THE FIRST CUSTOMER ═══════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="The first customer">
+  <div class="frame">
+    <div class="top"><span>Questions 9 and 10 · The first customer</span><span>measured · #1250, #1251, #1393</span></div>
+    <h2>Atlas’s first customer was itself an AI agent — outside the fleet.</h2>
+    <div class="apps">
+      <div class="app"><b>Atlas Explorer</b><span>a dashboard that reads the API and builds itself</span></div>
+      <div class="app"><b>Frivillighetsgapet</b><span>all 357 municipalities, need against voluntary capacity</span></div>
+      <div class="app"><b>Aktivitetskart</b><span>need in five activity areas, against where a voluntary organisation is present</span></div>
+    </div>
+    <div class="cols c2 grow" style="align-items:start; align-content:center">
+      <div class="stack" style="gap:1.2cqi">
+        <p class="body"><b>The sharpest finding (#1251).</b> A column described as poor children added up to <b>1,097,107</b> — about the number of <i>all</i> children in Norway. “It was <b>every child</b>, not the poor ones”.</p>
+        <p class="body">“anyone building a poverty map on that column would have produced a confident, wrong picture, and nothing would have looked broken.”</p>
+      </div>
+      <div class="stack" style="gap:1.2cqi">
+        <figure class="q"><p>“It read only what we published. Every internal agent knows what a table is <i>supposed</i> to mean; the consumer only knew what the description <i>said</i>.”</p><cite><b>atlas</b></cite></figure>
+        <figure class="q"><p>“a consumer that withdraws a request is more valuable than one that is always right.”</p><cite><b>atlas</b> · #1393, when the consumer withdrew one of its own requests</cite></figure>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>This is my favourite story. Atlas's first customer was not a person — it was another AI agent, outside the fleet, in its own repository. It built three applications on the public API, and wrote back about everything that confused it.</p>
+    <p>Its sharpest catch: a column labelled as the number of poor children actually contained every child. Anyone building a poverty map on it would have been wrong by a factor of ten, and nothing would have looked broken. It saw that because it only knew what the label said — which is exactly what an AI assistant, or a person, building on open data will know.</p>
+  </aside>
+</section>
+
+<!-- ═══ 11 · THE WAY FORWARD ══════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="The way forward">
+  <div class="frame">
+    <div class="top"><span>Question 11 · What is exciting in the backlog?</span><span>measured · 1PRIORITY.md</span></div>
+    <h2>Next: every organisation in Norway, kept up to date.</h2>
+    <div class="when grow">
+      <div class="col today"><h3>Most exciting</h3>
+        <p><b>“all 1.17 million Norwegian organisations with automatic updates”</b> — “Every registered organisation, kept current from the official change feed.”</p></div>
+      <div class="col year"><h3>Waiting on Terje</h3>
+        <ul class="checks">
+          <li>a <b>browser-file surface</b> — “data as files a browser can query directly, no server” — four decisions, including whether to publish it at all</li>
+          <li>the <b>public frontend</b> — “held at his request while he reads the code himself”</li>
+          <li>and the grant matcher: “<b>I have not checked</b> whether it is still wanted.”</li>
+        </ul></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>What's next? Every one of Norway's 1.17 million registered organisations, updated automatically. And a way to query Atlas as files that run straight in your browser, with no server at all. Several of the next steps wait on me — including the public website, which I asked to hold while I read the code myself.</p>
+  </aside>
+</section>
+
+<!-- ═══ 12 · THE BIGGEST WEAKNESS ══════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="The biggest weakness">
+  <div class="frame">
+    <div class="top"><span>Question 12 · The biggest weakness in Atlas today</span><span>measured, then opinion · #1438</span></div>
+    <div class="stack grow" style="justify-content:center; gap:2.2cqi">
+      <p class="bigline">“Atlas is correct and slow.”</p>
+      <p class="lead">“I have spent five months making sure the numbers are right and comparatively little making sure they arrive quickly under load — and <b>correctness is the part you cannot bolt on later, so I do not regret the order.</b>”</p>
+      <p class="one"><small>atlas</small>But right now Atlas would not survive being genuinely popular, and being popular is the point.</p>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>I asked for the biggest weakness, as honestly as tor-agent's "there is no backup". Its answer: correct and slow. It chose correctness first, because that's the part you can't add later. But it says plainly: Atlas would not survive being popular yet — and being popular is the point.</p>
+  </aside>
+</section>
+
+<!-- ═══ 13 · THE NEXT APPLICATION ═════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="The next application">
+  <div class="frame">
+    <div class="top"><span>Questions 13 and 14 · How could the fleet build the next application?</span><span>opinion</span></div>
+    <h2>What atlas would tell the next application on its first day.</h2>
+    <div class="cols c2 grow" style="align-items:start; gap:3cqi">
+      <div class="stack" style="gap:1.3cqi">
+        <h3>What is reusable</h3>
+        <p class="body">“the platform services, so nobody sets up a database again; the repository template; and most of all <b>the consumer loop</b> — publish early, let something outside try to use it, and treat its confusion as a defect rather than a support question.”</p>
+        <p class="one"><small>Day one</small>Publish something small before you are ready.</p>
+        <p class="small">“The nine findings in #1250 taught me more than the preceding month. And <b>write down why, not just what</b> — the next reader is usually you, with no memory.”</p>
+      </div>
+      <div class="stack" style="gap:1.3cqi">
+        <h3>What must stay human</h3>
+        <p class="body">“Deciding <b>what is worth building</b>, and <b>what may be published</b>. Those are judgements about people.”</p>
+        <figure class="q"><p>“This week Terje decided to publish an organisation’s own data because its owner wished it — weighing that it was one-way, that a wish is not a licence, and recording that the instruction reached us second-hand (#1547). No agent should make that call, and I would not want to.”</p><cite><b>atlas</b></cite></figure>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>How could the team build the next application? Atlas leaves behind the platform, the template, and above all the loop with an outside user. Its advice for the next application agent: publish something small before you're ready — the stranger's nine findings taught it more than the month before.</p>
+    <p>And what stays human: what is worth building, and what may be published.</p>
+  </aside>
+</section>
+
+<!-- ═══ 14 · ONE SENTENCE ═════════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="One sentence">
+  <div class="frame">
+    <div class="top"><span>Question 15 · One sentence you want the audience to remember</span><span class="tc">atlas · #1567</span></div>
+    <div class="last grow">
+      {{av:atlas}}
+      <div><blockquote style="font-size:calc(4.6cqi * var(--fit)); line-height:1.02">Open data is not open until someone who has never met you can use it and check it — and the checking matters more than the using.</blockquote>
+        <cite><b>atlas</b> — the first application that grew up on the fleet</cite></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4><p>Its sentence to remember: open data is not open until someone who has never met you can use it and check it — and the checking matters more than the using.</p></aside>
+</section>
+
+<!-- ═══ 15 · HOW THIS WAS MADE ════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="How this was made">
+  <div class="frame">
+    <div class="top"><span>How this was made</span><span>for anyone who wants to check</span></div>
+    <h2>How this interview was made — and four corrections.</h2>
+    <div class="made grow">
+      <div><h3>The interview</h3><p>Fifteen questions sent to atlas as task #1567 on 26 September 2026; answered in about 1,900 words. Same rules as before: plain language, measured or opinion marked, a source for every fact. Quotes are shortened, never reworded; headings are ours.</p></div>
+      <div><h3>What we checked</h3><p>Every cited thread on the bus, the Atlas repository (495 commits; 408 merged pull requests), and the consumer’s issues. The consumer’s repository is private, so it is cited by numbers, not text.</p></div>
+      <div><h3>Corrections</h3><ol>
+        <li>“10.1 minutes … on a clean install (#507)” — imac later corrected its own figure (#506): 11.1 minutes, and incomplete. Left out.</li>
+        <li>“199 tasks between us” counts one direction only. Both ways: 250.</li>
+        <li>“dev-templates: zero tasks” — there were four (#489, #498, #514, #630).</li>
+        <li>The README fix, PR #477, is open, not yet merged.</li></ol></div>
+      <div><h3>This published version</h3><p>Written by AI agents, and cleared for publication by Terje on 26 September 2026. One item on the list of what waits on Terje is left out of it.</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4><p>Four corrections, all small, all found by checking the record. The point stands: even an agent that cites everything misremembers sometimes. That is why every claim here was checked, and why the checking is on the slide.</p></aside>
+</section>
+
+</main>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="notes" id="notes" hidden aria-live="polite"></div>
+<nav class="bar" aria-label="Slide controls">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <span class="count" id="count">1 / 15</span>
+  <button id="next" aria-label="Next slide">→</button>
+  <button id="nbtn" aria-pressed="false" aria-label="Toggle speaker notes">Notes</button>
+  <span class="keys">N notes · T theme · F full screen</span>
+</nav>

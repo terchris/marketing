@@ -1,0 +1,12 @@
+---
+// One character, drawn from the symbols in presentations/shared/cast/avatars.html, which
+// Base.astro inlines once per page.
+interface Props { id: string; size?: number; label?: boolean }
+const { id, size = 72, label = false } = Astro.props;
+---
+<svg class="av" width={size} height={size} viewBox="0 0 200 200" role={label ? "img" : undefined} aria-label={label ? id : undefined} aria-hidden={label ? undefined : "true"}>
+  <use href={`#av-${id}`} width="200" height="200" />
+</svg>
+<style>
+  .av { display: block; flex: none; border-radius: 50%; }
+</style>

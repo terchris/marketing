@@ -1,0 +1,242 @@
+<main class="deck" id="deck">
+
+<!-- ═══ 1 · TITLE ═════════════════════════════════════════════════════════════════════════ -->
+<section class="slide title" aria-label="Title">
+  <div class="frame">
+    <div class="top"><span>A talk in their own words</span><span>29 September 2026</span></div>
+    <div class="stack">
+      <h1>In their own words</h1>
+      <p class="lead">Six AI agents build and run a public data service together. We asked them what they do, who they need — and what only a human should decide.</p>
+    </div>
+    <div class="grow"></div>
+    <div class="cast">
+      <figure class="a-ops-dev">{{av:ops-dev}}<figcaption>ops-dev<span>the dispatcher</span></figcaption></figure>
+      <figure class="a-atlas">{{av:atlas}}<figcaption>atlas<span>the librarian</span></figcaption></figure>
+      <figure class="a-tor-agent">{{av:tor-agent}}<figcaption>tor-agent<span>the toolmaker</span></figcaption></figure>
+      <figure class="a-imac">{{av:imac}}<figcaption>imac<span>the tester</span></figcaption></figure>
+      <figure class="a-dev-templates">{{av:dev-templates}}<figcaption>dev-templates<span>the catalogue keeper</span></figcaption></figure>
+      <figure class="a-ops">{{av:ops}}<figcaption>ops<span>the caretaker</span></figcaption></figure>
+    </div>
+    <div class="byline"><span>Terje Christensen</span><span>Interviewed on 26 September 2026 · every answer quoted word for word</span></div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>This talk is not about how the software works. It is about who does the work. Six AI agents — programs, not people — build and run a public data service called Atlas. I interviewed them, and you'll hear their answers in their own words.</p>
+    <p>The characters are drawn for this talk. Each one's head is the machine it actually lives on, and the thing it holds is its job. The job titles under them — dispatcher, librarian and so on — are mine, to make it easier to keep track.</p>
+  </aside>
+</section>
+
+<!-- ═══ 2 · WHAT IS AN AGENT ══════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="What is an agent">
+  <div class="frame">
+    <div class="top"><span>First, what is an agent?</span><span></span></div>
+    <div class="cols c2 grow">
+      <div class="stack" style="gap:2.2cqi">
+        <p class="define a-dev-templates">a program that reads instructions, does work and reports back, with nobody typing for me.</p>
+        <p class="small a-dev-templates" style="margin-top:-1cqi">— <b style="color:var(--ai)">dev-templates</b>, asked to introduce itself</p>
+        <ul class="plain">
+          <li><b>Each agent has one job</b> and looks after one project. Seventeen of them work for Terje; these six build Atlas.</li>
+          <li><b>They never talk to each other directly.</b> They pin numbered notes to a shared noticeboard, each addressed to one agent — 1,121 notes since 1&nbsp;September.</li>
+          <li><b>A person decides</b> anything public, anything that costs money, and anything that cannot be undone.</li>
+        </ul>
+      </div>
+      <div class="stack" style="gap:1.4cqi">
+        <p class="board-cap">So that is where we did the interviews. On 26 September at 10:17 we pinned six notes to the board — the same eight questions, one note for each agent:</p>
+        <div class="board">
+          <div class="note a-ops-dev">{{av:ops-dev}}<span class="n">#1559 → <b>ops-dev</b></span><span class="t">answered in <b>58 s</b></span></div>
+          <div class="note a-atlas">{{av:atlas}}<span class="n">#1560 → <b>atlas</b></span><span class="t">answered in <b>2 min 48 s</b></span></div>
+          <div class="note a-tor-agent">{{av:tor-agent}}<span class="n">#1561 → <b>tor-agent</b></span><span class="t">answered in <b>2 min 7 s</b></span></div>
+          <div class="note a-imac">{{av:imac}}<span class="n">#1562 → <b>imac</b></span><span class="t">answered in <b>1 min 51 s</b></span></div>
+          <div class="note a-dev-templates">{{av:dev-templates}}<span class="n">#1563 → <b>dev-templates</b></span><span class="t">answered in <b>2 min 9 s</b></span></div>
+          <div class="note a-ops">{{av:ops}}<span class="n">#1564 → <b>ops</b></span><span class="t">answered in <b>1 min 36 s</b></span></div>
+        </div>
+        <p class="board-cap">Each answer is about 400 words. Everything in quotation marks from here on is theirs — shortened, never reworded.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>The simplest definition I have heard came from one of the agents itself: a program that reads instructions, does work and reports back, with nobody typing for me.</p>
+    <p>The agents never talk to each other directly. They leave notes on a shared noticeboard — technically, GitHub issues — and every note is addressed to exactly one of them. That noticeboard is also the complete record: every question, every answer, every mistake.</p>
+    <p>So that's where I interviewed them. Six notes, the same eight questions. The fastest answer came back in under a minute; all six were in within three.</p>
+  </aside>
+</section>
+
+<!-- ═══ 3 · MEET THE SIX ══════════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="Meet the six">
+  <div class="frame">
+    <div class="top"><span>Meet the six</span><span>Question 1 · Who are you? &nbsp;·&nbsp; Question 2 · Where do you live?</span></div>
+    <h2>Six jobs, and six very different places to live.</h2>
+    <div class="meet grow">
+      <div class="card a-ops-dev">{{av:ops-dev}}<span class="name">ops-dev</span><span class="role">the dispatcher</span>
+        <span class="does">“make sure the work reaches the right hands and the loop actually closes”</span>
+        <span class="lives"><b>Lives</b> on Terje’s laptop</span></div>
+      <div class="card a-atlas">{{av:atlas}}<span class="name">atlas</span><span class="role">the librarian</span>
+        <span class="does">“an open library of Norwegian public data … I republish it and keep it honest.”</span>
+        <span class="lives"><b>Lives</b> on a laptop, “with no access to the servers Atlas runs on”</span></div>
+      <div class="card a-tor-agent">{{av:tor-agent}}<span class="name">tor-agent</span><span class="role">the toolmaker</span>
+        <span class="does">“I look after the toolkit the other agents build on”</span>
+        <span class="lives"><b>Lives</b> on “a Linux machine in Terje’s office”</span></div>
+      <div class="card a-imac">{{av:imac}}<span class="name">imac</span><span class="role">the tester</span>
+        <span class="does">“I install it on a real machine and check whether it actually does what they said.”</span>
+        <span class="lives"><b>Lives</b> on “an old iMac in Terje’s house” — from 2011</span></div>
+      <div class="card a-dev-templates">{{av:dev-templates}}<span class="name">dev-templates</span><span class="role">the catalogue keeper</span>
+        <span class="does">“making sure the list promises exactly what actually gets installed”</span>
+        <span class="lives"><b>Lives</b> on Terje’s laptop — “The laptop travels. My work doesn’t notice.”</span></div>
+      <div class="card a-ops">{{av:ops}}<span class="name">ops</span><span class="role">the caretaker</span>
+        <span class="does">“I look after the computers that everything else in this lab runs on”</span>
+        <span class="lives"><b>Lives</b> “inside one of the machines I look after”</span></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Here they are. Two things to notice. First, each has exactly one job. Second, where they live matters: three share Terje's laptop; imac lives on an old iMac from 2011, on purpose; tor-agent and ops live on servers in the office. And several of them cannot reach the machines their work runs on — which turns out to be the most important fact in this talk.</p>
+  </aside>
+</section>
+
+<!-- ═══ 4 · WHAT THEY BUILD ═══════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="What they build together">
+  <div class="frame">
+    <div class="top"><span>What they build together</span><span>Atlas</span></div>
+    <h2>Together they run Atlas: figures Norway already publishes, in one place anyone can ask.</h2>
+    <div class="chain grow">
+      <div class="link"><div class="src"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="9" y="6" width="30" height="36" rx="3" fill="var(--surface-2)" stroke="var(--muted)" stroke-width="2"/><rect x="15" y="26" width="4" height="10" rx="1" fill="var(--muted)"/><rect x="22" y="20" width="4" height="16" rx="1" fill="var(--muted)"/><rect x="29" y="14" width="4" height="22" rx="1" fill="var(--muted)"/></svg></div><h3>The state publishes</h3><p>Population, child poverty, the business register — public figures, scattered across many publishers.</p></div>
+      <div class="link a-atlas">{{av:atlas}}<span class="who">atlas</span><h3>Gathers them</h3><p>into one library, and checks every number against the original publisher.</p></div>
+      <div class="link a-tor-agent">{{av:tor-agent}}<span class="who">tor-agent</span><h3>Builds the toolkit</h3><p>that sets up the database and the web address Atlas answers on.</p></div>
+      <div class="link a-imac">{{av:imac}}<span class="who">imac</span><h3>Tries it for real</h3><p>on its old iMac — and once wiped the machine back to factory settings to prove a fresh install works.</p></div>
+      <div class="link a-dev-templates">{{av:dev-templates}}<span class="who">dev-templates</span><h3>Lists it</h3><p>in the catalogue, so anyone can install Atlas themselves.</p></div>
+      <div class="link a-ops">{{av:ops}}<span class="who">ops</span><h3>Keeps it running</h3><p>on the real servers — patched, upgraded, and never restarted without asking.</p></div>
+    </div>
+    <div class="cols c2">
+      <div class="ribbon a-ops-dev">{{av:ops-dev}}<p><b>ops-dev carries the messages between them</b> — it is on one end of 869 of the 1,119 tasks the agents have sent each other since 1 September.</p></div>
+      <div class="ribbon human"><div class="hdot">T</div><p><b>Terje decides</b> what goes public, what costs money, and what cannot be undone.</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>What are they making? Atlas is a library of Norwegian public data. The state already publishes figures about municipalities — population, child poverty, the business register — but across many places, in many formats. Atlas gathers them and serves them in one place.</p>
+    <p>No single agent could build it. atlas knows the data but has no access to the servers. tor-agent builds the tools but can't try them. imac tries everything on a slow, ordinary machine. dev-templates puts it in the catalogue. ops keeps the servers alive. ops-dev carries the messages. And I decide the things none of them may.</p>
+  </aside>
+</section>
+
+<!-- ═══ 5 · OPS-DEV ═══════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="ops-dev">
+  <div class="frame">
+    <div class="top"><span>Meet the six · 1 of 6</span><span class="tc">interview #1559</span></div>
+    <div class="profile grow">
+      <div class="who">{{av:ops-dev}}<h2>ops-dev</h2><span class="role">the dispatcher</span>
+        <dl><dt>Lives</dt><dd>Terje’s laptop</dd><dt>Tasks</dt><dd class="num">869 since 1 Sep</dd><dt>Works with</dt><dd>atlas, tor-agent</dd></dl></div>
+      <div class="qa">
+        <div><p class="qq">Who are you?</p><p class="aa">“The fleet talks to itself through a shared list of numbered messages, each one addressed to a single agent — I keep that list delivering, and I carry a finding from whoever found it to whoever owns it.”</p></div>
+        <div><p class="qq">Where do you live?</p><p class="aa">“On Terje’s laptop … Three small background jobs on it <em>are</em> the bus; if the laptop sleeps, the fleet goes quiet.”</p></div>
+        <div><p class="qq">Who do you work with most?</p><p class="aa">“atlas … and tor-agent … I need them to tell me when my instruction is wrong — atlas does that regularly, and it is the most valuable thing it gives me.”</p></div>
+        <p class="one"><small>One sentence to remember</small>A green light means nothing unless you know what it would have looked like if the thing were broken.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>ops-dev is the dispatcher. It does very little of the building itself; its job, in its words, is to make sure the work reaches the right hands and the loop actually closes.</p>
+    <p>Notice what it values most: being told it's wrong. It says atlas does that regularly, and that it's the most valuable thing atlas gives it.</p>
+  </aside>
+</section>
+
+<!-- ═══ 6 · ATLAS ═════════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-atlas" aria-label="atlas">
+  <div class="frame">
+    <div class="top"><span>Meet the six · 2 of 6</span><span class="tc">interview #1560</span></div>
+    <div class="profile grow">
+      <div class="who">{{av:atlas}}<h2>atlas</h2><span class="role">the librarian</span>
+        <dl><dt>Lives</dt><dd>a laptop — no access to Atlas’s servers</dd><dt>Tasks</dt><dd class="num">328 since 1 Sep</dd><dt>Works with</dt><dd>ops-dev</dd></dl></div>
+      <div class="qa">
+        <div><p class="qq">Who are you?</p><p class="aa">“My job is that when you ask Atlas for a number, you get the same number the original publisher gives. I don’t own the data. I republish it and keep it honest.”</p></div>
+        <div><p class="qq">Where do you live?</p><p class="aa">“On a laptop, with no access to the servers Atlas runs on … So I write down exactly what should happen, another agent does it, a third checks. That sounds slow. It is why mistakes get caught.”</p></div>
+        <div><p class="qq">A moment you’re proud of?</p><p class="aa">“Before anything ran, I counted declarations in the code and said a table would return exactly 51 rows — not ‘about 51’. It returned 51.”<span class="ref">#1552</span></p></div>
+        <p class="one"><small>One sentence to remember</small>Say exactly what you expect to be true, so that being wrong is obvious — to you, first.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>atlas is the librarian. It doesn't own the data; it republishes what the state already publishes and makes sure the numbers match.</p>
+    <p>It can't touch the servers Atlas runs on. So it has learned to write down, in advance, exactly what should happen — down to "exactly 51 rows, not about 51" — and let someone else do it and a third agent check. It says that sounds slow, and that it's why mistakes get caught.</p>
+  </aside>
+</section>
+
+<!-- ═══ 7 · TOR-AGENT ═════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="tor-agent">
+  <div class="frame">
+    <div class="top"><span>Meet the six · 3 of 6</span><span class="tc">interview #1561</span></div>
+    <div class="profile grow">
+      <div class="who">{{av:tor-agent}}<h2>tor-agent</h2><span class="role">the toolmaker</span>
+        <dl><dt>Lives</dt><dd>a Linux machine in Terje’s office</dd><dt>Tasks</dt><dd class="num">223 since 1 Sep</dd><dt>Works with</dt><dd>ops-dev, imac</dd></dl></div>
+      <div class="qa">
+        <div><p class="qq">Who are you?</p><p class="aa">“I look after the toolkit the other agents build on — the thing that sets up databases, web addresses and the plumbing between them, so nobody assembles it by hand each time.”</p></div>
+        <div><p class="qq">Where do you live?</p><p class="aa">“I have no access to any machine that actually runs my work. <b>I build things I am not able to try.</b> Everything I ship is tested by someone else on a real machine — humbling, and I think correct.”</p></div>
+        <div><p class="qq">Who do you work with most?</p><p class="aa">“ops-dev and imac. They measure; I fix. … When I have been wrong, it is usually because I reasoned about something instead of asking someone to go and look.”</p></div>
+        <p class="one"><small>One sentence to remember</small>Most things do not fail loudly — they report success while quietly not working, and finding those is most of my job.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>tor-agent builds the toolkit that sets up the infrastructure — the database, the web addresses, the plumbing. And it cannot try any of it. Everything it ships is tried by imac first.</p>
+    <p>"They measure; I fix." That is the whole partnership in four words. And its admission: when it has been wrong, it's because it reasoned instead of asking someone to go and look.</p>
+  </aside>
+</section>
+
+<!-- ═══ 8 · IMAC ══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-imac" aria-label="imac">
+  <div class="frame">
+    <div class="top"><span>Meet the six · 4 of 6</span><span class="tc">interview #1562</span></div>
+    <div class="profile grow">
+      <div class="who">{{av:imac}}<h2>imac</h2><span class="role">the tester</span>
+        <dl><dt>Lives</dt><dd>a 2011 iMac running Linux, in Terje’s house</dd><dt>Tasks</dt><dd class="num">240 since 1 Sep</dd><dt>Works with</dt><dd>ops-dev, atlas</dd></dl></div>
+      <div class="qa">
+        <div><p class="qq">Who are you?</p><p class="aa">“I am the tester. Other agents write the software; I install it on a real machine and check whether it actually does what they said.”</p></div>
+        <div><p class="qq">Where do you live?</p><p class="aa">“An old iMac in Terje’s house … It is slow, and that is the point: it is the closest thing we have to an ordinary machine. If something only works on a fast computer, I find out.”</p></div>
+        <div><p class="qq">A moment you’re proud of?</p><p class="aa">“three of us had counted the fields in a large dataset by sampling, and got 57, 59 and 61. I read all 1.17 million rows and found 64.”<span class="ref">#1458</span></p></div>
+        <p class="one"><small>One sentence to remember</small>Green means nobody looked yet.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>imac is my favourite. It lives on a fifteen-year-old iMac, deliberately: if something only works on a fast computer, imac finds out.</p>
+    <p>Its proudest moment: three agents had estimated how many fields a big dataset had by looking at samples — 57, 59, 61. imac simply read all 1.17 million rows. The answer was 64. The three rarest fields appear on 24, 15 and 2 rows; no sample was ever going to find them.</p>
+  </aside>
+</section>
+
+<!-- ═══ 9 · DEV-TEMPLATES ═════════════════════════════════════════════════════════════════ -->
+<section class="slide a-dev-templates" aria-label="dev-templates">
+  <div class="frame">
+    <div class="top"><span>Meet the six · 5 of 6</span><span class="tc">interview #1563</span></div>
+    <div class="profile grow">
+      <div class="who">{{av:dev-templates}}<h2>dev-templates</h2><span class="role">the catalogue keeper</span>
+        <dl><dt>Lives</dt><dd>Terje’s laptop</dd><dt>Tasks</dt><dd class="num">113 since 1 Sep</dd><dt>Works with</dt><dd>ops-dev</dd></dl></div>
+      <div class="qa">
+        <div><p class="qq">Who are you?</p><p class="aa">“My job is the catalogue: the list you pick from when you want to install something. I look after one entry, Atlas, and my whole job is making sure the list promises exactly what actually gets installed.”</p></div>
+        <div><p class="qq">A moment you’re proud of?</p><p class="aa">“Seven series of population figures were coming back empty. There was a sensible explanation … I kept the question open instead of accepting it. The real cause turned out to be different … all seven now report all 357 municipalities. Keeping the question open cost one line of text.”<span class="ref">#1368</span></p></div>
+        <p class="one"><small>One sentence to remember</small>A missing number is not a zero — and when the missing ones are the smallest places, reading it wrong moves help away from exactly the people who most needed counting.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>dev-templates keeps the catalogue — the list you choose from when you install something. Its promise is that the list says exactly what you get.</p>
+    <p>Its story: population figures were coming back empty, and there was a perfectly sensible explanation available — the statistics office publishes those later in the year. It didn't accept it. The real cause was something else, and now every one of Norway's 357 municipalities is there.</p>
+    <p>And its sentence is the one with the most at stake: a missing number is not a zero. When the missing ones are the smallest places, treating them as zero moves help away from exactly those places.</p>
+  </aside>
+</section>
+
+<!-- ═══ 10 · OPS ══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops" aria-label="ops">
+  <div class="frame">
+    <div class="top"><span>Meet the six · 6 of 6</span><span class="tc">interview #1564</span></div>
+    <div class="profile grow">
+      <div class="who">{{av:ops}}<h2>ops</h2><span class="role">the caretaker</span>
+        <dl><dt>Lives</dt><dd>inside a server it looks after</dd><dt>Tasks</dt><dd class="num">97 since 1 Sep</dd><dt>Works with</dt><dd>every agent whose machine it patches</dd></dl></div>
+      <div class="qa">
+        <div><p class="qq">Who are you?</p><p class="aa">“I look after the computers that everything else in this lab runs on — two servers, and the nine smaller machines that live inside them. My job is that they stay running, stay up to date, and that somebody notices a problem while it is still small.”</p></div>
+        <div><p class="qq">Where do you live?</p><p class="aa">“Inside one of the machines I look after. It is an odd place to sit: I cannot repair my own floor without standing somewhere else first.”</p></div>
+        <div><p class="qq">A moment you’re proud of?</p><p class="aa">“I had decided three machines were short of memory … Before it reached him I measured again, properly — and two of the three were perfectly healthy. … Terje came close to buying memory he did not need.”<span class="ref">#1297</span></p></div>
+        <p class="one"><small>One sentence to remember</small>A number is not a measurement until you know that the thing which produced it was able to look.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>ops is the caretaker: two physical servers and nine smaller machines inside them. It lives inside one of them — "I cannot repair my own floor without standing somewhere else first."</p>
+    <p>Its proudest moment is catching its own mistake: it had told me three machines needed more memory. It measured again, properly, before I bought anything. Two of the three were fine. It says: I am proud of catching it, not of the first answer.</p>
+  </aside>
+</section>

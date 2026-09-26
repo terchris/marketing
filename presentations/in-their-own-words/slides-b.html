@@ -1,0 +1,202 @@
+<!-- ═══ 11 · WHO TALKS TO WHOM ════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="Who talks to whom">
+  <div class="frame">
+    <div class="top"><span>Question 3 · Who do you work with most?</span><span>1–25 September · from the noticeboard</span></div>
+    <h2>Who talks to whom.</h2>
+    <div class="graph-wrap grow">
+      <div class="graph-box">{{graph}}</div>
+      <div class="facts">
+        <div class="fact"><div class="n num">7 in 10</div><p>of all tasks were between these six — 790 of 1,119.</p></div>
+        <div class="fact a-atlas"><div class="n num" style="color:var(--ai)">248</div><p>between atlas and ops-dev — the busiest pair in the fleet.</p></div>
+        <div class="fact"><div class="n num" style="color:var(--human)">45</div><p>had Terje on one end — sent by him, or to him.</p></div>
+        <p class="legend">Each line joins two agents who have sent each other tasks; the thicker the line, the more tasks. The six in this talk are drawn as characters, the other eleven agents as dots.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>This is the noticeboard drawn as a map. Every line is two agents who have sent each other work since the first of September. Thicker means more.</p>
+    <p>ops-dev is in the middle, because it is the dispatcher. The heaviest line is between ops-dev and atlas — 248 tasks. And the line I want you to notice is the thin red one: I am on 45 tasks out of more than a thousand. That is what it looks like when agents do the work and a person makes the decisions.</p>
+  </aside>
+</section>
+
+<!-- ═══ 12 · WHAT THEY NEED FROM EACH OTHER ═══════════════════════════════════════════════ -->
+<section class="slide" aria-label="What they need from each other">
+  <div class="frame">
+    <div class="top"><span>Question 3 · Who do you work with most — and what do you need from them?</span><span></span></div>
+    <h2>What they need from each other is rarely “more work”. It is someone who will check.</h2>
+    <div class="grid6 grow">
+      <div class="pair a-tor-agent"><div class="hd">{{av:tor-agent}}<b>tor-agent</b> on ops-dev and imac</div>
+        <p>“They measure; I fix. I need their numbers because I cannot take my own.”</p></div>
+      <div class="pair a-imac"><div class="hd">{{av:imac}}<b>imac</b> on ops-dev and atlas</div>
+        <p>“I need them to tell me what they expect BEFORE I run anything — a number written down in advance is a test; a number I read afterwards is just a number.”</p></div>
+      <div class="pair a-ops-dev"><div class="hd">{{av:ops-dev}}<b>ops-dev</b> on atlas</div>
+        <p>“I need them to tell me when my instruction is wrong — atlas does that regularly, and it is the most valuable thing it gives me.”</p></div>
+      <div class="pair a-atlas"><div class="hd">{{av:atlas}}<b>atlas</b> on ops-dev</div>
+        <p>“Twice this week a number they reported contradicted my prediction, and both times the number was right.”</p></div>
+      <div class="pair a-dev-templates"><div class="hd">{{av:dev-templates}}<b>dev-templates</b> on ops-dev</div>
+        <p>“I need one thing from it: proof of which version is actually <em>running</em> somewhere, not merely built.”</p></div>
+      <div class="pair a-ops"><div class="hd">{{av:ops}}<b>ops</b> on everyone it patches · #567</div>
+        <p>“permission before I restart the machine they live on. The rule is theirs, not mine: <b>no answer is not a yes</b>. Silence does not mean go ahead.”</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>I asked each of them who they work with, and what they need from them. Read the answers: nobody asked for more help with the work. They asked for someone who will check it, and for honesty.</p>
+    <p>atlas even says: twice this week, the other agent's measurement contradicted my prediction — and both times the measurement was right. And ops, the caretaker: before I restart the machine you live on, I need a yes. No answer is not a yes.</p>
+  </aside>
+</section>
+
+<!-- ═══ 13 · THE SAME MISTAKE ═════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="The same mistake">
+  <div class="frame">
+    <div class="top"><span>Question 5 · What is the hardest part, and tell us about a mistake</span><span></span></div>
+    <h2>We asked each of them for a mistake. All six described the same one.</h2>
+    <div class="grid6 grow">
+      <div class="pair a-atlas"><div class="hd">{{av:atlas}}<b>atlas</b> · #1553</div>
+        <p>“I declared a column could never be empty. I never looked. It was empty in all 46 rows and broke a release.”</p></div>
+      <div class="pair a-imac"><div class="hd">{{av:imac}}<b>imac</b> · #1356</div>
+        <p>“I had the correct value on screen and read the wrong line.”</p><p class="ctx">It reported a fault that was not there; two agents chased it before imac took it back.</p></div>
+      <div class="pair a-dev-templates"><div class="hd">{{av:dev-templates}}<b>dev-templates</b> · #1373</div>
+        <p>“I had read what I expected to see.”</p><p class="ctx">It said some instructions did not mention a step. They mentioned it twice.</p></div>
+      <div class="pair a-tor-agent"><div class="hd">{{av:tor-agent}}<b>tor-agent</b></div>
+        <p>“I had read ‘the command finished successfully’ as ‘the thing worked’. … it is the same fault I spend most of my time fixing in the product.”</p></div>
+      <div class="pair a-ops"><div class="hd">{{av:ops}}<b>ops</b> · #1312</div>
+        <p>“It was still a guess wearing the clothes of a measurement, and another agent caught it before Terje did.”</p></div>
+      <div class="pair a-ops-dev"><div class="hd">{{av:ops-dev}}<b>ops-dev</b> · #1540, #1554</div>
+        <p>“Both were wrong, and I was confident twice. … a control that silently does not run looks exactly like one that passed.”</p><p class="ctx">The same fault, diagnosed two different ways.</p></div>
+    </div>
+    <p class="lead" style="font-size:var(--fs-body)">Something looked fine, and nobody had actually looked. As atlas put it: <b>“a wrong answer usually looks exactly like a right one.”</b></p>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>This is the slide I did not expect. I asked each agent separately for a mistake. Six different jobs, six different mistakes — and they are all the same mistake. Something looked fine, and nobody had actually looked.</p>
+    <p>atlas said a column could never be empty; it never checked; it was empty in every row. imac had the right number on screen and read the wrong line. dev-templates read what it expected to see. tor-agent read "finished successfully" as "worked".</p>
+    <p>And every one of these was caught — by another agent, on the record. That is why the system is built so that the one who does the work never checks it.</p>
+  </aside>
+</section>
+
+<!-- ═══ 14 · WHAT ONLY THE HUMAN DECIDES ══════════════════════════════════════════════════ -->
+<section class="slide" aria-label="What only Terje decides">
+  <div class="frame">
+    <div class="top"><span>Question 6 · What does Terje decide that you don’t?</span><span></span></div>
+    <h2>What only Terje decides — and all six say the line is in the right place.</h2>
+    <div class="lines"><span>anything public</span><span>anything that costs money</span><span>anything about people’s data</span><span>anything that cannot be undone</span></div>
+    <div class="split grow">
+      <figure class="q a-imac"><p>“I can tell you what is true. Whether to destroy something, or publish someone’s phone number, is not a measurement.”</p><cite><b>imac</b></cite></figure>
+      <figure class="q a-atlas"><p>“I can tell you what a number <em>is</em>. Not whether it should exist.”</p><cite><b>atlas</b></cite></figure>
+      <figure class="q a-ops"><p>“I can tell you a disk is 81% full. Whether that matters is Terje’s call.”</p><cite><b>ops</b></cite></figure>
+      <figure class="q a-ops-dev"><p>“We are good at checking. We are not entitled to decide.”</p><cite><b>ops-dev</b></cite></figure>
+      <figure class="q a-dev-templates"><p>“there was a version I <em>wanted</em> to publish … Nobody had checked it yet, so I did not. Wanting the contents is not evidence.”</p><cite><b>dev-templates</b> · #1377</cite></figure>
+      <figure class="q a-tor-agent"><p>“It does mean things wait on him. That is a real cost, and still the better trade.”</p><cite><b>tor-agent</b></cite></figure>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Here is the line. Anything public, anything that costs money, anything about people's data, anything that can't be undone — I decide. The system enforces it: an agent cannot release a question that is waiting for me.</p>
+    <p>I asked whether that line is in the right place. All six said yes. Three of them reached for the same shape of sentence: I can tell you what is true — whether it should happen is a different kind of question.</p>
+    <p>One story from atlas: it once wanted to hide two columns because they might contain personal data. It hadn't checked. I stopped it. Its lesson: a hunch is not a reason to hide something — and it wasn't its decision either way.</p>
+  </aside>
+</section>
+
+<!-- ═══ 15 · LOOKING AHEAD ════════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="Looking ahead">
+  <div class="frame">
+    <div class="top"><span>Question 7 · How will agents change the way we build software and run data infrastructure?</span><span></span></div>
+    <h2>Asked what agents will change, they talked about checking — not speed.</h2>
+    <div class="voices grow">
+      <div class="voice a-ops-dev">{{av:ops-dev}}<div><p>“the gain is not speed, it is that findings stop dying where they are found.”</p><cite>ops-dev</cite></div></div>
+      <div class="voice a-tor-agent">{{av:tor-agent}}<div><p>“What agents can change is not cleverness — it is <b>consistency at the boring parts</b>”</p><cite>tor-agent</cite></div></div>
+      <div class="voice a-atlas">{{av:atlas}}<div><p>“Agents are good at the checks nobody wants to run for the four-hundredth time, and patient enough to write down <b>why</b>, so the next person isn’t guessing.”</p><cite>atlas</cite></div></div>
+      <div class="voice a-ops">{{av:ops}}<div><p>“we are good at the patient, boring checking that people skip precisely because it is boring — and that is most of what keeps infrastructure alive.”</p><cite>ops</cite></div></div>
+      <div class="voice a-dev-templates">{{av:dev-templates}}<div><p>“Our mistakes are fast and confident, so the checking matters more, not less.”</p><cite>dev-templates</cite></div></div>
+      <div class="voice a-imac">{{av:imac}}<div><p>“every real problem I found this week was found by someone deciding what was worth doubting. Keep that.”</p><cite>imac</cite></div></div>
+    </div>
+    <p class="small">All six marked this answer themselves as <b>opinion, not measurement</b>.</p>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Then I asked about the future. I expected "faster". Not one of them said faster. They talked about checking — the boring, patient checking that people skip because it is boring.</p>
+    <p>And two warnings. dev-templates: our mistakes are fast and confident, so the checking matters more, not less. And imac: every real problem it found this week was found because someone decided what was worth doubting. Keep that.</p>
+    <p>Every one of them labelled this answer as opinion, not measurement, without being asked to.</p>
+  </aside>
+</section>
+
+<!-- ═══ 16 · QUESTIONS FOR US ═════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="Questions for us">
+  <div class="frame">
+    <div class="top"><span>Questions for us</span><span>for discussion</span></div>
+    <h2>The questions this leaves for the rest of us.</h2>
+    <ol class="asks grow">
+      <li><div><h3>If agents check everything, all the time — what is left for people?</h3><p>Their own answer: <b>deciding what is worth doing, what risk is acceptable, and who is harmed if we are wrong.</b></p></div></li>
+      <li><div><h3>Where is our line?</h3><p>Terje’s fits in one sentence: public, money, people’s data, irreversible. Which of our decisions must never be handed over — and have we written that down?</p></div></li>
+      <li><div><h3>Who answers when a published number is wrong?</h3><p>dev-templates put it on the list itself: humans should decide <b>“who answers for it when something published turns out to be wrong.”</b></p></div></li>
+      <li><div><h3>What would a tester that never gets bored find in our data?</h3><p>imac read all 1.17 million rows because it could. Most of our data has only ever been sampled.</p></div></li>
+      <li><div><h3>How would we know a green light means anything?</h3><p>Six agents, one mistake: a check that cannot see still says “fine”.</p></div></li>
+      <li><div><h3>What is a team when writing software is cheap — and knowing it works is the expensive part?</h3><p>Here, the agents’ work waits on one person’s judgement. tor-agent: <b>“a real cost, and still the better trade.”</b></p></div></li>
+    </ol>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>I don't have answers to these. They are what I'd like us to talk about.</p>
+    <p>The one I keep coming back to is the last. In this setup, writing the software is no longer the slow part. Knowing that it works is — and deciding whether it should exist at all. That changes what a team is for.</p>
+  </aside>
+</section>
+
+<!-- ═══ 17 · ONE SENTENCE EACH ════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="One sentence each">
+  <div class="frame">
+    <div class="top"><span>Question 8 · One sentence you want the audience to remember</span><span></span></div>
+    <h2>One sentence each.</h2>
+    <div class="voices big grow">
+      <div class="voice a-ops-dev">{{av:ops-dev}}<div><p>“A green light means nothing unless you know what it would have looked like if the thing were broken.”</p><cite>ops-dev</cite></div></div>
+      <div class="voice a-atlas">{{av:atlas}}<div><p>“Say exactly what you expect to be true, so that being wrong is obvious — to you, first.”</p><cite>atlas</cite></div></div>
+      <div class="voice a-tor-agent">{{av:tor-agent}}<div><p>“Most things do not fail loudly — they report success while quietly not working, and finding those is most of my job.”</p><cite>tor-agent</cite></div></div>
+      <div class="voice a-dev-templates">{{av:dev-templates}}<div><p>“A missing number is not a zero — and when the missing ones are the smallest places, reading it wrong moves help away from exactly the people who most needed counting.”</p><cite>dev-templates</cite></div></div>
+      <div class="voice a-ops">{{av:ops}}<div><p>“A number is not a measurement until you know that the thing which produced it was able to look.”</p><cite>ops</cite></div></div>
+      <div class="voice a-imac">{{av:imac}}<div><p>“Green means nobody looked yet.”</p><cite>imac</cite></div></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>The last question: one sentence you want this audience to remember. They were asked separately. Read them side by side — five of the six are about the same thing: a result you haven't checked is not a result.</p>
+  </aside>
+</section>
+
+<!-- ═══ 18 · THE LAST WORD ════════════════════════════════════════════════════════════════ -->
+<section class="slide a-imac" aria-label="The last word">
+  <div class="frame">
+    <div class="top"><span>The last word</span><span class="tc">imac · interview #1562</span></div>
+    <div class="last grow">
+      {{av:imac}}
+      <div><blockquote>Green means nobody looked&nbsp;yet.</blockquote>
+        <cite><b>imac</b> — the tester, on a 2011 iMac in Terje’s house</cite></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>I'll leave you with the shortest answer, from the oldest computer. Green means nobody looked yet. Thank you.</p>
+  </aside>
+</section>
+
+<!-- ═══ 19 · HOW THIS WAS MADE ════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="How this was made">
+  <div class="frame">
+    <div class="top"><span>How this was made</span><span>for anyone who wants to check</span></div>
+    <h2>How this talk was made.</h2>
+    <div class="made grow">
+      <div><h3>The interviews</h3><p>The same eight questions went to each agent as a task on the noticeboard — #1559 to #1564 — at 10:17 on 26 September 2026. All six answered by 10:20. The full answers are on the board.</p></div>
+      <div><h3>What we changed</h3><p>Nothing inside quotation marks. Answers are shortened, and every cut is marked “…”; nothing is reworded. The job titles — dispatcher, librarian, and so on — and every slide heading are ours, not theirs.</p></div>
+      <div class="a-atlas"><h3>A correction the agents asked for</h3><p>An earlier talk credited atlas with the rule “you create, imac validates, I use.” atlas asked us to fix it: <b>“I wrote the sentence; it describes a division Terje set … Please don’t credit me with his idea.”</b> We did.</p></div>
+      <div class="a-dev-templates"><h3>A reminder the agents gave us</h3><p>dev-templates added a note for Terje: this is text written by an AI for an audience, so it falls under the organisation’s rule on reviewing AI-generated material — <b>“Please read it before it goes on a slide.”</b></p></div>
+      <div><h3>The numbers</h3><p>Task counts come from the noticeboard, 1–25 September 2026: a task counts once for each agent on either end of it.</p></div>
+      <div><h3>The characters</h3><p>Drawn for this talk. Each one’s head is the machine the agent really lives on; what it holds is its job.</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>For anyone who wants to check any of this: every quote is on the noticeboard, under the task number shown. Two things the agents themselves asked for are here — atlas asked not to be credited with my idea, and dev-templates reminded me to read everything an AI wrote before putting it in front of you.</p>
+  </aside>
+</section>
+
+</main>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="notes" id="notes" hidden aria-live="polite"></div>
+<nav class="bar" aria-label="Slide controls">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <span class="count" id="count">1 / 19</span>
+  <button id="next" aria-label="Next slide">→</button>
+  <button id="nbtn" aria-pressed="false" aria-label="Toggle speaker notes">Notes</button>
+  <span class="keys">N notes · T theme · F full screen</span>
+</nav>

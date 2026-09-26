@@ -1,34 +1,44 @@
 ---
 import Base from "../../layouts/Base.astro";
-// Every deck is presentations/<slug>/deck.json beside the site; `npm run decks` builds it into
-// public/presentations/<slug>.html. This page lists whatever decks exist — nothing is typed twice.
-interface Deck { title: string; audience: string; slides: number; summary?: string; interview?: number }
-const files = import.meta.glob<Deck>("../../../../presentations/*/deck.json", { eager: true, import: "default" });
-const decks = Object.entries(files)
-  .map(([path, d]) => ({ ...d, slug: path.split("/").at(-2)! }))
-  .sort((a, b) => (a.audience === b.audience ? a.title.localeCompare(b.title) : a.audience === "anyone" ? -1 : 1));
+import DeckCard from "../../components/DeckCard.astro";
+import { decks } from "../../data/decks";
+// Lists whatever decks exist in presentations/ — nothing is typed twice.
+const anyone = decks.filter((d) => d.audience === "anyone");
+const peers = decks.filter((d) => d.audience !== "anyone");
 ---
-<Base title="Presentations · Urbalurba" description="Talks about the Urbalurba agent fleet.">
-  <h1>Presentations</h1>
-  <p class="lead">Each deck is a single HTML file. Open it, then use the arrow keys; <kbd>N</kbd> shows the speaker notes, <kbd>T</kbd> switches theme, <kbd>F</kbd> goes full screen.</p>
-  {decks.length === 0
-    ? <p class="empty">No presentations are published yet.</p>
-    : <ul class="decks">
-        {decks.map((d) => (
-          <li>
-            <a href={`/presentations/${d.slug}.html`}><b>{d.title}</b></a>
-            <span class="meta">{d.slides} slides · for {d.audience}{d.interview ? ` · interview #${d.interview}` : ""}</span>
-            {d.summary && <p>{d.summary}</p>}
-          </li>
-        ))}
-      </ul>}
+<Base title="Presentations · Urbalurba" description="Talks about the Urbalurba agent fleet, many of them in the agents' own words.">
+  <section class="intro">
+    <p class="eyebrow">Presentations</p>
+    <h1>The fleet, in its own words.</h1>
+    <p class="lead">Talks built from interviews with the agents. Every quote is checked word for word against the agent's answer, every figure is counted from the record — and where an agent got something wrong, the correction is on the slide.</p>
+    <div class="how card">
+      <b>Presenting?</b> Each deck is a single HTML file. Open it, then use
+      <kbd>←</kbd> <kbd>→</kbd> to move, <kbd>N</kbd> for speaker notes, <kbd>T</kbd> to switch theme and <kbd>F</kbd> for full screen.
+      Without its script, a deck reads as one scrolling page.
+    </div>
+  </section>
+
+  {decks.length === 0 && <p class="empty">No presentations are published yet.</p>}
+
+  {anyone.length > 0 && (
+    <section class="section">
+      <header><h2>For anyone</h2></header>
+      <div class="grid">{anyone.map((d) => <DeckCard deck={d} />)}</div>
+    </section>
+  )}
+
+  {peers.length > 0 && (
+    <section class="section">
+      <header><h2>For technical peers</h2></header>
+      <div class="grid">{peers.map((d) => <DeckCard deck={d} />)}</div>
+    </section>
+  )}
 </Base>
 <style>
-  .decks { list-style: none; padding: 0; display: grid; gap: 14px; margin-top: 2rem; }
-  .decks li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
-  .decks a { font-family: var(--display); font-size: 1.25rem; text-decoration: none; }
-  .meta { display: block; font-family: var(--mono); font-size: .78rem; color: var(--muted); letter-spacing: .04em; margin-top: 4px; }
-  .decks p { margin: .5rem 0 0; }
-  .empty { color: var(--muted); }
-  kbd { font-family: var(--mono); font-size: .85em; border: 1px solid var(--line); border-radius: 4px; padding: 0 .35em; }
+  .intro { padding-block: clamp(40px, 7vw, 80px) 0; display: grid; gap: 18px; }
+  .intro p { margin: 0; }
+  .how { padding: 16px 20px; color: var(--muted); max-width: 72ch; line-height: 1.9; }
+  .how b { color: var(--ink); }
+  kbd { font-family: var(--mono); font-size: .8em; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px; background: var(--ground); color: var(--ink); }
+  .empty { color: var(--muted); margin-top: 32px; }
 </style>

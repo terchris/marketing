@@ -1,0 +1,59 @@
+---
+import Base from "../layouts/Base.astro";
+import Avatar from "../components/Avatar.astro";
+import { tools } from "../data/tools";
+import { cast } from "../data/cast";
+const role = (id?: string) => cast.find((c) => c.id === id)?.role;
+---
+<Base title="Tools · Urbalurba · SovereignSky" description="The SovereignSky tools: open source, on your own hardware, each built by its own AI agent.">
+  <section class="intro">
+    <p class="eyebrow">The tools</p>
+    <h1>Run it yourself.</h1>
+    <p class="lead">SovereignSky's tools are open source and built to run on hardware you control — a laptop, or a server in your own building. Each one is built and maintained by its own agent in the Urbalurba fleet.</p>
+  </section>
+
+  <div class="list">
+    {tools.map((t, i) => (
+      <article class={`card item ${t.agent ? `a-${t.agent}` : "plain"}`}>
+        <span class="num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+        <div class="text">
+          <h2>{t.name}</h2>
+          <p class="lead">{t.what}</p>
+          <a class="btn" href={t.href}>Visit the site <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="who">
+          {t.agent ? (
+            <>
+              <Avatar id={t.agent} size={96} />
+              <span><b>{t.agent}</b>{role(t.agent)}</span>
+            </>
+          ) : (
+            <span class="own">Built by its own agent in the fleet</span>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <p class="note">Descriptions from <a href="https://sovereignsky.no/about/">sovereignsky.no</a> and each tool's own site.</p>
+</Base>
+<style>
+  .intro { padding-block: clamp(40px, 7vw, 80px) 32px; display: grid; gap: 18px; }
+  .intro p { margin: 0; }
+  .list { display: grid; gap: 16px; }
+  .item { display: grid; gap: 16px 28px; padding: clamp(20px, 4vw, 32px); border-left: 5px solid var(--ac); align-items: center; }
+  .item.plain { --ac: var(--line); --ai: var(--muted); }
+  @media (min-width: 760px) { .item { grid-template-columns: auto 1fr 180px; } }
+  .num { font-family: var(--display); font-weight: 800; font-size: 2.6rem; line-height: 1; color: var(--ac); letter-spacing: -.04em; }
+  .item.plain .num { color: var(--faint); }
+  .text { display: grid; gap: 12px; justify-items: start; }
+  .text p { margin: 0; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+  .btn { background: var(--ai); color: var(--surface); padding: 10px 16px; font-size: .95rem; }
+  .who { display: flex; align-items: center; gap: 12px; }
+  @media (min-width: 760px) { .who { flex-direction: column; text-align: center; } }
+  .who span { display: grid; font-family: var(--display); font-weight: 700; color: var(--muted); }
+  .who b { font-family: var(--mono); color: var(--ai); font-size: .95rem; }
+  .own { font-family: var(--sans) !important; font-weight: 400 !important; font-size: .92rem; }
+  .note { color: var(--muted); font-size: .92rem; margin-top: 24px; }
+</style>

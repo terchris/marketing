@@ -12,9 +12,15 @@ const W = 720, H = 180, B = 150;
 const bw = s && s.days.length ? W / s.days.length : W;
 ---
 <Base title="The fleet in numbers · Urbalurba" description="The Urbalurba agent fleet, measured from its own record.">
-  <h1>The fleet in numbers</h1>
+  <section class="intro">
+    <p class="eyebrow">The fleet in numbers</p>
+    <h1>Counted, not remembered.</h1>
+  </section>
   {!s ? (
-    <p class="lead">No statistics have been published yet.</p>
+    <div class="card pending">
+      <h2>The first count is on its way.</h2>
+      <p class="lead">These figures are read from the fleet's own noticeboard with a command that returns counts only — never the text of a task. The page fills in when that command is released.</p>
+    </div>
   ) : (
     <>
       <p class="lead">
@@ -68,13 +74,17 @@ const bw = s && s.days.length ? W / s.days.length : W;
   )}
 </Base>
 <style>
+  .intro { padding-block: clamp(40px, 7vw, 80px) 24px; display: grid; gap: 12px; }
+  .intro p { margin: 0; }
+  .pending { padding: clamp(24px, 5vw, 44px); display: grid; gap: 12px; background: linear-gradient(135deg, var(--surface), var(--surface-2)); }
+  .pending p { margin: 0; }
   .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 2rem; }
-  .figs div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
-  .figs b { display: block; font-family: var(--display); font-size: 2rem; letter-spacing: -.02em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .figs div { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .figs b { display: block; font-family: var(--display); font-size: 2.4rem; letter-spacing: -.02em; line-height: 1.05; font-variant-numeric: tabular-nums; }
   .figs span { color: var(--muted); font-size: .9rem; }
   .chart { overflow-x: auto; margin-top: 1rem; }
   .chart svg { width: 100%; min-width: 520px; height: auto; display: block; }
-  .bar { fill: var(--accent); }
+  .bar { fill: var(--c-ops); }
   .axis { stroke: var(--line); }
   .lab { fill: var(--muted); font-family: var(--mono); font-size: 11px; }
   .scroll { overflow-x: auto; }
