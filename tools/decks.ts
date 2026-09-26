@@ -9,6 +9,10 @@
 //   /*__DATA__*/null    the deck's data.json, for decks whose script draws from data
 // A placeholder left unfilled is an error: the build stops rather than ship "{{".
 //
+// The parts start at <title>; the skeleton below is prepended to every deck. Without it a browser
+// guesses the encoding (UTF-8 quotes shown as "â€œ") and renders in quirks mode — the decks were
+// drawn inside a viewer that added exactly this.
+//
 //   npm run decks              build every deck
 //   npm run decks -- <slug>    build one
 //
@@ -49,6 +53,8 @@ interface Graph {
   pairs: [string, string, number][];
   total: Record<string, number>;
 }
+
+const SKELETON = `<!doctype html>\n<html lang="en">\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n`;
 
 const avatar = (a: string): string =>
   `<svg class="av" viewBox="0 0 200 200" aria-hidden="true"><use href="#av-${a}" width="200" height="200"/></svg>`;
@@ -108,7 +114,7 @@ function build(slug: string, src: string, out: string): void {
   const dir = join(src, slug);
   const deck = JSON.parse(readFileSync(join(dir, "deck.json"), "utf8")) as Deck;
   const read = (f: string): string => readFileSync(join(dir, f), "utf8");
-  let html = deck.parts.map(read).join("");
+  let html = SKELETON + deck.parts.map(read).join("");
   html = html.replaceAll("{{title}}", deck.title);
   html = html.replace(/\{\{av:([a-z-]+)\}\}/g, (_, a: string) => avatar(a));
   if (deck.graph) html = html.replace("{{graph}}", graph(JSON.parse(read(deck.graph)) as Graph));

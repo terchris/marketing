@@ -19,4 +19,5 @@ RUN npm run build
 # nginx-unprivileged runs as a non-root user and listens on 8080.
 FROM nginxinc/nginx-unprivileged:1.27-alpine
 COPY --from=build /app/website/dist /usr/share/nginx/html
+COPY nginx/charset.conf /etc/nginx/conf.d/charset.conf
 EXPOSE 8080
