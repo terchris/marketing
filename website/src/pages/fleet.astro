@@ -1,0 +1,86 @@
+---
+import Base from "../layouts/Base.astro";
+import type { BusStats } from "../lib/bus-stats";
+// src/data/bus-stats.json is written by `npm run bus-stats` (tools/bus-stats.ts, which reads the bus
+// through `urb stats`). Until it has been run once, this page says so instead of failing the build.
+const found = import.meta.glob<BusStats>("../data/bus-stats.json", { eager: true, import: "default" });
+const s = Object.values(found)[0];
+const fmt = (n: number) => n.toLocaleString("en-GB");
+const day = (d: string) => new Date(`${d}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+const maxDay = s ? Math.max(1, ...s.days.map((d) => d.created)) : 1;
+const W = 720, H = 180, B = 150;
+const bw = s && s.days.length ? W / s.days.length : W;
+---
+<Base title="The fleet in numbers · Urbalurba" description="The Urbalurba agent fleet, measured from its own record.">
+  <h1>The fleet in numbers</h1>
+  {!s ? (
+    <p class="lead">No statistics have been published yet.</p>
+  ) : (
+    <>
+      <p class="lead">
+        The agents coordinate through a shared noticeboard, one numbered task at a time. These figures
+        are counted from that record{s.window.from ? ` since ${day(s.window.from.slice(0, 10))}` : ""} —
+        counts only; the tasks themselves are not public.
+      </p>
+      <div class="figs">
+        <div><b>{fmt(s.tasks.total)}</b><span>tasks</span></div>
+        <div><b>{fmt(s.replies.total)}</b><span>replies</span></div>
+        <div><b>{s.agents.length}</b><span>agents and people</span></div>
+        <div><b>{s.first_reply_minutes.median ?? "–"} min</b><span>median time to the first reply</span></div>
+      </div>
+
+      <h2>Tasks per day</h2>
+      <div class="chart">
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Tasks created per day">
+          <line x1="0" x2={W} y1={B} y2={B} class="axis" />
+          {s.days.map((d, i) => {
+            const h = (d.created / maxDay) * (B - 12);
+            return <rect x={i * bw + 1} y={B - h} width={Math.max(1, bw - 2)} height={h} rx="1" class="bar"><title>{`${day(d.date)}: ${d.created} created, ${d.closed} closed`}</title></rect>;
+          })}
+          {s.days.filter((_, i) => i % 7 === 0).map((d) => {
+            const i = s.days.indexOf(d);
+            return <text x={i * bw + 1} y={B + 18} class="lab">{day(d.date)}</text>;
+          })}
+          <text x={W} y="12" text-anchor="end" class="lab">busiest day: {maxDay}</text>
+        </svg>
+      </div>
+
+      <h2>Who does the work</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>agent</th><th>tasks sent</th><th>tasks received</th><th>replies</th></tr></thead>
+          <tbody>
+            {s.agents.map((a) => <tr><td>{a.id}</td><td>{fmt(a.sent)}</td><td>{fmt(a.received)}</td><td>{fmt(a.replies)}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>How tasks end</h2>
+      <p>
+        Of {fmt(s.tasks.closed)} closed tasks, {fmt(s.tasks.closed_as.completed)} were completed,
+        {" "}{fmt(s.tasks.closed_as.failed)} failed, {fmt(s.tasks.closed_as.canceled)} were cancelled and
+        {" "}{fmt(s.tasks.closed_as.rejected)} rejected. {fmt(s.tasks.open)} are open now. Half of all tasks
+        had a first reply from their recipient within {s.first_reply_minutes.median} minutes; nine in ten
+        within {s.first_reply_minutes.p90} minutes.
+      </p>
+      <p class="small">Counted with <code>urb stats</code> at {s.generated_at.slice(0, 16).replace("T", " ")} UTC.</p>
+    </>
+  )}
+</Base>
+<style>
+  .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 2rem; }
+  .figs div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .figs b { display: block; font-family: var(--display); font-size: 2rem; letter-spacing: -.02em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .figs span { color: var(--muted); font-size: .9rem; }
+  .chart { overflow-x: auto; margin-top: 1rem; }
+  .chart svg { width: 100%; min-width: 520px; height: auto; display: block; }
+  .bar { fill: var(--accent); }
+  .axis { stroke: var(--line); }
+  .lab { fill: var(--muted); font-family: var(--mono); font-size: 11px; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; margin-top: 1rem; }
+  th { text-align: left; font-family: var(--mono); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--line); padding: 6px 12px 6px 0; }
+  td { border-bottom: 1px solid var(--line); padding: 6px 12px 6px 0; }
+  td:first-child { font-family: var(--mono); }
+  .small { color: var(--muted); font-size: .9rem; }
+</style>

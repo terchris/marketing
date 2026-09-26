@@ -14,7 +14,7 @@ A deck is a folder, `presentations/<slug>/`, with a `deck.json`:
   "parts": ["../shared/cast/head.html", "../shared/cast/components.html", "…", "slides.html", "../shared/cast/script.html"] }
 ```
 
-`npm run decks` (`node presentations/build.mjs [<slug>]`) joins the parts in order and writes
+`npm run decks` (`tools/decks.ts`; `npm run decks -- <slug>` for one) joins the parts in order and writes
 `website/public/presentations/<slug>.html`. It fills these placeholders and nothing else:
 
 | placeholder | filled with |

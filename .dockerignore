@@ -1,0 +1,8 @@
+.git
+node_modules/
+website/dist/
+website/.astro/
+website/public/presentations/
+manifests/
+.github/
+.DS_Store

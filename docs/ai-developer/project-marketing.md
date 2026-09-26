@@ -26,12 +26,16 @@ built by their own agent in the Urbalurba fleet.
 
 | path | what |
 | --- | --- |
-| `website/` | the Astro site. `src/pages/` is the routes; `src/layouts/Base.astro` the one layout |
+| `website/` | the Astro site. `src/pages/` is the routes (`/`, `/presentations/`, `/fleet/`); `src/layouts/Base.astro` the one layout |
+| `website/src/data/bus-stats.json` | the bus in numbers, written by `npm run bus-stats` and committed; the `/fleet/` page renders it |
+| `website/src/lib/bus-stats.ts` | the type of that file — one definition, shared by the tool and the page |
 | `website/public/presentations/` | **generated** by `npm run decks` — git-ignored, never edited |
 | `presentations/<slug>/` | one deck: `deck.json` (title, audience, parts in order) and its own slides |
 | `presentations/shared/cast/` | the design shared by the character decks: stage, components, the six characters (`avatars.html`), the navigation script |
-| `presentations/build.mjs` | assembles every deck; fills `{{title}}`, `{{av:<agent>}}`, `{{graph}}`, `{{FIGURE}}` and `/*__DATA__*/null`, and refuses to ship an unfilled placeholder |
-| `presentations/check-quotes.mjs` | checks every quote on a deck against its source file |
+| `tools/decks.ts` | assembles every deck; fills `{{title}}`, `{{av:<agent>}}`, `{{graph}}`, `{{FIGURE}}` and `/*__DATA__*/null`, and refuses to ship an unfilled placeholder |
+| `tools/check-quotes.ts` | checks every quote on a deck against its source files |
+| `tools/bus-stats.ts` | reads the bus through `urb stats --json` and writes `bus-stats.json` — after checking that it holds aggregates only |
+| `Dockerfile`, `manifests/`, `.github/workflows/build-and-push.yaml` | how the site runs on UIS — see *Running on UIS* below |
 | `docs/notes/` | copies of asset-production notes from other repos — recordings, screenshots, logos, brand. Provenance in `docs/notes/README.md` |
 | `docs/ai-developer/` | this folder. There is no second copy |
 
@@ -42,19 +46,22 @@ From the repository root:
 ```bash
 npm install                  # once
 npm run decks                # build every deck into website/public/presentations/
+npm run bus-stats            # the bus in numbers, through urb (-- --since <date> to narrow it)
+npm run typecheck            # the tools are TypeScript, run natively by Node — no build step
 npm run dev                  # decks, then the dev server
 npm run build                # decks, then the static site into website/dist/
 npm run check-quotes -- <slug>   # against the sources its deck.json lists
 ```
 
-Node 22.12 or newer. For the dev server, run it in the background (`astro dev --background`,
+Node 22.18 or newer: it runs the TypeScript in `tools/` directly. For the dev server, run it in the background (`astro dev --background`,
 then `astro dev stop` / `status` / `logs`). Astro's own guides:
 <https://docs.astro.build> — routing, components, content collections, styling.
 
 ## Git host
 
 GitHub. `origin` is `terchris/marketing`, and it is **public**. `GIT.md` applies;
-`AZURE-DEVOPS.md` does not.
+`AZURE-DEVOPS.md` does not. Every push to `main` builds an image and commits a new tag to
+`manifests/deployment.yaml` — so **pull before you work**; the workflow writes to `main` too.
 
 ## Devcontainer
 
@@ -91,6 +98,36 @@ set (#1560).
 **7. A deck works without its script.** At rest every deck is a scrolling document; the script
 upgrades it to one-slide-at-a-time presenting. Terje presents from the HTML file on disk, in
 Safari — the embedded viewer once failed to load a deck.
+
+## Running on UIS
+
+The site is the **second application on UIS**, after Atlas, and the first that is only a workload.
+UIS's rule (*uis provisions, ArgoCD deploys*) puts it on the ArgoCD path: it needs no database, no
+secret and no platform service, so there is nothing for `uis` to provision.
+
+1. A push to `main` runs `.github/workflows/build-and-push.yaml`: it builds the `Dockerfile` (Node
+   22 builds the site; nginx-unprivileged serves it on 8080) into
+   `ghcr.io/terchris/marketing:<sha>-<time>` and commits that tag to `manifests/deployment.yaml`.
+2. ArgoCD follows `manifests/` in git — registered once with
+   `uis argocd register marketing https://github.com/terchris/marketing`.
+3. The platform creates the route itself, matching `HostRegexp(^marketing\..+$)`: the same
+   registration answers on **marketing.localhost** and on **marketing.urbalurba.com** once that
+   name points at the cluster.
+
+Registering it, choosing the cluster, and putting the public name on it are fleet work, not this
+agent's: ask ops-dev, which routes it to tor-agent (UIS), imac (tests on its cluster) and ops
+(production). Where UIS falls short for an application like this one, say so on the bus — this
+site is also a test of UIS.
+
+## The bus in numbers
+
+`npm run bus-stats` asks `urb stats --json` for the bus's aggregates and writes
+`website/src/data/bus-stats.json`; commit it and the next deploy publishes the `/fleet/` page.
+
+`urb stats` returns counts, agent ids, dates and durations — never a title or a body — and the tool
+checks that again before writing: an unknown field, or an id that does not look like an id, stops
+the run. **Never widen that check to let text through.** A figure on the page is a figure from
+`urb stats`; do not type one by hand.
 
 ## How to interview an agent
 

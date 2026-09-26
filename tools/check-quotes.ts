@@ -6,7 +6,7 @@
 // that do not change the words are ignored: markdown bold/italic markers, emoji, the style of
 // quotation mark, and an inline "(#123)" reference moved out of the quote into its citation.
 //
-//   node presentations/check-quotes.mjs <slug> [<source.md> …]
+//   npm run check-quotes -- <slug> [<source.md> …]
 //
 // With no source given, it uses the "sources" listed in the deck's deck.json.
 //
@@ -16,28 +16,29 @@
 import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import type { Deck } from "./decks.ts";
 
 const [slug, ...given] = process.argv.slice(2);
-const HERE = dirname(fileURLToPath(import.meta.url));
+const HERE = join(dirname(fileURLToPath(import.meta.url)), "..", "presentations");
 if (!slug) {
-  console.error("usage: node presentations/check-quotes.mjs <slug> [<source.md> …]");
+  console.error("usage: npm run check-quotes -- <slug> [<source.md> …]");
   process.exit(2);
 }
-const deck = JSON.parse(readFileSync(join(HERE, slug, "deck.json"), "utf8"));
-const sources = given.length ? given : (deck.sources ?? []).map((s) => join(HERE, slug, s));
+const deck = JSON.parse(readFileSync(join(HERE, slug, "deck.json"), "utf8")) as Deck;
+const sources = given.length ? given : (deck.sources ?? []).map((s: string) => join(HERE, slug, s));
 if (!sources.length) {
   console.error(`${slug}: no sources given, and deck.json lists none`);
   process.exit(2);
 }
-const own = deck.parts.filter((p) => !p.startsWith("../")).map((p) => readFileSync(join(HERE, slug, p), "utf8")).join("");
+const own = deck.parts.filter((p: string) => !p.startsWith("../")).map((p: string) => readFileSync(join(HERE, slug, p), "utf8")).join("");
 
 const EMOJI = /[☀-⟿\u{1F300}-\u{1FAFF}️]/gu;
-const norm = (s) => s.replace(/[*_`]/g, "").replace(EMOJI, "").replace(/[‘’“”'"]/g, '"')
+const norm = (s: string): string => s.replace(/[*_`]/g, "").replace(EMOJI, "").replace(/[‘’“”'"]/g, '"')
   .replace(/\s*\(#\d+\)/g, "").replace(/\s+/g, " ").trim().toLowerCase();
-const text = (html) => html.replace(/<[^>]+>/g, "").replace(/&nbsp;| /g, " ")
+const text = (html: string): string => html.replace(/<[^>]+>/g, "").replace(/&nbsp;| /g, " ")
   .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 
-const source = norm(sources.map((s) => readFileSync(s, "utf8")).join("\n"));
+const source = norm(sources.map((s: string) => readFileSync(s, "utf8")).join("\n"));
 let bad = 0, count = 0;
 for (const [, label, body0] of own.matchAll(/<section[^>]*aria-label="([^"]+)"[^>]*>([\s\S]*?)<\/section>/g)) {
   const body = body0.replace(/<aside>[\s\S]*?<\/aside>/g, "");

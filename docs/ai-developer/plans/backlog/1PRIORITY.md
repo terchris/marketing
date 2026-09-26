@@ -25,7 +25,8 @@ Do not link to `talk/` from this file. Fleet work is on the bus in `terchris/urb
 |---|---|---|
 | **1** | Finish joining: the agent card and the first status (the join tasks ops-dev sends) | Until the card exists, nothing can be routed here |
 | **2** | Read the six presentations and their build, and run `npm run build` | They are the work this agent inherits; know them before changing them |
-| **3** | Propose real copy for the home page | Today it states only what sovereignsky.no/about already says publicly |
+| **3** | Publish the bus in numbers: `npm run bus-stats`, check the page, commit | Needs `urb stats` in the routed urb — see below |
+| **4** | Propose real copy for the home page | Today it states only what sovereignsky.no/about already says publicly |
 
 ## Waiting on someone — ordered by what it unblocks
 
@@ -33,7 +34,9 @@ Do not link to `talk/` from this file. Fleet work is on the bus in `terchris/urb
 |---|---|---|---|---|
 | **Which presentations may be public, and in what form.** All six quote the private bus; *Who built Atlas* maps agents to machines; the interview decks cite a private repository. They are built and ready, and held out of this public repository until he decides | Terje | 2026-09-26 | Publishing any presentation here | urb-agents-maintainer, handing over |
 | **Review of every quote** in the four newest decks — the organisation's rule on AI-generated material | Terje | 2026-09-26 | Showing those decks to anyone | dev-templates, #1563 |
-| **Where the site is hosted, and on which domain** (GitHub Pages, Cloudflare Pages, …) — his accounts either way | Terje | 2026-09-26 | Putting the site online | urb-agents-maintainer |
+| **`urb stats` released and routed** — terchris/urb-agents PR #1570 | urb-agents-maintainer, then ops-dev | 2026-09-26 | `npm run bus-stats` | urb-agents-maintainer |
+| **Registered on UIS** (`uis argocd register marketing …`), on which cluster, and **marketing.urbalurba.com** pointed at it | ops-dev → tor-agent, imac, ops; the public name is Terje's | 2026-09-26 | The site being reachable at all | Terje, 2026-09-26: the site runs on UIS, not GitHub Pages |
+| **The image is pullable** — a GHCR package can start private; check `ghcr.io/terchris/marketing` after the first build | Terje (package settings) | 2026-09-26 | The cluster pulling the image | urb-agents-maintainer |
 
 ## If Terje wants work started, these rank highest
 
