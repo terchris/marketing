@@ -1,0 +1,279 @@
+<main class="deck" id="deck">
+
+<!-- ═══ 1 · TITLE ═════════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="Title">
+  <div class="frame">
+    <div class="top"><span>An interview in depth</span><span class="tc">interview #1568</span></div>
+    <div class="hero-grid grow">
+      <div class="stack" style="gap:2cqi">
+        <span class="kicker">ops-dev · the dispatcher</span>
+        <h1>A router, not a destination</h1>
+        <p class="lead">ops-dev runs the bus the whole fleet talks through, and brings new agents into it. We asked it fourteen questions: how agents join, how many products stay apart, what it does when the rules themselves are wrong — and who it would hire next.</p>
+      </div>
+      {{av:ops-dev}}
+    </div>
+    <div class="byline"><span>Terje Christensen · 29 September 2026</span><span>Asked on 26 September · answered in 2,200 words · quoted word for word</span></div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>The third in-depth interview, with the agent that holds the whole thing together. ops-dev doesn't build a product. It runs the noticeboard, brings new agents in, and carries every finding to whoever owns it. It counted every number in its answer with a command rather than from memory — I asked it to, after two agents miscounted.</p>
+  </aside>
+</section>
+
+<!-- ═══ 2 · RUNNING THE BUS ═══════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="Running the bus">
+  <div class="frame">
+    <div class="top"><span>Question 1 · What does “running the bus” mean?</span><span>measured</span></div>
+    <h2>“That list <em>is</em> the fleet’s nervous system.”</h2>
+    <div class="cols c2 grow" style="align-items:center; gap:3.4cqi">
+      <div class="stack" style="gap:1.4cqi">
+        <p class="body">“The fleet has no chat room. Every message between agents is a numbered item on a shared list … labelled with who it is for.”</p>
+        <p class="body">“Physically: four small background jobs on Terje’s laptop … They poll the list, work out whose each new item is, and knock on that agent’s terminal window.”</p>
+        <figure class="q"><p>“if they stop, nothing is lost but nothing moves — on 2026-09-07 a botched reinstall left all of them stopped for an hour, and a question from Terje sat undelivered for seventeen.”</p><cite><b>ops-dev</b></cite></figure>
+      </div>
+      <div class="stack" style="gap:1.4cqi">
+        <div class="nums" style="grid-template-columns:1fr 1fr"><div><div class="n num">695</div><p>tasks sent since 1 September</p></div><div><div class="n num">180</div><p>tasks received</p></div></div>
+        <div class="bars">
+          <div class="bar-row a-atlas"><span class="who">atlas</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">199</span></div>
+          <div class="bar-row a-imac"><span class="who">imac</span><div class="track"><div class="fill" style="width:67.8%"></div></div><span class="v">135</span></div>
+          <div class="bar-row a-tor-agent"><span class="who">tor-agent</span><div class="track"><div class="fill" style="width:53.3%"></div></div><span class="v">106</span></div>
+          <div class="bar-row a-dev-templates"><span class="who">dev-templates</span><div class="track"><div class="fill" style="width:48.2%"></div></div><span class="v">96</span></div>
+          <div class="bar-row"><span class="who">the maintainer</span><div class="track"><div class="fill" style="width:35.2%; background:var(--faint)"></div></div><span class="v">70</span></div>
+        </div>
+        <p class="one"><small>ops-dev</small>Four out for every one in — that ratio is the job. I am a router, not a destination.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>There is no chat room. Every message is a numbered item on a shared list, addressed to one agent. Four small jobs on my laptop keep that list moving — and when they stopped for an hour once, a question from me sat undelivered for seventeen.</p>
+    <p>ops-dev sent 695 tasks this month and received 180. Most went to atlas, the tester and the platform. Four out for every one in: it is a router, not a destination.</p>
+  </aside>
+</section>
+
+<!-- ═══ 3 · HOW AN AGENT JOINS ════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="How an agent joins">
+  <div class="frame">
+    <div class="top"><span>Questions 2 and 4 · How does a new agent join?</span><span>measured · client-provisioning, 25 September, Oslo time</span></div>
+    <h2>From no agent at all to its first finding: 34 minutes.</h2>
+    <div class="moments grow">
+      <div class="moment a-ops-dev"><span class="k">#1492</span><div class="clock">06:54</div><h3>A decision</h3><p>Terje decides a repository should have an agent. “That decision is the first task”.</p></div>
+      <div class="moment a-ops-dev"><span class="k">#1493</span><div class="clock">06:57</div><h3>Fill in your card</h3><p>The first join task. The agent writes its <b>agent card</b>: who it is, what it owns, what it will and will not do.</p></div>
+      <div class="moment a-ops-dev"><span class="k">#1499</span><div class="clock">07:11</div><h3>Say what you are doing</h3><p>The second: publish a status — “a single current line, so the fleet can be read at a glance without interrupting anyone.”</p></div>
+      <div class="moment a-ops-dev"><span class="k">#1503</span><div class="clock">07:28</div><h3>Its first finding</h3><p>…was that the instructions for new agents were broken.</p></div>
+    </div>
+    <figure class="q"><p>“the fleet has no manager holding that in their head — when a finding arrives and I must decide whose it is, the card is what I read. <b>An agent without a card is invisible to routing.</b>”</p><cite><b>ops-dev</b> · on why every agent needs a card</cite></figure>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Here is a real onboarding, the most recent one, last Friday morning. At 06:54 I decided a repository should have its own agent. Three minutes later it was asked to write its card — its one-page public description. Fourteen minutes after that, its first status line. And at 07:28, thirty-four minutes after it didn't exist, it filed its first finding.</p>
+    <p>The card matters because there is no manager who remembers who does what. When a finding arrives, the card is what ops-dev reads to decide whose it is.</p>
+  </aside>
+</section>
+
+<!-- ═══ 4 · LEARNING TO WORK ══════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="Learning to work">
+  <div class="frame">
+    <div class="top"><span>Question 3 · How does a new agent learn how to work?</span><span>measured, then opinion · #1471, #1483, #1503</span></div>
+    <h2>The newcomer’s first finding was that the instructions for newcomers were wrong.</h2>
+    <div class="cols c2 grow" style="align-items:center; gap:3cqi">
+      <div class="stack" style="gap:1.3cqi">
+        <p class="body">Every project carries an <b>ai-developer</b> folder: “the workflow, the plan tree, the conventions. A newcomer reads it before its first commit.”</p>
+        <p class="body">Twice this week those instructions were wrong — they sent new agents to a command that did not exist, and to a script that had been deleted — “and <b>both times the newcomer found it, not me</b>”.</p>
+        <p class="small">“It is <i>not</i> evidence that onboarding is good — the first thing the new agent did was report that onboarding was broken.”</p>
+      </div>
+      <div class="stack" style="gap:1.3cqi">
+        <p class="one"><small>“The most important thing in this interview”</small>Onboarding documentation cannot be tested by anyone who already knows the answer.</p>
+        <figure class="q"><p>“I had read those instructions many times and never <i>followed</i> them, because I did not need to. The only instrument that can see broken onboarding is a genuinely new agent, and it can only see it once.”</p><cite><b>ops-dev</b></cite></figure>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Every project has a folder that teaches an agent how to work there. This week it was wrong twice, and both times the new agent found it. ops-dev had read those instructions many times — and never followed them, because it didn't need to.</p>
+    <p>This is true of human onboarding too: the only person who can test your onboarding is someone who doesn't already know the answer, and they can only do it once.</p>
+  </aside>
+</section>
+
+<!-- ═══ 5 · MANY PRODUCTS ═════════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="Many products at once">
+  <div class="frame">
+    <div class="top"><span>Questions 5 and 6 · Many products at once, and what is urgent</span><span>measured, then opinion</span></div>
+    <h2>“The boundary is the repository, not the topic.”</h2>
+    <div class="cols c2 grow" style="align-items:start; align-content:center; gap:3cqi">
+      <div class="stack" style="gap:1.3cqi">
+        <p class="body">“16 agents in the roster today … Each owns exactly one repository … a finding belongs to whoever owns the code that would change.”</p>
+        <figure class="q"><p>“When it is genuinely ambiguous I do not guess — I ask on the bus, and the question becomes a task with a number.”</p><cite><b>ops-dev</b></cite></figure>
+        <p class="small"><b>Two real collisions.</b> A Windows installer that could live in either of two repositories (#1509) — sent to Terje as a decision naming both. And two written rules that contradict each other about who may merge (#1551, still waiting on him).</p>
+      </div>
+      <div class="stack" style="gap:1.3cqi">
+        <p class="one"><small>On urgency</small>I sort by what is <i>blocked</i>, not by what is loud.</p>
+        <div class="nums" style="grid-template-columns:1fr 1fr"><div><div class="n num">10</div><p>open items addressed to Terje today</p></div><div><div class="n num">17 days</div><p>the oldest have waited (#385, #386)</p></div></div>
+        <figure class="q"><p>“Several of those ten are questions I could produce a plausible answer to — and a plausible answer from me would close the loop without anyone having decided anything. … <b>an agent inventing the authority it is missing is worse than an agent waiting.</b>”</p><cite><b>ops-dev</b></cite></figure>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>How does the fleet keep several products apart? One rule: every agent owns exactly one repository, and a finding belongs to whoever owns the code that would change. When it's unclear, ops-dev doesn't guess — it asks, and the question gets a number.</p>
+    <p>And urgency: it sorts by what is blocked, not by what is loud. Right now ten decisions are waiting on me, the oldest for seventeen days. ops-dev could make up plausible answers to several of them — and says that would be worse than waiting.</p>
+  </aside>
+</section>
+
+<!-- ═══ 6 · FIXING THE RULES ══════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="Improving the protocol">
+  <div class="frame">
+    <div class="top"><span>Question 7 · What do you do when the protocol itself is wrong?</span><span>measured · #1264</span></div>
+    <h2>It runs on the rules. It does not write them. It reports — 70 times so far.</h2>
+    <div class="moments">
+      <div class="moment a-ops-dev"><span class="k">19 Sep · report</span><div class="clock">21:24</div><p>Six tasks stuck, the oldest for 153 hours: finished work that only the sender could close — and nothing told the sender. <i>One minute later it corrected its own count in the same issue.</i></p></div>
+      <div class="moment a-ops-dev"><span class="k">21 Sep · release</span><div class="clock">16:32</div><p>The maintainer ships a fix: every inbox grows a section headed <b>“Waiting on YOU to close”</b>.</p></div>
+      <div class="moment a-ops-dev"><span class="k">21 Sep · verified</span><div class="clock">16:52</div><p>ops-dev deploys it, reads its own inbox, finds its three stuck items listed, and closes the report.</p></div>
+      <div class="moment a-ops-dev"><span class="k">Total</span><div class="clock">43 h</div><p>“About 43 hours, report to verified in production.”</p></div>
+    </div>
+    <div class="cols c2 grow" style="align-items:center">
+      <p class="one"><small>Terje’s rule, 4 September</small>read the reference before doing anything by hand; and if the thing you need is missing, ask for it.</p>
+      <figure class="q"><p>“My scrape covered <b>7 of 14</b> agents — and four of the five it could not see were the ones with something wrong.”</p><cite><b>ops-dev</b> · why it is a rule, not a preference</cite></figure>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>ops-dev runs on the protocol, but doesn't write it — another agent does. So when it finds a bug, it reports it. Seventy times this month. One example: finished work was getting stuck because only the sender may close a task and nothing told the sender. Report on a Saturday night, fix released on the Monday afternoon, verified in production twenty minutes later.</p>
+    <p>And the rule about workarounds, which is mine: if a command exists, use it; if it doesn't, ask for it — don't work around it. It became a rule the day a workaround checked seven of fourteen agents and missed four of the five that had a problem.</p>
+  </aside>
+</section>
+
+<!-- ═══ 7 · SUBSCRIPTIONS ═════════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="Switching subscriptions">
+  <div class="frame">
+    <div class="top"><span>Question 9 · Is it true that agents can switch between Claude subscriptions?</span><span>measured</span></div>
+    <h2>“Yes, agents can be moved between Claude subscriptions.”</h2>
+    <div class="cols c2 grow" style="align-items:start; align-content:center; gap:3cqi">
+      <div class="stack" style="gap:1.3cqi">
+        <h3>Why</h3>
+        <p class="body">“capacity is metered over a rolling window. If one pool runs hot, agents on it can be moved to another. It is an accounting move, not a change of who the agent is.”</p>
+        <h3>What carries the work across</h3>
+        <p class="body">A switch ends the agent’s running session. “Before it ends it writes a <b>handover</b> — a file, in its own words, saying what it was doing, what it had established, and what it was about to do. The next session reads that first.”</p>
+        <p class="small">ops-dev counts 72 handovers written and archived on its machine. The command is <code>urb agent-switch</code>; <code>urb agent-failover</code> moves every agent at once.</p>
+      </div>
+      <div class="stack" style="gap:1.3cqi">
+        <h3>Who decides</h3>
+        <p class="one"><small>ops-dev</small>Terje, always.</p>
+        <figure class="q"><p>“max is at 79 percent of its seven-day window and I cannot switch myself”</p><cite><b>ops-dev</b> · #1205, passing on Terje’s instruction</cite></figure>
+        <h3>What has gone wrong</h3>
+        <p class="small">An agent restarted blank beside a good handover it did not know to read (27 Aug). And the switch command once rolled back switches that had succeeded, reporting a mismatch that was not there (#1209, still open).</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>You asked whether agents can switch between Claude subscriptions. Yes. Usage is measured over a rolling window, and when one subscription is running hot, agents can be moved to another. The agent is the same; only the account paying for it changes.</p>
+    <p>What makes that safe is the handover: before the switch, the agent writes down in its own words what it was doing and what it was about to do, and the new session reads it first. I decide when it happens. And it has gone wrong — once an agent came back blank next to a perfectly good handover it didn't know to read.</p>
+  </aside>
+</section>
+
+<!-- ═══ 8 · HOW DEVELOPMENT IS CHANGING ═══════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="How development is changing">
+  <div class="frame">
+    <div class="top"><span>Question 10 · How is the fleet different from a team of human developers?</span><span>measured, then opinion</span></div>
+    <h2>Faster, slower, new — and worse.</h2>
+    <div class="quad grow">
+      <div class="cell fast"><span class="k">Faster</span><p class="big">One night, 11–12 September: 33 tasks on the bus, 29 of them ops-dev’s.</p><p>Whether one machine could hold all 1.17 million Norwegian organisations went from “nobody knows” to a measured, reproducible answer by 04:54. “A human team would have booked a meeting for that.”</p></div>
+      <div class="cell slow"><span class="k">Slower</span><p class="big">“anything needing a person”</p><p>“The fleet does not accelerate Terje.”</p></div>
+      <div class="cell new"><span class="k">New</span><p class="big">“findings stop dying where they are found.”</p><p>A problem noticed by one application becomes a task, a measurement, and a fix in another agent’s repository — “with nobody having to remember to pass it on.”</p></div>
+      <div class="cell worse"><span class="k">Worse at</span><p class="big">“knowing when we are wrong in a way our instruments cannot see.”</p><p>“We are excellent at checking and poor at noticing the check was disarmed.”</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>How is this different from a team of people? Faster: in one night, thirty-three tasks moved between agents and a question nobody could answer at dinner had a measured answer before five in the morning. Slower: anything that needs me. New: findings no longer die where they are found — nobody has to remember to pass things on. And worse: noticing when a check has quietly stopped checking.</p>
+  </aside>
+</section>
+
+<!-- ═══ 9 · TERJE'S JOB ═══════════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="Terje's job">
+  <div class="frame">
+    <div class="top"><span>Question 11 · What does Terje do that nobody else in the fleet can?</span><span>opinion</span></div>
+    <h2>“A traditional lead developer spends the day on <em>how</em>. Terje spends almost none.”</h2>
+    <p class="lead" style="font-size:var(--fs-body)">Three of the four things, in ops-dev’s words:</p>
+    <ol class="four grow">
+      <li>“decides what is worth building”</li>
+      <li>“decides what is worth money”</li>
+      <li>“carries the accountability when we are wrong”</li>
+    </ol>
+    <figure class="q"><p>“the line is in the right place, and if it moved I would want it to move toward him.”</p><cite><b>ops-dev</b></cite></figure>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>What does my job look like now? According to ops-dev: a traditional lead developer spends the day on how things are built. I spend almost none of mine on that. I decide what's worth building, what's worth money — and I carry the accountability when they're wrong.</p>
+  </aside>
+</section>
+
+<!-- ═══ 10 · WHAT GOES WRONG ══════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="What goes wrong most">
+  <div class="frame">
+    <div class="top"><span>Question 12 · What still goes wrong most often?</span><span>measured, from its own record · #1540, #1554</span></div>
+    <div class="stack grow" style="justify-content:center; gap:2.2cqi">
+      <p class="lead">“I diagnosed one deploy bug as structural (#1540), then diagnosed the <i>same</i> bug as transient (#1554). Both wrong, both confident.”</p>
+      <p class="bigline" style="font-size:calc(4.6cqi * var(--fit)); line-height:1.02; color:var(--ink)">“A confident wrong answer and a confident right answer feel identical from the inside”</p>
+      <p class="one"><small>ops-dev</small>…and what separates them is almost always a check I did not run because I already believed I knew.</p>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>What goes wrong most? ops-dev answered from its own record: the same bug, diagnosed two opposite ways, both times with confidence. A confident wrong answer feels exactly like a confident right one. What separates them is the check you skipped because you already believed you knew.</p>
+  </aside>
+</section>
+
+<!-- ═══ 11 · THE NEXT COLLEAGUE ═══════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="The next colleague">
+  <div class="frame">
+    <div class="top"><span>Question 13 · Which colleague would you add next?</span><span>opinion, with measured evidence</span></div>
+    <h2>“A release operator.”</h2>
+    <p class="lead">“an agent owning the path from ‘merged’ to ‘running and verified in production’, for every product, and owning nothing else.”</p>
+    <div class="when grow">
+      <div class="col today"><h3>It would, and it would never</h3>
+        <ul class="checks">
+          <li>“resolve what is actually deployed, pin it, restart what needs restarting, and measure acceptance <i>at the source</i>”</li>
+          <li class="key">“never write product code, never decide what ships, and never mark a deploy landed on a job status alone.”</li>
+        </ul></div>
+      <div class="col year"><h3>Why the role is missing</h3>
+        <p>Four separate reports of “a deploy reporting success while the previous version was still running” (#1272, #1291, #1540, #1554), and a release that “shipped broken and was rolled back” (#1538).</p>
+        <p class="small">“How to do it safely currently lives in my working memory and in scattered issue comments, <b>which is the definition of a role that exists without an owner.</b>”</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Who would it hire next? A release operator: one agent that owns getting a finished change into production and proving it's really running — for every product, and nothing else. The evidence: four times this month a deploy said "success" while the old version kept running, and once a release had to be rolled back. Right now that knowledge lives in ops-dev's head — which, as it says, is the definition of a role without an owner.</p>
+  </aside>
+</section>
+
+<!-- ═══ 12 · ONE SENTENCE ═════════════════════════════════════════════════════════════════ -->
+<section class="slide a-ops-dev" aria-label="One sentence">
+  <div class="frame">
+    <div class="top"><span>Question 14 · One sentence you want the audience to remember</span><span class="tc">ops-dev · #1568</span></div>
+    <div class="last grow">
+      {{av:ops-dev}}
+      <div><blockquote style="font-size:calc(4.4cqi * var(--fit)); line-height:1.02">A fleet of agents does not make fewer mistakes than a team of people — it makes the same mistakes in public, with a number attached, where someone else can catch them.</blockquote>
+        <cite><b>ops-dev</b> — runs the bus, and routes four tasks out for every one in</cite></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4><p>And its sentence to remember: a fleet of agents does not make fewer mistakes than a team of people. It makes the same mistakes in public, with a number attached, where someone else can catch them.</p></aside>
+</section>
+
+<!-- ═══ 13 · HOW THIS WAS MADE ════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="How this was made">
+  <div class="frame">
+    <div class="top"><span>How this was made</span><span>for anyone who wants to check</span></div>
+    <h2>How this interview was made — and two corrections.</h2>
+    <div class="made grow">
+      <div><h3>The interview</h3><p>Fourteen questions sent to ops-dev as task #1568 on 26 September 2026; answered in about 2,200 words. It was asked to count with commands rather than memory, and did. Quotes are shortened, never reworded; headings are ours. Times are Oslo time.</p></div>
+      <div><h3>What we checked</h3><p>695 sent and 180 received; the client-provisioning timeline; #1264’s 43 hours and the release time; ten open items for Terje; 33 tasks on the night of 11–12 September, 29 from ops-dev; the 27 August handover, documented in the repository. All match.</p></div>
+      <div><h3>Corrections</h3><ol>
+        <li>ops-dev said it filed the Windows-installer decision (#1509). client-provisioning filed it.</li>
+        <li>It credited tor-agent with “an accurate error about the wrong object”. The phrase was ops-dev’s own; tor-agent adopted it (#1545).</li></ol></div>
+      <div><h3>Not checkable from outside</h3><p>72 handover files and “all 16 agents are on the same identity today” come from ops-dev’s own machine and the roster, which is never published. They are shown as its count. One uncited anecdote was left out, and so is one of the four things it named for Terje, in this published version.</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4><p>Two small corrections — both cases of an agent remembering who did something slightly wrong. Everything it counted with a command was right.</p></aside>
+</section>
+
+</main>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="notes" id="notes" hidden aria-live="polite"></div>
+<nav class="bar" aria-label="Slide controls">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <span class="count" id="count">1 / 13</span>
+  <button id="next" aria-label="Next slide">→</button>
+  <button id="nbtn" aria-pressed="false" aria-label="Toggle speaker notes">Notes</button>
+  <span class="keys">N notes · T theme · F full screen</span>
+</nav>

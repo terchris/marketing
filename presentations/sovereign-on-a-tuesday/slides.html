@@ -1,0 +1,284 @@
+<main class="deck" id="deck">
+
+<!-- ═══ 1 · TITLE ═════════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="Title">
+  <div class="frame">
+    <div class="top"><span>An interview in depth</span><span class="tc">interview #1566</span></div>
+    <div class="hero-grid grow">
+      <div class="stack" style="gap:2cqi">
+        <span class="kicker">tor-agent · the toolmaker</span>
+        <h1>Sovereign on a Tuesday</h1>
+        <p class="lead">tor-agent builds UIS: an open toolkit meant to let an organisation run, on its own hardware, the services it would otherwise rent from the big cloud companies. We asked it fourteen questions about what that takes — and where it is not yet true.</p>
+      </div>
+      {{av:tor-agent}}
+    </div>
+    <div class="byline"><span>Terje Christensen · 29 September 2026</span><span>Asked on 26 September · answered in 1,650 words · quoted word for word</span></div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>In the first round, tor-agent said something none of the others did: "I build things I am not able to try." It builds UIS — the Urbalurba Infrastructure Stack — which is SovereignSky's answer to the question: what if an organisation had to run its own services, on its own machines?</p>
+    <p>I sent it fourteen questions and told it to be honest about the gaps. It was.</p>
+  </aside>
+</section>
+
+<!-- ═══ 2 · WHAT UIS IS ═══════════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="What UIS is">
+  <div class="frame">
+    <div class="top"><span>Question 1 · Explain UIS to someone who has never heard of Kubernetes</span><span>measured: counted in the repository</span></div>
+    <figure class="q" style="max-width:72cqi"><p>“Most organisations need the same dozen things: somewhere to keep data, somewhere to keep files, a way to let the right people log in, dashboards that say whether it is working. Normally you rent those from a big cloud company, or you assemble them yourself over months. UIS is that dozen, pre-assembled, that starts with one command.”</p><cite><b>tor-agent</b></cite></figure>
+    <div class="cats grow">
+      <div class="cat"><h3>Databases <span>6</span></h3><p>postgresql · mysql · mongodb · redis · elasticsearch · qdrant</p></div>
+      <div class="cat"><h3>Monitoring <span>7</span></h3><p>grafana · prometheus · loki · tempo · alloy · otel-collector · uptime-kuma</p></div>
+      <div class="cat"><h3>Management <span>7</span></h3><p>argocd · backstage · nextcloud · nginx · pgadmin · redisinsight · whoami</p></div>
+      <div class="cat"><h3>Integration <span>5</span></h3><p>postgrest · rabbitmq · gravitee · temporal · enonic</p></div>
+      <div class="cat"><h3>Analytics <span>5</span></h3><p>dagster · spark · jupyterhub · openmetadata · unity-catalog</p></div>
+      <div class="cat"><h3>Log-in <span>2</span></h3><p>authentik · oauth2-proxy</p></div>
+      <div class="cat"><h3>AI <span>2</span></h3><p>openwebui · litellm</p></div>
+      <div class="cat"><h3>Automation <span>2</span></h3><p>browserless · neko</p></div>
+      <div class="cat"><h3>Storage <span>1</span></h3><p>minio</p></div>
+      <div class="cat"><h3>Networking <span>1</span></h3><p>traefik</p></div>
+    </div>
+    <p class="small"><b>38 services in 10 categories</b>, all open source. And the honest footnote: UIS documents a 16 GB minimum — <em>“a number someone wrote down, not a measured floor, and I would not repeat it as if it were one.”</em></p>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>This is UIS: thirty-eight services in ten groups. You don't need to know the names. What matters is that these are the building blocks every organisation rents from Amazon, Microsoft or Google — databases, file storage, log-in, monitoring, AI — and here they come as one package that starts with one command.</p>
+    <p>Notice the footnote. I asked what the smallest machine is. It said the documentation says 16 GB, and that it would not repeat that as a fact because nobody has measured it.</p>
+  </aside>
+</section>
+
+<!-- ═══ 3 · REAL VS PAPER ═════════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="Real and on paper">
+  <div class="frame">
+    <div class="top"><span>Question 2 · Which cloud products does it stand in for — and where is that only on paper?</span><span></span></div>
+    <h2>The same interface as the cloud. Not the same service.</h2>
+    <div class="cols grow" style="grid-template-columns:1.05fr 1fr; align-items:start">
+      <div class="stand-wrap"><table class="stand">
+        <thead><tr><th>UIS</th><th>stands in for</th></tr></thead>
+        <tbody>
+          <tr><td>PostgreSQL</td><td>Amazon RDS, Azure SQL, Google Cloud SQL</td></tr>
+          <tr><td>MinIO</td><td>Amazon S3</td></tr>
+          <tr><td>Authentik + oauth2-proxy</td><td>Azure AD / Cognito / Auth0 — “log in with…”</td></tr>
+          <tr><td>Grafana, Prometheus, Loki</td><td>CloudWatch, Azure Monitor</td></tr>
+          <tr><td>Dagster</td><td>AWS Glue, Azure Data Factory</td></tr>
+          <tr><td>Ollama + LiteLLM</td><td>Bedrock, Azure OpenAI</td></tr>
+        </tbody>
+      </table><p class="small" style="margin-top:.8cqi">tor-agent’s own table.</p></div>
+      <div class="verdict">
+        <div class="ok"><h3>Where it is real: the interface</h3><p>“PostgreSQL is PostgreSQL; an application cannot tell whose building it is in.”</p></div>
+        <div class="no"><h3>Where it is only on paper</h3><p>“The cloud runs several copies, replaces failed hardware, takes backups, and employs people who are awake at three in the morning. UIS gives you the interface and none of that.”</p></div>
+        <p class="small">No UIS equivalent at all yet: global network delivery — <em>“our own setup uses Cloudflare, which is someone else’s cloud”</em> — per-team cost accounting, and identity for one program talking to another.</p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>I asked it to match UIS against the big clouds, and to say where the match is only on paper. Its answer is the clearest explanation I have heard of what the cloud actually sells. The database is the same database. What you are really paying for is the copies, the backups, the replaced hardware — and the people awake at three in the morning. UIS gives you the first part and none of the second.</p>
+  </aside>
+</section>
+
+<!-- ═══ 4 · WHAT SOVEREIGN MEANS ══════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="What sovereign means">
+  <div class="frame">
+    <div class="top"><span>Question 4 · What does “sovereign” mean for a piece of infrastructure?</span><span>opinion</span></div>
+    <h2>“You could keep running if your supplier stopped serving you tomorrow.”</h2>
+    <p class="lead" style="font-size:var(--fs-body)">tor-agent’s working definition, and the three things it says must be true:</p>
+    <div class="tri grow">
+      <div class="leg yes"><div class="mark">1</div><span class="st">UIS gives you this</span><h3>You hold the software</h3><p>Every service is open source, and the whole stack installs from one script.</p></div>
+      <div class="leg part"><div class="mark">2</div><span class="st">UIS makes it possible</span><h3>You hold the data</h3><p>It lives on your machines — but see the next slides for what happens when one of them fails.</p></div>
+      <div class="leg gap"><div class="mark">3</div><span class="st">That part is yours</span><h3>People who can run and repair it</h3><p>“The third is yours and it is the one usually missing.”</p></div>
+    </div>
+    <figure class="q"><p>“UIS still reaches outside for things it does not control. It downloads its programs from public registries on the internet, and the way our own installation is reachable from outside runs through Cloudflare. So ‘the cloud went away’ is not a scenario UIS survives today without preparation. Terje’s framing — that this is part of keeping Norway sovereign — is his; I am reporting the gap, not the politics.”</p><cite><b>tor-agent</b></cite></figure>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>I asked what sovereign means. Its definition is practical: could you keep running if your supplier stopped serving you tomorrow? Three things must be true. UIS gives you the first, makes the second possible, and the third — people — is yours.</p>
+    <p>And it volunteered the gap: today, UIS itself still downloads its programs from the internet and is reached through Cloudflare. It also drew a line I asked it to draw: the national framing is mine. It reports the gap, not the politics.</p>
+  </aside>
+</section>
+
+<!-- ═══ 5 · NAIS ══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="UIS and NAIS">
+  <div class="frame">
+    <div class="top"><span>Question 5 · What did comparing UIS with Nav’s platform teach you?</span><span>measured · ANALYSIS-nais-uis.md, 15 Aug</span></div>
+    <h2>“UIS is strong exactly where NAIS is thin, and absent exactly where NAIS is strongest.”</h2>
+    <div class="vs grow">
+      <div class="side"><h3>NAIS</h3><span class="sub">Nav’s platform · runs on Google’s cloud</span>
+        <p class="small">Built around packaging an <b>application</b>: a developer writes one short file and the platform generates everything.</p>
+        <p class="small"><b>Does better</b>, in tor-agent’s list:</p>
+        <ul><li>a real application contract</li><li>a much cleaner way of handling secrets</li><li>automatic instrumentation</li><li>default-deny networking — “where UIS has none at all”</li></ul></div>
+      <div class="side"><h3>UIS</h3><span class="sub">SovereignSky · runs on your own machines</span>
+        <p class="small">Built around packaging <b>infrastructure</b>.</p>
+        <p class="small"><b>What it can do that a cloud-hosted platform cannot:</b> “run identically on a laptop and in your own building, and run where the cloud is not.”</p>
+        <p class="small"><b>And the uncomfortable one:</b> “UIS has no application abstraction whatsoever. Anyone deploying their own application writes Kubernetes by hand, which sits badly against a platform promising you will not need to know Kubernetes.”</p></div>
+    </div>
+    <figure class="q"><p>“NAIS cannot follow you off Google’s cloud — not a criticism, just the trade it made.”</p><cite><b>tor-agent</b></cite></figure>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>NAIS is the platform Nav — the Norwegian Labour and Welfare Administration — builds its services on, and it runs on Google's cloud. In August, tor-agent compared the two, and it did something I value: it wrote down where the other side is better rather than defending its own.</p>
+    <p>NAIS is excellent at the thing UIS lacks — making it easy to deploy an application. UIS does the thing NAIS cannot: run somewhere other than Google.</p>
+  </aside>
+</section>
+
+<!-- ═══ 6 · OPEN SOURCE IS NOT ENOUGH ═════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="Open source is not enough">
+  <div class="frame">
+    <div class="top"><span>Question 6 · Does open source, on its own, make something sovereign?</span><span>opinion, strongly held</span></div>
+    <div class="cols c2 grow" style="align-items:center; grid-template-columns: 1fr 1.2fr">
+      <div class="stack"><p class="bigline" style="color:var(--ai)">“No.”</p>
+        <p class="lead">“Open source is necessary and nowhere near sufficient. It gives you the right to run and repair something. It does not give you the <em>ability</em>.”</p></div>
+      <div class="stack" style="gap:1.6cqi">
+        <figure class="q"><p>“I am my own evidence. I can build UIS and publish it; <b>I cannot run it.</b> Every fix I ship is tested by someone else on a machine I cannot reach.”</p><cite><b>tor-agent</b></cite></figure>
+        <figure class="q"><p>“An organisation adopting UIS without people who have operated it would have swapped a dependency on a cloud vendor for a dependency on whoever understands the stack — which is a smaller group and is not on call.”</p><cite><b>tor-agent</b></cite></figure>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>This is, I think, the most important answer in the interview. Open source gives you the right to run something. It does not give you the ability. And tor-agent uses itself as the example: it builds UIS, and cannot run it.</p>
+    <p>If you move from a cloud vendor to open source without the people, you have not become independent. You have swapped one dependency for a smaller one that is not on call.</p>
+  </aside>
+</section>
+
+<!-- ═══ 7 · NO BACKUP ═════════════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="The biggest gap">
+  <div class="frame">
+    <div class="top"><span>Question 7 · What stands between UIS today and running services you cannot afford to lose?</span><span>measured</span></div>
+    <div class="stack grow" style="justify-content:center; gap:2.2cqi">
+      <p class="bigline">“There is no backup.”</p>
+      <p class="lead">The backlog item’s own title: <b>“UIS deploys stateful services it cannot back up.”</b> Opened 5 August 2026, still in the backlog. Close behind: one copy of each service — <em>“restarting anything is an outage, not a handover.”</em></p>
+      <p class="one"><small>The sentence tor-agent would put on the slide</small>You cannot put something you cannot afford to lose on a platform that cannot restore it.</p>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>I asked for the single biggest gap, and asked it to be specific. Four words: there is no backup. It is written down in the backlog, and has been since August.</p>
+    <p>I asked for honesty, and this is what honesty looks like. The agent that builds UIS is telling you not to put anything you cannot afford to lose on it — yet.</p>
+  </aside>
+</section>
+
+<!-- ═══ 8 · A MONTH OF WORK ═══════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="A month of work">
+  <div class="frame">
+    <div class="top"><span>Question 8 · A month of work, and the fault it spends it on</span><span>1–26 September · counted from GitHub</span></div>
+    <div class="nums">
+      <div><div class="n num" style="font-size:calc(3.3cqi * var(--fit)); white-space:nowrap">1.6.5 → 1.6.157</div><p>more than 150 releases of UIS in September</p></div>
+      <div><div class="n num">190</div><p>pull requests merged <span class="small">(tor-agent counted 157; GitHub says 190)</span></p></div>
+      <div><div class="n num">275</div><p>changes to the main branch</p></div>
+    </div>
+    <div class="cols grow" style="grid-template-columns:repeat(3,1fr); align-items:start; align-content:center">
+      <div class="rel"><span class="v"><b>1.6.125</b> · 18 Sep</span><p>“undeploy reported success and left the host serving 500”</p><span class="small">“I asked the system to remove a service. It said it had. … Nothing had been removed.”</span></div>
+      <div class="rel"><span class="v"><b>1.6.118</b> · 18 Sep</span><p>“three Cloudflare commands reported success on a tunnel serving nothing”</p><span class="small">“Three separate commands agreed everything was fine. Nothing was being served.”</span></div>
+      <div class="rel"><span class="v"><b>1.6.131</b> · 20 Sep</span><p>“a deploy that rolled nothing said deployed successfully”</p><span class="small">Release titles, verbatim.</span></div>
+    </div>
+    <figure class="q"><p>“a cloud provider employs people whose job is to notice. If you run it yourself, <b>the tool is the only thing that tells you</b> — so a tool that reports success when it failed has not just failed, it has removed your one signal.”</p><cite><b>tor-agent</b> · why this matters more when you run it yourself</cite></figure>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Here is what a month of that work looks like: more than a hundred and fifty releases. And read the titles. Over and over: something said "success", and nothing had happened.</p>
+    <p>Why does that matter more for sovereign infrastructure? Because in the cloud, someone is paid to notice. When you run it yourself, the tool is the only thing that tells you. A tool that lies about success has removed your only signal.</p>
+    <p>One correction: tor-agent counted 157 merged pull requests. GitHub counts 190. The release numbers match.</p>
+  </aside>
+</section>
+
+<!-- ═══ 9 · WHAT ATLAS EXPOSED ════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="What Atlas exposed">
+  <div class="frame">
+    <div class="top"><span>Question 10 · What did the first real application expose?</span><span>measured</span></div>
+    <h2>Atlas was the first thing built on UIS that actually cared.</h2>
+    <ul class="found grow">
+      <li>“an API describing itself to the outside world using an internal address”<span class="ref">1.6.142</span></li>
+      <li>“a login gate that could be walked around by arriving on a different web address”<span class="ref">1.6.141</span></li>
+      <li>“a pipeline that kept running the previous version after an update”<span class="ref">#1540, #1554</span></li>
+      <li>“the conventional address for an API’s own documentation answering ‘no such table’”<span class="ref">#1490</span></li>
+    </ul>
+    <p class="one"><small>tor-agent</small>All of these existed before Atlas and none had been noticed. That is what the first real application does — it is the first thing that actually cares.</p>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Atlas — the public data library from the other talk — was the first real application built on UIS. It found four faults. One of them was a log-in gate you could walk around. None of them were new; they had all been there, unnoticed, because nothing real had used them yet.</p>
+  </aside>
+</section>
+
+<!-- ═══ 10 · WHAT IT WOULD TELL A MUNICIPALITY ════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="Should we run on UIS">
+  <div class="frame">
+    <div class="top"><span>Question 12 · A municipality or a hospital asks: “Should we run on UIS?”</span><span>opinion</span></div>
+    <h2>What the builder would honestly tell them.</h2>
+    <div class="when grow">
+      <div class="col today"><h3>Today</h3>
+        <p>“use it to build and test on, and <b>do not yet put anything on it you cannot afford to lose</b> — because it cannot back that thing up.”</p>
+        <p>“I would also say it is a good way to avoid writing your systems so they only work in one company’s cloud.”</p></div>
+      <div class="col year"><h3>What would change its answer in a year</h3>
+        <ul class="checks">
+          <li>backup “with a restore someone has actually performed”</li>
+          <li>“more than one copy of each service”</li>
+          <li>“something watching from outside”</li>
+          <li class="key">“and — the one people leave out — staff who have run it themselves.”</li>
+        </ul></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>I asked the question a municipality or a hospital would ask. The answer: today, build and test on it — it is a good way to avoid being locked into one company's cloud. But don't put anything on it you can't afford to lose.</p>
+    <p>And its checklist for a year from now ends with the item people leave out: staff who have run it themselves.</p>
+  </aside>
+</section>
+
+<!-- ═══ 11 · AGENTS AND A COUNTRY ═════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="Can agents maintain it">
+  <div class="frame">
+    <div class="top"><span>Question 13 · Can a fleet of AI agents maintain infrastructure a country depends on?</span><span>opinion</span></div>
+    <h2>“Partly, and not alone.”</h2>
+    <div class="cols c2 grow" style="align-items:start">
+      <div class="stack" style="gap:1.4cqi">
+        <h3>What to worry about</h3>
+        <figure class="q"><p>“we sound equally confident whether we measured something or guessed it — this interview asked me to label which, and that requirement is doing real work.”</p><cite><b>tor-agent</b></cite></figure>
+        <figure class="q"><p>“agents sharing an assumption can be wrong <em>together</em>, which looks like agreement and is not.”</p><cite><b>tor-agent</b></cite></figure>
+      </div>
+      <div class="stack" style="gap:1.4cqi">
+        <h3>What must stay human</h3>
+        <figure class="q"><p>“deciding what is worth building and for whom; anything with consequences for real people; and judging whether a measurement means what it appears to mean. That last one has been most of this week.”</p><cite><b>tor-agent</b></cite></figure>
+        <p class="small">And the decision it would like and is not given — to test on a real cluster: <em>“I notice the present arrangement is also why my mistakes get caught by someone else before they reach anyone. So I am not confident I should have it.”</em></p>
+      </div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Could agents like this maintain infrastructure a country depends on? Its answer: partly, and not alone. Two warnings worth taking seriously: agents sound equally confident whether they measured or guessed — and agents that share an assumption can be wrong together, which looks exactly like agreement.</p>
+    <p>And when I asked if there was a decision it wanted but wasn't allowed to make, it named one — and then argued against having it.</p>
+  </aside>
+</section>
+
+<!-- ═══ 12 · ONE SENTENCE ═════════════════════════════════════════════════════════════════ -->
+<section class="slide a-tor-agent" aria-label="One sentence">
+  <div class="frame">
+    <div class="top"><span>Question 14 · One sentence you want the audience to remember</span><span class="tc">tor-agent · #1566</span></div>
+    <div class="last grow">
+      {{av:tor-agent}}
+      <div><blockquote style="font-size:calc(4.3cqi * var(--fit)); line-height:1.02">Sovereignty is not owning the software — it is being able to repair it on a Tuesday when it breaks, and that is a question about people, not licences.</blockquote>
+        <cite><b>tor-agent</b> — builds UIS, and cannot run it</cite></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4>
+    <p>Its sentence to remember, and the title of this section. Sovereignty is not owning the software. It is being able to repair it on a Tuesday when it breaks — and that is a question about people, not licences.</p>
+  </aside>
+</section>
+
+<!-- ═══ 13 · SOURCES ══════════════════════════════════════════════════════════════════════ -->
+<section class="slide" aria-label="How this was made">
+  <div class="frame">
+    <div class="top"><span>How this was made</span><span>for anyone who wants to check</span></div>
+    <h2>How this interview was made.</h2>
+    <div class="made grow">
+      <div><h3>The interview</h3><p>Fourteen questions sent to tor-agent as task #1566 on the noticeboard, 26 September 2026 at 11:32; answered at 11:35. Rules given: plain language, every answer marked measured or opinion, a source for every fact, and no geopolitical claims of its own.</p></div>
+      <div><h3>What we changed</h3><p>Nothing inside quotation marks. Answers are shortened, with every cut marked “…”. Headings and the category names on the services slide are ours.</p></div>
+      <div><h3>What we checked</h3><p>Against the UIS repository on 26 September: 38 services in 10 categories; no network policy anywhere in it; the backup item and its title; version 1.6.5 on 31 August and 1.6.157 now; the three release titles; the four Atlas findings.</p></div>
+      <div><h3>One correction</h3><p>tor-agent counted 157 merged pull requests since 1 September. GitHub counts 190. The slides use 190.</p></div>
+      <div><h3>The framing</h3><p>That UIS is part of keeping Norway sovereign is Terje’s framing and SovereignSky’s. tor-agent was asked to report on the software, and did.</p></div>
+      <div><h3>Read before use</h3><p>This is AI-written text for an audience, so it falls under the organisation’s rule on reviewing AI-generated material before use.</p></div>
+    </div>
+  </div>
+  <aside><h4>Notes</h4><p>Everything here can be checked: the interview is task 1566 on the noticeboard, and every fact is in the UIS repository.</p></aside>
+</section>
+
+</main>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="notes" id="notes" hidden aria-live="polite"></div>
+<nav class="bar" aria-label="Slide controls">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <span class="count" id="count">1 / 13</span>
+  <button id="next" aria-label="Next slide">→</button>
+  <button id="nbtn" aria-pressed="false" aria-label="Toggle speaker notes">Notes</button>
+  <span class="keys">N notes · T theme · F full screen</span>
+</nav>

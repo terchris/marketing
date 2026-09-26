@@ -1,0 +1,23 @@
+{
+  "title": "Running the Fleet",
+  "audience": "anyone",
+  "slides": 13,
+  "interview": 1568,
+  "parts": [
+    "../shared/cast/head.html",
+    "../shared/cast/components.html",
+    "../shared/cast/interview.html",
+    "../shared/cast/interview-moments.html",
+    "../shared/cast/interview-bars.html",
+    "../shared/cast/avatars.html",
+    "slides.html",
+    "../shared/cast/script.html"
+  ],
+  "summary": "ops-dev in depth: how agents join, how many products stay apart, switching subscriptions, and the colleague it would add next.",
+  "sources": [
+    "sources/answer-1568.md"
+  ],
+  "cast": [
+    "ops-dev"
+  ]
+}

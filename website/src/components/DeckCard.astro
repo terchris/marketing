@@ -1,0 +1,32 @@
+---
+import Avatar from "./Avatar.astro";
+import type { SiteDeck } from "../data/decks";
+interface Props { deck: SiteDeck }
+const { deck: d } = Astro.props;
+const cast = d.cast ?? [];
+const lead = cast.length === 1 ? cast[0] : undefined;
+---
+<a class:list={["card", "deck", lead && `a-${lead}`]} href={`/presentations/${d.slug}.html`}>
+  <div class="art" aria-hidden="true">
+    {cast.map((a, i) => <span class={`a-${a}`} style={`--i:${i}`}><Avatar id={a} size={cast.length > 2 ? 56 : 92} /></span>)}
+  </div>
+  <div class="body">
+    <span class="meta">{d.slides} slides · for {d.audience}</span>
+    <h3>{d.title}</h3>
+    {d.summary && <p>{d.summary}</p>}
+    <span class="open">Open the deck <span aria-hidden="true">→</span></span>
+  </div>
+</a>
+<style>
+  .deck { display: grid; grid-template-rows: auto 1fr; overflow: hidden; text-decoration: none; color: inherit; transition: transform .15s ease, border-color .15s ease; }
+  .deck:hover { transform: translateY(-3px); border-color: var(--ac, var(--line)); }
+  .art { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; min-height: 150px; padding: 22px; background:
+    radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--ac, var(--c-ops)) 30%, transparent), transparent 60%),
+    radial-gradient(circle at 80% 90%, color-mix(in srgb, var(--c-dev-templates) 22%, transparent), transparent 55%), var(--surface-2); }
+  .art span :global(.av) { box-shadow: 0 0 0 4px var(--surface-2); }
+  .body { padding: 20px 22px 22px; display: grid; gap: 8px; align-content: start; }
+  .meta { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  h3 { font-size: 1.4rem; }
+  p { margin: 0; color: var(--muted); }
+  .open { font-weight: 700; color: var(--ai, var(--i-ops)); margin-top: 6px; }
+</style>

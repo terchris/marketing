@@ -1,0 +1,22 @@
+{
+  "title": "Grown Up on the Fleet",
+  "audience": "anyone",
+  "slides": 15,
+  "interview": 1567,
+  "parts": [
+    "../shared/cast/head.html",
+    "../shared/cast/components.html",
+    "../shared/cast/interview.html",
+    "../shared/cast/interview-moments.html",
+    "../shared/cast/avatars.html",
+    "slides.html",
+    "../shared/cast/script.html"
+  ],
+  "summary": "atlas in depth: the first application that grew up on the fleet, its mission, and what its first customer taught it.",
+  "sources": [
+    "sources/answer-1567.md"
+  ],
+  "cast": [
+    "atlas"
+  ]
+}

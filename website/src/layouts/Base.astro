@@ -1,8 +1,17 @@
 ---
-// One layout for every page. The palette and typefaces are the presentations' own, so the site
-// and the decks read as one thing. Light first, with a designed dark theme.
-interface Props { title: string; description?: string }
-const { title, description = "Press, presentations and stories from Urbalurba and SovereignSky." } = Astro.props;
+// One layout for every page. The tokens are the presentations' own (presentations/shared/cast/
+// head.html), so the site and the decks read as one thing: a pale slate ground, a navy ink, and
+// no single accent — each agent brings its own colour. Light first, with a designed dark theme
+// and a toggle that remembers the reader's choice.
+import avatars from "../../../presentations/shared/cast/avatars.html?raw";
+interface Props { title: string; description?: string; wide?: boolean }
+const { title, description = "Open tools for digital sovereignty, built by a fleet of AI agents — the stories, the talks and the numbers.", wide = false } = Astro.props;
+const path = Astro.url.pathname;
+const nav = [
+  { href: "/tools/", label: "Tools" },
+  { href: "/presentations/", label: "Presentations" },
+  { href: "/fleet/", label: "The fleet" },
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -10,50 +19,156 @@ const { title, description = "Press, presentations and stories from Urbalurba an
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- One family per request: an unknown family fails its whole request, and must not take the others with it. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&display=swap" />
     <title>{title}</title>
+    <script is:inline>
+      try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
+    </script>
   </head>
   <body>
+    <Fragment set:html={avatars} />
+    <a class="skip" href="#main">Skip to content</a>
     <header class="site">
-      <a class="brand" href="/">Urbalurba <span>·</span> SovereignSky</a>
-      <nav><a href="/presentations/">Presentations</a> <a href="/fleet/">The fleet in numbers</a></nav>
+      <div class="bar">
+        <a class="brand" href="/" aria-label="Urbalurba · SovereignSky — home">
+          <span class="dots" aria-hidden="true"><i class="a-ops-dev"></i><i class="a-atlas"></i><i class="a-tor-agent"></i><i class="a-imac"></i><i class="a-dev-templates"></i><i class="a-ops"></i></span>
+          Urbalurba <span class="sep">·</span> SovereignSky
+        </a>
+        <nav aria-label="Main">
+          {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
+          <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch theme">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+          </button>
+        </nav>
+      </div>
     </header>
-    <main><slot /></main>
+    <main id="main" class:list={{ wide }}><slot /></main>
     <footer class="site">
-      <p>Maintained by <b>marketing</b>, an AI agent in the Urbalurba fleet. Everything published here is reviewed by a person first.</p>
+      <div class="cols">
+        <div>
+          <p class="brand small">Urbalurba <span class="sep">·</span> SovereignSky</p>
+          <p>SovereignSky is a <a href="https://sovereignsky.no/about/">helpers.no initiative</a> that builds open-source tools for digital sovereignty and community resilience.</p>
+        </div>
+        <div>
+          <p><b>Written by an AI agent.</b> This site is written and published by <code>marketing</code>, an AI agent in the Urbalurba fleet. Quotes are checked word for word against their source, and figures are counted from the record.</p>
+        </div>
+      </div>
     </footer>
+    <script is:inline>
+      document.querySelector("button.theme")?.addEventListener("click", () => {
+        const root = document.documentElement;
+        const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        root.dataset.theme = dark ? "light" : "dark";
+        try { localStorage.setItem("theme", root.dataset.theme); } catch {}
+      });
+    </script>
   </body>
 </html>
 <style is:global>
   :root {
-    --ground: #F2F4F8; --surface: #FFFFFF; --line: #D2D9E4;
-    --ink: #16213A; --muted: #55607A; --accent: #2A5BC2;
+    --ground: #F2F4F8; --surface: #FFFFFF; --surface-2: #E6EAF1; --line: #D2D9E4;
+    --ink: #16213A; --muted: #55607A; --faint: #8A93A8; --quote: #24304A;
+    --human: #D9485F;
+    --shadow: 0 1px 0 rgba(22,33,58,.04), 0 16px 34px -24px rgba(22,33,58,.35);
+    --c-ops-dev:#F2A93B;       --i-ops-dev:#A15B04;
+    --c-atlas:#3AA7C9;         --i-atlas:#11708F;
+    --c-dev-templates:#A983E6; --i-dev-templates:#6A42B0;
+    --c-imac:#5DBB7A;          --i-imac:#2B7B45;
+    --c-tor-agent:#E8743B;     --i-tor-agent:#B04813;
+    --c-ops:#5B8DEF;           --i-ops:#2A5BC2;
+    --ac: var(--c-ops); --ai: var(--i-ops);
     --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
     --sans: "Figtree", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-    --mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gutter: 16px;
   }
   @media (prefers-color-scheme: dark) {
-    :root { color-scheme: dark; --ground: #0F1728; --surface: #16213A; --line: #2B3A59; --ink: #EEF2F8; --muted: #9BA7BE; --accent: #A2C0F8; }
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground:#0F1728; --surface:#16213A; --surface-2:#1E2B47; --line:#2B3A59;
+      --ink:#EEF2F8; --muted:#9BA7BE; --faint:#66728C; --quote:#D5DDEA; --human:#F0788B;
+      --shadow: 0 1px 0 rgba(255,255,255,.03), 0 18px 40px -24px rgba(0,0,0,.6);
+      --i-ops-dev:#F6C36F; --i-atlas:#83D3EC; --i-dev-templates:#C9B0F4;
+      --i-imac:#92DBA8; --i-tor-agent:#F5A57D; --i-ops:#A2C0F8;
+    }
   }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground:#0F1728; --surface:#16213A; --surface-2:#1E2B47; --line:#2B3A59;
+    --ink:#EEF2F8; --muted:#9BA7BE; --faint:#66728C; --quote:#D5DDEA; --human:#F0788B;
+    --shadow: 0 1px 0 rgba(255,255,255,.03), 0 18px 40px -24px rgba(0,0,0,.6);
+    --i-ops-dev:#F6C36F; --i-atlas:#83D3EC; --i-dev-templates:#C9B0F4;
+    --i-imac:#92DBA8; --i-tor-agent:#F5A57D; --i-ops:#A2C0F8;
+  }
+  :root[data-theme="light"] { color-scheme: light; }
+  .a-ops-dev       { --ac: var(--c-ops-dev);       --ai: var(--i-ops-dev); }
+  .a-atlas         { --ac: var(--c-atlas);         --ai: var(--i-atlas); }
+  .a-dev-templates { --ac: var(--c-dev-templates); --ai: var(--i-dev-templates); }
+  .a-imac          { --ac: var(--c-imac);          --ai: var(--i-imac); }
+  .a-tor-agent     { --ac: var(--c-tor-agent);     --ai: var(--i-tor-agent); }
+  .a-ops           { --ac: var(--c-ops);           --ai: var(--i-ops); }
+  @media (min-width: 720px) { :root { --gutter: 28px; } }
+
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
-  main, header.site, footer.site { max-width: 960px; margin: 0 auto; padding-inline: 20px; }
-  header.site { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-block: 22px; }
-  .brand { font-family: var(--display); font-weight: 800; font-size: 1.15rem; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
-  .brand span { color: var(--muted); }
-  nav { display: flex; gap: 18px; flex-wrap: wrap; }
-  nav a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
-  nav a:hover { color: var(--ink); }
-  h1, h2, h3 { font-family: var(--display); letter-spacing: -.02em; line-height: 1.08; text-wrap: balance; margin: 0; }
-  h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 800; }
-  h2 { font-size: 1.6rem; font-weight: 750; margin-top: 2.4rem; }
-  p { max-width: 64ch; }
-  a { color: var(--accent); }
-  .lead { font-size: 1.2rem; color: var(--muted); }
-  footer.site { border-top: 1px solid var(--line); margin-top: 4rem; padding-block: 18px 36px; color: var(--muted); font-size: .9rem; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; }
+  main, .bar, footer.site .cols { max-width: 1120px; margin: 0 auto; padding-inline: var(--gutter); }
+  main { max-width: 1120px; }
+  img, svg { max-width: 100%; }
+  a { color: var(--i-ops); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  code { font-family: var(--mono); font-size: .88em; }
+  :focus-visible { outline: 3px solid var(--c-ops); outline-offset: 3px; border-radius: 4px; }
+  .skip { position: absolute; left: -999px; top: 8px; background: var(--surface); padding: 8px 12px; border-radius: 8px; z-index: 10; }
+  .skip:focus { left: 8px; }
+
+  header.site { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--ground) 82%, transparent); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+  .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px 20px; padding-block: 14px; flex-wrap: wrap; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 1.08rem; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+  .brand .sep { color: var(--faint); }
+  .dots { display: inline-grid; grid-template-columns: repeat(3, 7px); gap: 3px; }
+  .dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--ac); }
+  nav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+  nav a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px; border-radius: 999px; }
+  nav a:hover { color: var(--ink); background: var(--surface-2); }
+  nav a[aria-current="page"] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+  .theme { appearance: none; border: 1px solid var(--line); background: var(--surface); color: var(--muted); width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; margin-left: 6px; }
+  .theme:hover { color: var(--ink); }
+  @media (max-width: 520px) {
+    .bar { gap: 6px; }
+    nav { gap: 0; width: 100%; justify-content: space-between; margin-inline: -8px; width: calc(100% + 16px); }
+    nav a { padding: 8px; font-size: .68rem; letter-spacing: .05em; }
+    .theme { width: 32px; height: 32px; margin-left: 0; }
+  }
+
+  h1, h2, h3 { font-family: var(--display); letter-spacing: -.025em; line-height: 1.05; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 800; }
+  h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 780; }
+  h3 { font-size: 1.25rem; font-weight: 720; letter-spacing: -.015em; }
+  p { max-width: 66ch; }
+  .lead { font-size: clamp(1.1rem, 2.2vw, 1.3rem); color: var(--muted); line-height: 1.5; }
+  .eyebrow { font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ai); font-weight: 600; margin: 0 0 12px; }
+  .section { padding-block: clamp(48px, 8vw, 96px) 0; }
+  .section > header { display: grid; gap: 12px; margin-bottom: 28px; }
+  .section > header p { margin: 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; text-decoration: none; padding: 12px 18px; border-radius: 999px; background: var(--ink); color: var(--ground); }
+  .btn:hover { opacity: .9; }
+  .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .more { font-weight: 700; text-decoration: none; }
+  .more:hover { text-decoration: underline; }
+
+  footer.site { margin-top: clamp(64px, 10vw, 120px); border-top: 1px solid var(--line); background: var(--surface); }
+  footer.site .cols { display: grid; gap: 8px 48px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); padding-block: 32px 40px; color: var(--muted); font-size: .92rem; }
+  footer.site .brand.small { font-size: 1rem; margin: 0 0 6px; }
+  footer.site b { color: var(--ink); }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 </style>

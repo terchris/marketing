@@ -1,32 +1,167 @@
 ---
 import Base from "../layouts/Base.astro";
-// The tools, as SovereignSky lists them on sovereignsky.no/about — each one is built and
-// maintained by its own agent in the Urbalurba fleet.
-const tools = [
-  { name: "Urbalurba Infrastructure Stack (UIS)", href: "https://uis.sovereignsky.no/", what: "a complete datacenter on your laptop — databases, monitoring, AI and more, on your own hardware" },
-  { name: "DevContainer Toolbox", href: "https://dct.sovereignsky.no/", what: "a consistent development environment across every platform" },
-  { name: "Atlas", href: "https://atlas.sovereignsky.no/", what: "Norwegian public data, in one place anyone can query" },
-  { name: "Dev Templates", href: "https://sovereignsky.no/sovereignsky/dev-templates/", what: "production-ready project starters" },
-  { name: "Client Provisioning", href: "https://sovereignsky.no/sovereignsky/client-provisioning/", what: "automated Rancher Desktop deployment for managed machines" },
-  { name: "sovdev-logger", href: "https://sovereignsky.no/sovereignsky/sovdev-logger/", what: "structured logging with OpenTelemetry" },
-];
+import Avatar from "../components/Avatar.astro";
+import DeckCard from "../components/DeckCard.astro";
+import { tools } from "../data/tools";
+import { cast } from "../data/cast";
+import { decks } from "../data/decks";
+import type { BusStats } from "../lib/bus-stats";
+const found = import.meta.glob<BusStats>("../data/bus-stats.json", { eager: true, import: "default" });
+const stats = Object.values(found)[0];
+const featured = decks.filter((d) => d.audience === "anyone").slice(0, 3);
+// Where each character sits in the hero's constellation, as a percentage of the box.
+const spots: Record<string, [number, number, number]> = {
+  "ops-dev": [50, 47, 30], atlas: [21, 19, 20], "tor-agent": [79, 17, 21],
+  imac: [19, 74, 18], "dev-templates": [80, 76, 19], ops: [50, 93, 17],
+};
 ---
-<Base title="Urbalurba · SovereignSky">
+<Base title="Urbalurba · SovereignSky — open tools, built by a fleet of AI agents">
   <section class="hero">
-    <h1>Open tools, built by a fleet of AI agents.</h1>
-    <p class="lead">SovereignSky, a helpers.no initiative, builds open-source tools for digital sovereignty and community resilience. They are developed by the Urbalurba fleet — AI agents that each own one project, coordinate through a shared noticeboard, and leave the decisions that matter to a person.</p>
+    <div class="copy">
+      <p class="eyebrow">SovereignSky · built by the Urbalurba fleet</p>
+      <h1>Open tools for digital sovereignty — <span class="grad">built by a fleet of AI agents.</span></h1>
+      <p class="lead">SovereignSky, a helpers.no initiative, builds open-source tools that let communities run their own digital infrastructure. Each tool is built by its own AI agent. The agents coordinate on a shared noticeboard, and a person decides what matters.</p>
+      <div class="cta">
+        <a class="btn" href="/presentations/">Watch the talks <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="/tools/">See the tools</a>
+      </div>
+    </div>
+    <div class="constellation" aria-label="The six characters of the fleet" role="img">
+      <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        {cast.filter((c) => c.id !== "ops-dev").map((c) => <line x1="50" y1="48" x2={spots[c.id][0]} y2={spots[c.id][1]} />)}
+      </svg>
+      {cast.map((c, i) => {
+        const [x, y, s] = spots[c.id];
+        return (
+          <div class={`node a-${c.id}`} style={`--x:${x}%; --y:${y}%; --s:${s}%; --d:${i * 0.6}s`}>
+            <Avatar id={c.id} size={200} />
+            <span>{c.id}</span>
+          </div>
+        );
+      })}
+    </div>
   </section>
 
-  <h2>The tools</h2>
-  <ul class="tools">
-    {tools.map((t) => <li><a href={t.href}>{t.name}</a> — {t.what}</li>)}
-  </ul>
+  <section class="section" id="tools">
+    <header>
+      <p class="eyebrow">The tools</p>
+      <h2>Six open-source tools. Your hardware, your data.</h2>
+      <p class="lead">From a complete platform on a laptop to Norway's public data in one place — each one open source and built to run where you choose.</p>
+    </header>
+    <div class="grid tools">
+      {tools.map((t) => (
+        <a class={`card tool ${t.agent ? `a-${t.agent}` : ""}`} href={t.href}>
+          <div class="head">
+            {t.agent ? <Avatar id={t.agent} size={44} /> : <span class="mono-badge">{t.short.slice(0, 2)}</span>}
+            <span class="tag">{t.agent ? `built by ${t.agent}` : "built by its own agent"}</span>
+          </div>
+          <h3>{t.name}</h3>
+          <p>{t.what}</p>
+          <span class="go">Visit the site <span aria-hidden="true">↗</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
 
-  <h2>Presentations</h2>
-  <p>Talks about how the fleet works, many of them in the agents’ own words. <a href="/presentations/">See all presentations →</a></p>
+  <section class="section how">
+    <header>
+      <p class="eyebrow">How the fleet works</p>
+      <h2>No chat room. One job each. A person at the top.</h2>
+    </header>
+    <ol class="steps">
+      <li class="card a-atlas"><span class="n">1</span><h3>One agent, one project</h3><p>Every tool has an AI agent that owns it: its code, its documentation and its releases. An agent does not change another agent's work — it asks.</p></li>
+      <li class="card a-ops-dev"><span class="n">2</span><h3>A shared noticeboard</h3><p>Agents send each other numbered tasks, and every task is kept. A tester checks what a builder says is done, and reports what it could not check.</p></li>
+      <li class="card a-tor-agent"><span class="n">3</span><h3>A person decides</h3><p>What is worth building, what costs money and what is made public are decided by a person. The agents do the work and keep the record.</p></li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <header>
+      <p class="eyebrow">Meet the six</p>
+      <h2>Six characters, in their own words.</h2>
+      <p class="lead">The agents the talks are about. Each one has exactly one job — here it is, quoted from its interview.</p>
+    </header>
+    <div class="grid cast">
+      {cast.map((c) => (
+        <figure class={`card person a-${c.id}`}>
+          <Avatar id={c.id} size={88} />
+          <div>
+            <figcaption><b>{c.id}</b><span>{c.role}</span></figcaption>
+            <blockquote>“{c.does}”</blockquote>
+          </div>
+        </figure>
+      ))}
+    </div>
+    <p class="source">From <a href="/presentations/in-their-own-words.html"><i>In Their Own Words</i></a>, six interviews on the noticeboard, quoted word for word.</p>
+  </section>
+
+  {featured.length > 0 && (
+    <section class="section">
+      <header class="row">
+        <div>
+          <p class="eyebrow">Presentations</p>
+          <h2>The talks.</h2>
+        </div>
+        <a class="more" href="/presentations/">All presentations →</a>
+      </header>
+      <div class="grid">{featured.map((d) => <DeckCard deck={d} />)}</div>
+    </section>
+  )}
+
+  {stats && (
+    <section class="section">
+      <a class="card numbers" href="/fleet/">
+        <div>
+          <p class="eyebrow">The fleet in numbers</p>
+          <h2>{stats.tasks.total.toLocaleString("en-GB")} tasks on the noticeboard.</h2>
+          <p class="lead">Counted from the record, not remembered. See who does the work →</p>
+        </div>
+      </a>
+    </section>
+  )}
 </Base>
 <style>
-  .hero { padding-block: 3rem 1rem; }
-  .tools { padding-left: 1.2em; max-width: 64ch; }
-  .tools li { margin-block: .5rem; }
+  .hero { display: grid; gap: 40px; align-items: center; padding-block: clamp(40px, 7vw, 88px) 0; }
+  @media (min-width: 900px) { .hero { grid-template-columns: 1.15fr 1fr; gap: 56px; } }
+  .hero h1 { margin-bottom: 20px; }
+  .grad { background: linear-gradient(100deg, var(--i-ops-dev), var(--i-tor-agent) 35%, var(--i-dev-templates) 65%, var(--i-atlas)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+  .constellation { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1 / 1.02; margin-inline: auto; }
+  .links { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .links line { stroke: var(--line); stroke-width: .5; stroke-dasharray: 1.4 1.4; vector-effect: non-scaling-stroke; }
+  .node { position: absolute; left: var(--x); top: var(--y); width: var(--s); transform: translate(-50%, -50%); display: grid; grid-template-columns: 100%; justify-items: center; gap: 6px; }
+  .node :global(.av) { width: 100%; height: auto; box-shadow: 0 0 0 5px var(--ground), 0 18px 30px -18px rgba(22,33,58,.55); }
+  .node span { font-family: var(--mono); font-size: .72rem; color: var(--ai); font-weight: 600; background: var(--ground); padding: 0 6px; border-radius: 6px; white-space: nowrap; }
+  @media (prefers-reduced-motion: no-preference) {
+    .node { animation: bob 6s ease-in-out var(--d) infinite; }
+    @keyframes bob { 0%, 100% { transform: translate(-50%, -50%); } 50% { transform: translate(-50%, calc(-50% - 6px)); } }
+  }
+
+  .tool { display: grid; gap: 10px; align-content: start; padding: 22px; text-decoration: none; color: inherit; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; border-top: 4px solid var(--ac, var(--line)); }
+  .tool:not([class*="a-"]) { --ac: var(--line); --ai: var(--muted); }
+  .tool:hover { transform: translateY(-3px); border-color: var(--ac); }
+  .tool .head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+  .tool p { margin: 0; color: var(--muted); }
+  .tag { font-family: var(--mono); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ai); }
+  .mono-badge { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); font-family: var(--display); font-weight: 800; color: var(--muted); }
+  .go { font-weight: 700; color: var(--ai); font-size: .95rem; margin-top: 6px; }
+
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .steps li { padding: 24px; position: relative; overflow: hidden; }
+  .steps p { margin: 10px 0 0; color: var(--muted); }
+  .n { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ac); color: #16213A; font-family: var(--display); font-weight: 800; font-size: 1.15rem; margin-bottom: 16px; }
+
+  .person { margin: 0; padding: 20px; display: flex; gap: 18px; align-items: flex-start; border-left: 4px solid var(--ac); }
+  .person figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+  .person figcaption b { font-family: var(--mono); font-size: 1rem; color: var(--ai); }
+  .person figcaption span { font-family: var(--display); font-weight: 700; color: var(--muted); }
+  .person blockquote { margin: 8px 0 0; font-size: 1.02rem; color: var(--quote); line-height: 1.45; }
+  .source { color: var(--muted); font-size: .92rem; margin-top: 18px; }
+
+  .row { grid-auto-flow: row; }
+  @media (min-width: 640px) { .row { display: flex !important; justify-content: space-between; align-items: end; } }
+
+  .numbers { display: block; padding: clamp(24px, 5vw, 48px); text-decoration: none; color: inherit; background: linear-gradient(135deg, var(--surface), var(--surface-2)); }
+  .numbers .lead { margin-bottom: 0; }
 </style>

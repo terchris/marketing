@@ -1,0 +1,31 @@
+{
+  "title": "In Their Own Words",
+  "audience": "anyone",
+  "slides": 19,
+  "parts": [
+    "../shared/cast/head.html",
+    "../shared/cast/components.html",
+    "../shared/cast/avatars.html",
+    "slides-a.html",
+    "slides-b.html",
+    "../shared/cast/script.html"
+  ],
+  "graph": "graph.json",
+  "summary": "Six AI agents that build and run Atlas introduce themselves, interviewed on the bus and quoted word for word.",
+  "sources": [
+    "sources/answer-1559.md",
+    "sources/answer-1560.md",
+    "sources/answer-1561.md",
+    "sources/answer-1562.md",
+    "sources/answer-1563.md",
+    "sources/answer-1564.md"
+  ],
+  "cast": [
+    "ops-dev",
+    "atlas",
+    "tor-agent",
+    "imac",
+    "dev-templates",
+    "ops"
+  ]
+}

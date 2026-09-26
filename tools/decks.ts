@@ -14,7 +14,8 @@
 //
 // Decks derived from the bus live in private/presentations/ — git-ignored, because this
 // repository is public — and build into private/built/, never into website/public/, so they
-// cannot reach the site. private/presentations/shared links to presentations/shared.
+// cannot reach the site. private/presentations/shared links to presentations/shared. A deck
+// cleared for publication moves to presentations/; its sources/ (the interview answers) stay here.
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -39,6 +40,8 @@ export interface Deck {
   stats?: string;
   graph?: string;
   sources?: string[];
+  /** the characters the deck is about, drawn on its card on the site */
+  cast?: string[];
 }
 interface Graph {
   label: string;

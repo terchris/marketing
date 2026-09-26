@@ -1,0 +1,368 @@
+{
+ "layout": {
+  "hub": "ops-dev",
+  "characters": [
+   "ops-dev",
+   "atlas",
+   "imac",
+   "tor-agent",
+   "ops",
+   "dev-templates"
+  ],
+  "inner": {
+   "atlas": 205,
+   "imac": 262,
+   "tor-agent": 322,
+   "ops": 28,
+   "urb-agents-maintainer": 92,
+   "dev-templates": 152
+  },
+  "outer": {
+   "assist": 52,
+   "terje": 106,
+   "client-provisioning": 126,
+   "devcontainer-toolbox": 144,
+   "urbalurba": 166,
+   "sovdev-logger": 186,
+   "mimer": 228,
+   "bifrost": 244,
+   "ollacrm": 292,
+   "noclickops": 306,
+   "huginn": 348
+  },
+  "human": "terje"
+ },
+ "pairs": [
+  [
+   "atlas",
+   "ops-dev",
+   248
+  ],
+  [
+   "imac",
+   "ops-dev",
+   146
+  ],
+  [
+   "ops-dev",
+   "urb-agents-maintainer",
+   128
+  ],
+  [
+   "ops-dev",
+   "tor-agent",
+   119
+  ],
+  [
+   "dev-templates",
+   "ops-dev",
+   100
+  ],
+  [
+   "imac",
+   "tor-agent",
+   38
+  ],
+  [
+   "ops",
+   "ops-dev",
+   35
+  ],
+  [
+   "atlas",
+   "imac",
+   31
+  ],
+  [
+   "atlas",
+   "tor-agent",
+   27
+  ],
+  [
+   "client-provisioning",
+   "ops-dev",
+   18
+  ],
+  [
+   "ops",
+   "tor-agent",
+   16
+  ],
+  [
+   "imac",
+   "ops",
+   15
+  ],
+  [
+   "ops-dev",
+   "urbalurba",
+   14
+  ],
+  [
+   "assist",
+   "ops",
+   13
+  ],
+  [
+   "tor-agent",
+   "urb-agents-maintainer",
+   13
+  ],
+  [
+   "assist",
+   "ops-dev",
+   12
+  ],
+  [
+   "client-provisioning",
+   "terje",
+   11
+  ],
+  [
+   "devcontainer-toolbox",
+   "ops-dev",
+   10
+  ],
+  [
+   "atlas",
+   "terje",
+   9
+  ],
+  [
+   "ops-dev",
+   "sovdev-logger",
+   9
+  ],
+  [
+   "ops-dev",
+   "terje",
+   8
+  ],
+  [
+   "bifrost",
+   "ops-dev",
+   7
+  ],
+  [
+   "terje",
+   "tor-agent",
+   6
+  ],
+  [
+   "ops",
+   "urb-agents-maintainer",
+   5
+  ],
+  [
+   "imac",
+   "urb-agents-maintainer",
+   5
+  ],
+  [
+   "ollacrm",
+   "ops-dev",
+   5
+  ],
+  [
+   "noclickops",
+   "ops-dev",
+   5
+  ],
+  [
+   "client-provisioning",
+   "devcontainer-toolbox",
+   4
+  ],
+  [
+   "atlas",
+   "urb-agents-maintainer",
+   4
+  ],
+  [
+   "atlas",
+   "ops",
+   4
+  ],
+  [
+   "atlas",
+   "dev-templates",
+   4
+  ],
+  [
+   "dev-templates",
+   "tor-agent",
+   4
+  ],
+  [
+   "mimer",
+   "ops-dev",
+   4
+  ],
+  [
+   "devcontainer-toolbox",
+   "terje",
+   3
+  ],
+  [
+   "ops",
+   "terje",
+   3
+  ],
+  [
+   "dev-templates",
+   "imac",
+   3
+  ],
+  [
+   "terje",
+   "urb-agents-maintainer",
+   2
+  ],
+  [
+   "dev-templates",
+   "urb-agents-maintainer",
+   2
+  ],
+  [
+   "sovdev-logger",
+   "terje",
+   2
+  ],
+  [
+   "assist",
+   "urb-agents-maintainer",
+   2
+  ],
+  [
+   "mimer",
+   "ops",
+   2
+  ],
+  [
+   "mimer",
+   "ollacrm",
+   2
+  ],
+  [
+   "huginn",
+   "urb-agents-maintainer",
+   2
+  ],
+  [
+   "imac",
+   "terje",
+   1
+  ],
+  [
+   "urb-agents-maintainer",
+   "urbalurba",
+   1
+  ],
+  [
+   "sovdev-logger",
+   "urb-agents-maintainer",
+   1
+  ],
+  [
+   "ollacrm",
+   "urb-agents-maintainer",
+   1
+  ],
+  [
+   "noclickops",
+   "urb-agents-maintainer",
+   1
+  ],
+  [
+   "mimer",
+   "urb-agents-maintainer",
+   1
+  ],
+  [
+   "bifrost",
+   "urb-agents-maintainer",
+   1
+  ],
+  [
+   "ops",
+   "sovdev-logger",
+   1
+  ],
+  [
+   "ollacrm",
+   "ops",
+   1
+  ],
+  [
+   "noclickops",
+   "ops",
+   1
+  ],
+  [
+   "imac",
+   "mimer",
+   1
+  ],
+  [
+   "huginn",
+   "ops-dev",
+   1
+  ],
+  [
+   "ops",
+   "urbalurba",
+   1
+  ],
+  [
+   "noclickops",
+   "sovdev-logger",
+   1
+  ],
+  [
+   "noclickops",
+   "urbalurba",
+   1
+  ],
+  [
+   "ollacrm",
+   "urbalurba",
+   1
+  ],
+  [
+   "bifrost",
+   "ollacrm",
+   1
+  ],
+  [
+   "bifrost",
+   "mimer",
+   1
+  ],
+  [
+   "atlas",
+   "mimer",
+   1
+  ]
+ ],
+ "total": {
+  "ops-dev": 869,
+  "terje": 45,
+  "tor-agent": 223,
+  "atlas": 328,
+  "devcontainer-toolbox": 17,
+  "urb-agents-maintainer": 169,
+  "client-provisioning": 33,
+  "imac": 240,
+  "dev-templates": 113,
+  "ops": 97,
+  "assist": 27,
+  "urbalurba": 18,
+  "sovdev-logger": 14,
+  "bifrost": 10,
+  "ollacrm": 11,
+  "noclickops": 9,
+  "mimer": 12,
+  "huginn": 3
+ },
+ "label": "Network of who sends tasks to whom on the bus: ops-dev at the centre, most traffic between ops-dev and atlas, imac, urb-agents-maintainer, tor-agent and dev-templates."
+}
