@@ -11,13 +11,21 @@
 //
 //   npm run decks              build every deck
 //   npm run decks -- <slug>    build one
+//
+// Decks derived from the bus live in private/presentations/ — git-ignored, because this
+// repository is public — and build into private/built/, never into website/public/, so they
+// cannot reach the site. private/presentations/shared links to presentations/shared.
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const HERE = join(ROOT, "presentations");
-const OUT = join(ROOT, "website", "public", "presentations");
+/** Where decks are read from, and where each set is built to. The private set is optional. */
+export const ROOTS = [
+  { src: join(ROOT, "presentations"), out: join(ROOT, "website", "public", "presentations") },
+  { src: join(ROOT, "private", "presentations"), out: join(ROOT, "private", "built") },
+];
+const isDeck = (src: string, slug: string): boolean => slug !== "shared" && existsSync(join(src, slug, "deck.json"));
 
 /** presentations/<slug>/deck.json */
 export interface Deck {
@@ -93,8 +101,8 @@ function graph(G: Graph): string {
   return out.join("\n");
 }
 
-function build(slug: string): void {
-  const dir = join(HERE, slug);
+function build(slug: string, src: string, out: string): void {
+  const dir = join(src, slug);
   const deck = JSON.parse(readFileSync(join(dir, "deck.json"), "utf8")) as Deck;
   const read = (f: string): string => readFileSync(join(dir, f), "utf8");
   let html = deck.parts.map(read).join("");
@@ -110,13 +118,20 @@ function build(slug: string): void {
   }
   const left = html.match(/\{\{[^}]*\}\}/g);
   if (left) throw new Error(`${slug}: unfilled placeholders: ${[...new Set(left)].join(", ")}`);
-  mkdirSync(OUT, { recursive: true });
-  writeFileSync(join(OUT, `${slug}.html`), html);
-  console.log(`${slug}.html  ${html.length.toLocaleString("en")} chars`);
+  mkdirSync(out, { recursive: true });
+  writeFileSync(join(out, `${slug}.html`), html);
+  console.log(`${join(out, slug).slice(ROOT.length + 1)}.html  ${html.length.toLocaleString("en")} chars`);
 }
 
-const only = process.argv[2];
-const slugs = readdirSync(HERE, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && existsSync(join(HERE, d.name, "deck.json")))
-  .map((d) => d.name).sort();
-for (const s of only ? [only] : slugs) build(s);
+// Only when run as the script: check-quotes imports ROOTS from here.
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const only = process.argv[2];
+  let built = 0;
+  for (const { src, out } of ROOTS) {
+    if (!existsSync(src)) continue;
+    const slugs = readdirSync(src, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && isDeck(src, d.name)).map((d) => d.name).sort();
+    for (const s of slugs) if (!only || s === only) { build(s, src, out); built++; }
+  }
+  if (only && !built) throw new Error(`no deck called ${only}`);
+}

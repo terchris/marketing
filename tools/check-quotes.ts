@@ -13,15 +13,19 @@
 // Prints each quote with "verbatim" or "NOT FOUND", and exits 1 if any quote is not found.
 // A NOT FOUND is not always a misquote — it can be your own heading or a question — but every
 // one must be looked at before the deck is published.
-import { readFileSync } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-import type { Deck } from "./decks.ts";
+import { readFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
+import { ROOTS, type Deck } from "./decks.ts";
 
 const [slug, ...given] = process.argv.slice(2);
-const HERE = join(dirname(fileURLToPath(import.meta.url)), "..", "presentations");
 if (!slug) {
   console.error("usage: npm run check-quotes -- <slug> [<source.md> …]");
+  process.exit(2);
+}
+// The deck is in presentations/ or, when derived from the bus, in private/presentations/.
+const HERE = ROOTS.map((r) => r.src).find((d) => existsSync(join(d, slug, "deck.json")));
+if (!HERE) {
+  console.error(`${slug}: no deck.json in presentations/ or private/presentations/`);
   process.exit(2);
 }
 const deck = JSON.parse(readFileSync(join(HERE, slug, "deck.json"), "utf8")) as Deck;

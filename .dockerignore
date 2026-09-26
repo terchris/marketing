@@ -6,3 +6,4 @@ website/public/presentations/
 manifests/
 .github/
 .DS_Store
+private/

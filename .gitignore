@@ -4,3 +4,6 @@ website/.astro/
 # Built by `npm run decks` from presentations/ — the sources are the record, not the output.
 website/public/presentations/
 .DS_Store
+
+# Bus-derived material (urb-agents handover/marketing). Never commit it: this repo is public.
+/private/
