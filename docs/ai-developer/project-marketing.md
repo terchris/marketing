@@ -44,7 +44,7 @@ npm install                  # once
 npm run decks                # build every deck into website/public/presentations/
 npm run dev                  # decks, then the dev server
 npm run build                # decks, then the static site into website/dist/
-npm run check-quotes -- <slug> <source.md> [<source.md> …]
+npm run check-quotes -- <slug>   # against the sources its deck.json lists
 ```
 
 Node 22.12 or newer. For the dev server, run it in the background (`astro dev --background`,
