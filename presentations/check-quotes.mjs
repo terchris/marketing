@@ -6,7 +6,9 @@
 // that do not change the words are ignored: markdown bold/italic markers, emoji, the style of
 // quotation mark, and an inline "(#123)" reference moved out of the quote into its citation.
 //
-//   node presentations/check-quotes.mjs <slug> <source.md> [<source.md> …]
+//   node presentations/check-quotes.mjs <slug> [<source.md> …]
+//
+// With no source given, it uses the "sources" listed in the deck's deck.json.
 //
 // Prints each quote with "verbatim" or "NOT FOUND", and exits 1 if any quote is not found.
 // A NOT FOUND is not always a misquote — it can be your own heading or a question — but every
@@ -15,13 +17,18 @@ import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const [slug, ...sources] = process.argv.slice(2);
-if (!slug || !sources.length) {
-  console.error("usage: node presentations/check-quotes.mjs <slug> <source.md> [<source.md> …]");
+const [slug, ...given] = process.argv.slice(2);
+const HERE = dirname(fileURLToPath(import.meta.url));
+if (!slug) {
+  console.error("usage: node presentations/check-quotes.mjs <slug> [<source.md> …]");
   process.exit(2);
 }
-const HERE = dirname(fileURLToPath(import.meta.url));
 const deck = JSON.parse(readFileSync(join(HERE, slug, "deck.json"), "utf8"));
+const sources = given.length ? given : (deck.sources ?? []).map((s) => join(HERE, slug, s));
+if (!sources.length) {
+  console.error(`${slug}: no sources given, and deck.json lists none`);
+  process.exit(2);
+}
 const own = deck.parts.filter((p) => !p.startsWith("../")).map((p) => readFileSync(join(HERE, slug, p), "utf8")).join("");
 
 const EMOJI = /[☀-⟿\u{1F300}-\u{1FAFF}️]/gu;

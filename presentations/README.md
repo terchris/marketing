@@ -43,7 +43,7 @@ lives on** with a face on its screen, and **one prop for its job**. Use one with
 
 ## Before a deck ships
 
-1. Every quote is checked against its source: `npm run check-quotes -- <slug> <answer.md> …`.
+1. Every quote is checked against its source: `npm run check-quotes -- <slug>` (the sources are listed in `deck.json`).
    Look at every `NOT FOUND` — your own headings will appear there; a misquote must not.
 2. Every figure is counted from the record, and every correction is shown, not hidden.
 3. Terje has read it. See the contracts in [`../docs/ai-developer/project-marketing.md`](../docs/ai-developer/project-marketing.md).
