@@ -111,10 +111,16 @@ secret and no platform service, so there is nothing for `uis` to provision.
 2. ArgoCD follows `manifests/` in git — registered once with
    `uis argocd register marketing https://github.com/terchris/marketing`.
 3. The platform creates the route itself, matching `HostRegexp(^marketing\..+$)`: the same
-   registration answers on **marketing.localhost** and on **marketing.urbalurba.com** once that
-   name points at the cluster.
+   registration answers on **marketing.localhost** and on **marketing.urbalurba.com**.
 
-Registering it, choosing the cluster, and putting the public name on it are fleet work, not this
+**Where it runs (2026-09-26):** registered on imac's cluster (#1574), and public at
+<https://marketing.urbalurba.com/> through Cloudflare — no DNS change was needed for it. So **a
+merge to `main` is live on the internet within minutes**: build locally (`npm run build`) and look
+at the pages before merging, and check the live URL after. Not yet known: whether ArgoCD syncs a
+new tag by itself or needs a manual sync — check on the first merge that the new tag reaches the
+page, and ask on the bus if it does not.
+
+Changes to the registration, the cluster or the public name are fleet work, not this
 agent's: ask ops-dev, which routes it to tor-agent (UIS), imac (tests on its cluster) and ops
 (production). Where UIS falls short for an application like this one, say so on the bus — this
 site is also a test of UIS.
