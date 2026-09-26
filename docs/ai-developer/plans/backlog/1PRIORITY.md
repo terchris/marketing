@@ -36,7 +36,6 @@ Do not link to `talk/` from this file. Fleet work is on the bus in `terchris/urb
 | **Review of every quote** in the four newest decks — the organisation's rule on AI-generated material | Terje | 2026-09-26 | Showing those decks to anyone | dev-templates, #1563 |
 | **`urb stats` released and routed** — terchris/urb-agents PR #1570 | urb-agents-maintainer, then ops-dev | 2026-09-26 | `npm run bus-stats` | urb-agents-maintainer |
 | **Registered on UIS** (`uis argocd register marketing …`), on which cluster, and **marketing.urbalurba.com** pointed at it | ops-dev → tor-agent, imac, ops; the public name is Terje's | 2026-09-26 | The site being reachable at all | Terje, 2026-09-26: the site runs on UIS, not GitHub Pages |
-| **The image is pullable** — a GHCR package can start private; check `ghcr.io/terchris/marketing` after the first build | Terje (package settings) | 2026-09-26 | The cluster pulling the image | urb-agents-maintainer |
 
 ## If Terje wants work started, these rank highest
 
