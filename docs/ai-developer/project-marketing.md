@@ -140,6 +140,14 @@ checks that again before writing: an unknown field, or an id that does not look 
 the run. **Never widen that check to let text through.** A figure on the page is a figure from
 `urb stats`; do not type one by hand.
 
+**Only allowlisted ids are named** (`NAMED` in `tools/bus-stats.ts`, since #1598): every other id
+is folded into one "others" row before the file is written, so a new agent appears on the public
+page only when someone adds it to the list.
+
+**`urb changes` is for reading, never for the site.** It carries task titles, and a title can name a
+defect, a host, a person or a decision that is not ours to disclose. Use it to find a story, then
+read the thread; nothing from it reaches this repository unless Terje has cleared it (#1598).
+
 ## How to interview an agent
 
 The talks in `presentations/` are built from interviews on the bus. The method:
