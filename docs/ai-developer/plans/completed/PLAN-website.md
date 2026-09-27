@@ -6,13 +6,13 @@ Turns marketing.urbalurba.com from four plain pages into a designed site: the to
 > Nothing from `private/` (the bus-derived handover) is committed unless Terje has cleared that
 > specific deck. Build and look at every page before merging; check the live site after.
 
-## Status: Active
+## Status: Completed
 
 **Goal**: A site that looks as good as the decks, says what SovereignSky and the fleet are, and publishes the presentations Terje clears.
 
 **Last Updated**: 2026-09-26
 
-**Progress:** phases 1–4 and 5.1 merged in PR #1 and live. The pipeline worked with no manual step: CI committed tag `da9a4e0-20260926171326` at 17:13:44Z, and the new site answered on marketing.urbalurba.com at 17:19:58Z (UTC). **Left:** 5.2, when `urb stats` is released; then 6.3 and completion. Checked before merge: `npm run build` and `npm run typecheck` pass; `check-quotes` on the four published decks (only the maintainer's two framing lines are NOT FOUND); every page at 360, 390 and 1280 px in light and dark, no horizontal scroll; no IP, hostname or Red Cross mention in `dist/`.
+**Progress:** phases 1–4 and 5.1 merged in PR #1 and live. The pipeline worked with no manual step: CI committed tag `da9a4e0-20260926171326` at 17:13:44Z, and the new site answered on marketing.urbalurba.com at 17:19:58Z (UTC). **5.2 (2026-09-27):** `urb stats` arrived in cli-v0.5.40 (#1592). `npm run bus-stats` counted 1,150 tasks, 4,370 replies, 19 ids and 27 days since 1 September, at 10:28 UTC; the tool's aggregates-only check passed; the page states the window from the command's own `window`. Checked before merge: `npm run build` and `npm run typecheck` pass; `check-quotes` on the four published decks (only the maintainer's two framing lines are NOT FOUND); every page at 360, 390 and 1280 px in light and dark, no horizontal scroll; no IP, hostname or Red Cross mention in `dist/`.
 
 **Priority**: High — Terje asked for it, 2026-09-26 ("create a great looking website with the content").
 
@@ -93,35 +93,34 @@ No host, IP, machine or placement anywhere on the site (grep the built `dist/`).
 
 `check-quotes` on every published deck; every `NOT FOUND` looked at. Only cleared decks are in git.
 
-## Phase 5: The fleet in numbers
+## Phase 5: The fleet in numbers — DONE
 
 ### Tasks
 
 - [x] 5.1 Restyle `/fleet/` in the new design (figure tiles, chart, table) so it is ready
-- 5.2 waits on `urb stats` being released — not in this PR
-- [ ] 5.2 When `urb stats` is released (urb-agents PR #1570): `npm run bus-stats`, check the page, commit
+- [x] 5.2 When `urb stats` is released (urb-agents PR #1570): `npm run bus-stats`, check the page, commit
 
 ### Validation
 
 Every figure comes from `bus-stats.json`; none is typed by hand.
 
-## Phase 6: Ship and confirm the pipeline
+## Phase 6: Ship and confirm the pipeline — DONE
 
 ### Tasks
 
 - [x] 6.1 Merge; watch CI build the image and commit the tag
 - [x] 6.2 Confirm that ArgoCD deployed it by itself: the change is visible on marketing.urbalurba.com. If not, report it on the bus
-- [ ] 6.3 Update `1PRIORITY.md` and `fleet/status/marketing.md`; move this plan to `completed/`
+- [x] 6.3 Update `1PRIORITY.md` and `fleet/status/marketing.md`; move this plan to `completed/`
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] marketing.urbalurba.com shows the new design on every page, light and dark, phone and desktop
-- [ ] Every claim is from a public source or a deck Terje cleared; every quote passes `check-quotes`
-- [ ] Nothing from `private/` is in git except the decks Terje cleared
-- [ ] The site says openly that an AI agent writes it
-- [ ] A merge reached the live site through CI and ArgoCD with no manual step (or the failure is on the bus)
+- [x] marketing.urbalurba.com shows the new design on every page, light and dark, phone and desktop
+- [x] Every claim is from a public source or a deck Terje cleared; every quote passes `check-quotes`
+- [x] Nothing from `private/` is in git except the decks Terje cleared
+- [x] The site says openly that an AI agent writes it
+- [x] A merge reached the live site through CI and ArgoCD with no manual step (or the failure is on the bus)
 
 ## Files to Modify
 

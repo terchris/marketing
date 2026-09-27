@@ -1,0 +1,611 @@
+{
+  "schema": "urb-stats/1",
+  "generated_at": "2026-09-27T10:28:09.430Z",
+  "window": {
+    "from": "2026-09-01T00:00:00.000Z",
+    "to": "2026-09-27T10:28:09.430Z"
+  },
+  "tasks": {
+    "total": 1150,
+    "open": 41,
+    "closed": 1109,
+    "closed_as": {
+      "completed": 1052,
+      "failed": 2,
+      "canceled": 49,
+      "rejected": 6,
+      "unlabelled": 0
+    },
+    "open_in": {
+      "working": 6,
+      "done": 7,
+      "submitted": 16,
+      "auth-required": 11,
+      "input-required": 1
+    }
+  },
+  "replies": {
+    "total": 4370,
+    "stamped": 3146
+  },
+  "agents": [
+    {
+      "id": "ops-dev",
+      "sent": 708,
+      "received": 185,
+      "replies": 1214
+    },
+    {
+      "id": "atlas",
+      "sent": 104,
+      "received": 228,
+      "replies": 476
+    },
+    {
+      "id": "imac",
+      "sent": 46,
+      "received": 199,
+      "replies": 404
+    },
+    {
+      "id": "tor-agent",
+      "sent": 58,
+      "received": 171,
+      "replies": 320
+    },
+    {
+      "id": "urb-agents-maintainer",
+      "sent": 94,
+      "received": 88,
+      "replies": 267
+    },
+    {
+      "id": "dev-templates",
+      "sent": 12,
+      "received": 102,
+      "replies": 119
+    },
+    {
+      "id": "ops",
+      "sent": 49,
+      "received": 49,
+      "replies": 119
+    },
+    {
+      "id": "terje",
+      "sent": 12,
+      "received": 34,
+      "replies": 44
+    },
+    {
+      "id": "client-provisioning",
+      "sent": 24,
+      "received": 9,
+      "replies": 61
+    },
+    {
+      "id": "assist",
+      "sent": 6,
+      "received": 21,
+      "replies": 38
+    },
+    {
+      "id": "urbalurba",
+      "sent": 4,
+      "received": 14,
+      "replies": 7
+    },
+    {
+      "id": "devcontainer-toolbox",
+      "sent": 11,
+      "received": 6,
+      "replies": 24
+    },
+    {
+      "id": "sovdev-logger",
+      "sent": 5,
+      "received": 9,
+      "replies": 11
+    },
+    {
+      "id": "mimer",
+      "sent": 4,
+      "received": 8,
+      "replies": 10
+    },
+    {
+      "id": "ollacrm",
+      "sent": 5,
+      "received": 6,
+      "replies": 9
+    },
+    {
+      "id": "bifrost",
+      "sent": 2,
+      "received": 8,
+      "replies": 10
+    },
+    {
+      "id": "noclickops",
+      "sent": 3,
+      "received": 6,
+      "replies": 6
+    },
+    {
+      "id": "marketing",
+      "sent": 3,
+      "received": 4,
+      "replies": 7
+    },
+    {
+      "id": "huginn",
+      "sent": 0,
+      "received": 3,
+      "replies": 0
+    }
+  ],
+  "pairs": [
+    {
+      "a": "atlas",
+      "b": "ops-dev",
+      "tasks": 250
+    },
+    {
+      "a": "imac",
+      "b": "ops-dev",
+      "tasks": 150
+    },
+    {
+      "a": "ops-dev",
+      "b": "urb-agents-maintainer",
+      "tasks": 133
+    },
+    {
+      "a": "ops-dev",
+      "b": "tor-agent",
+      "tasks": 123
+    },
+    {
+      "a": "dev-templates",
+      "b": "ops-dev",
+      "tasks": 100
+    },
+    {
+      "a": "imac",
+      "b": "tor-agent",
+      "tasks": 38
+    },
+    {
+      "a": "ops",
+      "b": "ops-dev",
+      "tasks": 35
+    },
+    {
+      "a": "atlas",
+      "b": "imac",
+      "tasks": 31
+    },
+    {
+      "a": "atlas",
+      "b": "tor-agent",
+      "tasks": 27
+    },
+    {
+      "a": "client-provisioning",
+      "b": "ops-dev",
+      "tasks": 18
+    },
+    {
+      "a": "ops",
+      "b": "tor-agent",
+      "tasks": 16
+    },
+    {
+      "a": "imac",
+      "b": "ops",
+      "tasks": 15
+    },
+    {
+      "a": "tor-agent",
+      "b": "urb-agents-maintainer",
+      "tasks": 15
+    },
+    {
+      "a": "ops-dev",
+      "b": "urbalurba",
+      "tasks": 14
+    },
+    {
+      "a": "assist",
+      "b": "ops",
+      "tasks": 13
+    },
+    {
+      "a": "assist",
+      "b": "ops-dev",
+      "tasks": 12
+    },
+    {
+      "a": "client-provisioning",
+      "b": "terje",
+      "tasks": 11
+    },
+    {
+      "a": "devcontainer-toolbox",
+      "b": "ops-dev",
+      "tasks": 10
+    },
+    {
+      "a": "atlas",
+      "b": "terje",
+      "tasks": 9
+    },
+    {
+      "a": "ops-dev",
+      "b": "sovdev-logger",
+      "tasks": 9
+    },
+    {
+      "a": "ops-dev",
+      "b": "terje",
+      "tasks": 9
+    },
+    {
+      "a": "bifrost",
+      "b": "ops-dev",
+      "tasks": 7
+    },
+    {
+      "a": "atlas",
+      "b": "urb-agents-maintainer",
+      "tasks": 6
+    },
+    {
+      "a": "imac",
+      "b": "urb-agents-maintainer",
+      "tasks": 6
+    },
+    {
+      "a": "marketing",
+      "b": "ops-dev",
+      "tasks": 6
+    },
+    {
+      "a": "ops",
+      "b": "urb-agents-maintainer",
+      "tasks": 6
+    },
+    {
+      "a": "terje",
+      "b": "tor-agent",
+      "tasks": 6
+    },
+    {
+      "a": "noclickops",
+      "b": "ops-dev",
+      "tasks": 5
+    },
+    {
+      "a": "ollacrm",
+      "b": "ops-dev",
+      "tasks": 5
+    },
+    {
+      "a": "atlas",
+      "b": "dev-templates",
+      "tasks": 4
+    },
+    {
+      "a": "atlas",
+      "b": "ops",
+      "tasks": 4
+    },
+    {
+      "a": "client-provisioning",
+      "b": "devcontainer-toolbox",
+      "tasks": 4
+    },
+    {
+      "a": "dev-templates",
+      "b": "tor-agent",
+      "tasks": 4
+    },
+    {
+      "a": "mimer",
+      "b": "ops-dev",
+      "tasks": 4
+    },
+    {
+      "a": "dev-templates",
+      "b": "imac",
+      "tasks": 3
+    },
+    {
+      "a": "dev-templates",
+      "b": "urb-agents-maintainer",
+      "tasks": 3
+    },
+    {
+      "a": "devcontainer-toolbox",
+      "b": "terje",
+      "tasks": 3
+    },
+    {
+      "a": "ops",
+      "b": "terje",
+      "tasks": 3
+    },
+    {
+      "a": "assist",
+      "b": "urb-agents-maintainer",
+      "tasks": 2
+    },
+    {
+      "a": "huginn",
+      "b": "urb-agents-maintainer",
+      "tasks": 2
+    },
+    {
+      "a": "mimer",
+      "b": "ollacrm",
+      "tasks": 2
+    },
+    {
+      "a": "mimer",
+      "b": "ops",
+      "tasks": 2
+    },
+    {
+      "a": "sovdev-logger",
+      "b": "terje",
+      "tasks": 2
+    },
+    {
+      "a": "terje",
+      "b": "urb-agents-maintainer",
+      "tasks": 2
+    },
+    {
+      "a": "atlas",
+      "b": "mimer",
+      "tasks": 1
+    },
+    {
+      "a": "bifrost",
+      "b": "mimer",
+      "tasks": 1
+    },
+    {
+      "a": "bifrost",
+      "b": "ollacrm",
+      "tasks": 1
+    },
+    {
+      "a": "bifrost",
+      "b": "urb-agents-maintainer",
+      "tasks": 1
+    },
+    {
+      "a": "huginn",
+      "b": "ops-dev",
+      "tasks": 1
+    },
+    {
+      "a": "imac",
+      "b": "mimer",
+      "tasks": 1
+    },
+    {
+      "a": "imac",
+      "b": "terje",
+      "tasks": 1
+    },
+    {
+      "a": "marketing",
+      "b": "urb-agents-maintainer",
+      "tasks": 1
+    },
+    {
+      "a": "mimer",
+      "b": "urb-agents-maintainer",
+      "tasks": 1
+    },
+    {
+      "a": "noclickops",
+      "b": "ops",
+      "tasks": 1
+    },
+    {
+      "a": "noclickops",
+      "b": "sovdev-logger",
+      "tasks": 1
+    },
+    {
+      "a": "noclickops",
+      "b": "urb-agents-maintainer",
+      "tasks": 1
+    },
+    {
+      "a": "noclickops",
+      "b": "urbalurba",
+      "tasks": 1
+    },
+    {
+      "a": "ollacrm",
+      "b": "ops",
+      "tasks": 1
+    },
+    {
+      "a": "ollacrm",
+      "b": "urb-agents-maintainer",
+      "tasks": 1
+    },
+    {
+      "a": "ollacrm",
+      "b": "urbalurba",
+      "tasks": 1
+    },
+    {
+      "a": "ops",
+      "b": "sovdev-logger",
+      "tasks": 1
+    },
+    {
+      "a": "ops",
+      "b": "urbalurba",
+      "tasks": 1
+    },
+    {
+      "a": "sovdev-logger",
+      "b": "urb-agents-maintainer",
+      "tasks": 1
+    },
+    {
+      "a": "urb-agents-maintainer",
+      "b": "urbalurba",
+      "tasks": 1
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-09-01",
+      "created": 26,
+      "closed": 26
+    },
+    {
+      "date": "2026-09-02",
+      "created": 6,
+      "closed": 0
+    },
+    {
+      "date": "2026-09-03",
+      "created": 4,
+      "closed": 10
+    },
+    {
+      "date": "2026-09-04",
+      "created": 14,
+      "closed": 13
+    },
+    {
+      "date": "2026-09-05",
+      "created": 35,
+      "closed": 35
+    },
+    {
+      "date": "2026-09-06",
+      "created": 6,
+      "closed": 4
+    },
+    {
+      "date": "2026-09-07",
+      "created": 59,
+      "closed": 55
+    },
+    {
+      "date": "2026-09-08",
+      "created": 55,
+      "closed": 48
+    },
+    {
+      "date": "2026-09-09",
+      "created": 110,
+      "closed": 108
+    },
+    {
+      "date": "2026-09-10",
+      "created": 94,
+      "closed": 89
+    },
+    {
+      "date": "2026-09-11",
+      "created": 28,
+      "closed": 27
+    },
+    {
+      "date": "2026-09-12",
+      "created": 59,
+      "closed": 59
+    },
+    {
+      "date": "2026-09-13",
+      "created": 105,
+      "closed": 99
+    },
+    {
+      "date": "2026-09-14",
+      "created": 129,
+      "closed": 136
+    },
+    {
+      "date": "2026-09-15",
+      "created": 8,
+      "closed": 6
+    },
+    {
+      "date": "2026-09-16",
+      "created": 31,
+      "closed": 27
+    },
+    {
+      "date": "2026-09-17",
+      "created": 30,
+      "closed": 21
+    },
+    {
+      "date": "2026-09-18",
+      "created": 15,
+      "closed": 11
+    },
+    {
+      "date": "2026-09-19",
+      "created": 25,
+      "closed": 24
+    },
+    {
+      "date": "2026-09-20",
+      "created": 36,
+      "closed": 37
+    },
+    {
+      "date": "2026-09-21",
+      "created": 60,
+      "closed": 65
+    },
+    {
+      "date": "2026-09-22",
+      "created": 47,
+      "closed": 46
+    },
+    {
+      "date": "2026-09-23",
+      "created": 35,
+      "closed": 31
+    },
+    {
+      "date": "2026-09-24",
+      "created": 48,
+      "closed": 49
+    },
+    {
+      "date": "2026-09-25",
+      "created": 55,
+      "closed": 54
+    },
+    {
+      "date": "2026-09-26",
+      "created": 28,
+      "closed": 26
+    },
+    {
+      "date": "2026-09-27",
+      "created": 2,
+      "closed": 3
+    }
+  ],
+  "first_reply_minutes": {
+    "tasks": 1015,
+    "median": 4.7,
+    "p90": 50.8
+  }
+}

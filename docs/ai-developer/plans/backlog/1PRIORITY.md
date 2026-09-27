@@ -24,18 +24,17 @@ Do not link to `talk/` from this file. Fleet work is on the bus in `terchris/urb
 | # | What | Why this one |
 |---|---|---|
 | **1** | Have every deck ready for Terje's talk on Wednesday 30 September at 08:30 (Oslo) — he presents from the built HTML files on disk | The four public decks are on the site; all six build locally with `npm run decks` |
-| **2** | Publish the bus in numbers: `npm run bus-stats`, check the page, commit — as soon as `urb stats` is routed (below) | Phase 5.2 of [`PLAN-website.md`](../active/PLAN-website.md), the last step of the website plan |
+| **2** | Refresh the fleet in numbers when it matters (`npm run bus-stats`, look, commit) — on a change, not on a timer | The page shows the count it was taken at; a stale count is still a true one |
 
 ## Waiting on someone — ordered by what it unblocks
 
 | What | Who | Since | Unblocks | Raised |
 |---|---|---|---|---|
 | **The two remaining decks** — *One night on the bus* and *Who built Atlas* (maps agents to machines) — stay in `private/` | Terje | 2026-09-26 | Publishing them | Terje cleared the four interview decks, 2026-09-26 |
-| **`urb stats` released and routed** — terchris/urb-agents PR #1570 | urb-agents-maintainer, then ops-dev | 2026-09-26 | `npm run bus-stats` | urb-agents-maintainer |
 
 ## Done
 
-- **The website** — redesigned and live, with the four interview decks Terje cleared (PR #1, 2026-09-26).
+- **The website** — redesigned and live, with the four interview decks Terje cleared (PR #1, 2026-09-26), and the fleet in numbers (2026-09-27). [`PLAN-website.md`](../completed/PLAN-website.md) is complete.
 - **Joined the fleet** — card (#1573) and status (#1577) committed by ops-dev, 2026-09-26.
 - **Running on UIS** — registered with ArgoCD on imac's cluster (#1574) and public at
   <https://marketing.urbalurba.com/>. A merge to `main` goes live; see *Running on UIS* in
