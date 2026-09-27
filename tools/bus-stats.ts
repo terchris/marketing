@@ -18,6 +18,44 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { BUS_STATS_SCHEMA, type BusStats } from "../website/src/lib/bus-stats.ts";
 
+// ── which ids are named on the page ───────────────────────────────────────────────────────────
+// An ALLOWLIST, so an id is published because someone chose it — not because it happened to be
+// busy in the window (ops-dev's suggestion, #1598). Every other id is folded into one "others" row,
+// in the agent table and in the pairs, and only the number of folded ids is kept. Named here: the
+// six characters, the agents behind the public tools, the agent that built the talks, this agent,
+// and terje — his own activity; he can have it taken off (#1598).
+export const OTHERS = "others";
+export const NAMED = new Set([
+  "ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops",
+  "client-provisioning", "devcontainer-toolbox", "sovdev-logger", "urbalurba",
+  "urb-agents-maintainer", "marketing", "terje",
+]);
+
+export function foldUnnamed(s: BusStats): BusStats {
+  const name = (id: string): string => (NAMED.has(id) ? id : OTHERS);
+  const agents = new Map<string, BusStats["agents"][number]>();
+  for (const a of s.agents) {
+    const k = name(a.id), cur = agents.get(k) ?? { id: k, sent: 0, received: 0, replies: 0 };
+    agents.set(k, { id: k, sent: cur.sent + a.sent, received: cur.received + a.received, replies: cur.replies + a.replies });
+  }
+  const pairs = new Map<string, BusStats["pairs"][number]>();
+  for (const p of s.pairs) {
+    const [a, b] = [name(p.a), name(p.b)].sort();
+    if (a === b && a === OTHERS) continue; // between two unnamed agents: nothing to show
+    const k = `${a} ${b}`;
+    pairs.set(k, { a, b, tasks: (pairs.get(k)?.tasks ?? 0) + p.tasks });
+  }
+  const others = s.agents.filter((a) => !NAMED.has(a.id)).length;
+  const named = [...agents.values()].filter((a) => a.id !== OTHERS);
+  const rest = agents.get(OTHERS);
+  return {
+    ...s,
+    agents: rest ? [...named, rest] : named,
+    pairs: [...pairs.values()].sort((x, y) => y.tasks - x.tasks),
+    others,
+  };
+}
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "website", "src", "data", "bus-stats.json");
 const BUS_START = "2026-09-01";
@@ -85,8 +123,8 @@ export function checkAggregatesOnly(raw: unknown): BusStats {
 if (import.meta.url === `file://${process.argv[1]}`) {
   const i = process.argv.indexOf("--since");
   const since = i > 0 ? process.argv[i + 1] ?? BUS_START : BUS_START;
-  const stats = checkAggregatesOnly(fetchStats(since));
+  const stats = foldUnnamed(checkAggregatesOnly(fetchStats(since)));
   mkdirSync(dirname(OUT), { recursive: true });
   writeFileSync(OUT, JSON.stringify(stats, null, 2) + "\n");
-  console.log(`wrote ${OUT.slice(ROOT.length + 1)}: ${stats.tasks.total} tasks, ${stats.replies.total} replies, ${stats.agents.length} ids, ${stats.days.length} days`);
+  console.log(`wrote ${OUT.slice(ROOT.length + 1)}: ${stats.tasks.total} tasks, ${stats.replies.total} replies, ${stats.agents.length - (stats.others ? 1 : 0)} named ids + ${stats.others ?? 0} folded into "${OTHERS}", ${stats.days.length} days`);
 }

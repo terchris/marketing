@@ -19,4 +19,6 @@ export interface BusStats {
   pairs: { a: string; b: string; tasks: number }[];
   days: { date: string; created: number; closed: number }[];
   first_reply_minutes: { tasks: number; median: number | null; p90: number | null };
+  /** Written by tools/bus-stats.ts, not by urb: how many ids were folded into the "others" row. */
+  others?: number;
 }

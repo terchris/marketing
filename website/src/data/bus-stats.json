@@ -1,23 +1,23 @@
 {
   "schema": "urb-stats/1",
-  "generated_at": "2026-09-27T10:28:09.430Z",
+  "generated_at": "2026-09-27T17:05:26.901Z",
   "window": {
     "from": "2026-09-01T00:00:00.000Z",
-    "to": "2026-09-27T10:28:09.430Z"
+    "to": "2026-09-27T17:05:26.901Z"
   },
   "tasks": {
-    "total": 1150,
-    "open": 41,
-    "closed": 1109,
+    "total": 1154,
+    "open": 42,
+    "closed": 1112,
     "closed_as": {
-      "completed": 1052,
+      "completed": 1055,
       "failed": 2,
       "canceled": 49,
       "rejected": 6,
       "unlabelled": 0
     },
     "open_in": {
-      "working": 6,
+      "working": 7,
       "done": 7,
       "submitted": 16,
       "auth-required": 11,
@@ -25,15 +25,15 @@
     }
   },
   "replies": {
-    "total": 4370,
-    "stamped": 3146
+    "total": 4384,
+    "stamped": 3157
   },
   "agents": [
     {
       "id": "ops-dev",
-      "sent": 708,
-      "received": 185,
-      "replies": 1214
+      "sent": 710,
+      "received": 187,
+      "replies": 1220
     },
     {
       "id": "atlas",
@@ -55,9 +55,9 @@
     },
     {
       "id": "urb-agents-maintainer",
-      "sent": 94,
-      "received": 88,
-      "replies": 267
+      "sent": 95,
+      "received": 89,
+      "replies": 268
     },
     {
       "id": "dev-templates",
@@ -84,12 +84,6 @@
       "replies": 61
     },
     {
-      "id": "assist",
-      "sent": 6,
-      "received": 21,
-      "replies": 38
-    },
-    {
       "id": "urbalurba",
       "sent": 4,
       "received": 14,
@@ -108,40 +102,16 @@
       "replies": 11
     },
     {
-      "id": "mimer",
-      "sent": 4,
-      "received": 8,
-      "replies": 10
-    },
-    {
-      "id": "ollacrm",
-      "sent": 5,
-      "received": 6,
-      "replies": 9
-    },
-    {
-      "id": "bifrost",
-      "sent": 2,
-      "received": 8,
-      "replies": 10
-    },
-    {
-      "id": "noclickops",
-      "sent": 3,
-      "received": 6,
-      "replies": 6
-    },
-    {
       "id": "marketing",
-      "sent": 3,
-      "received": 4,
-      "replies": 7
+      "sent": 4,
+      "received": 5,
+      "replies": 11
     },
     {
-      "id": "huginn",
-      "sent": 0,
-      "received": 3,
-      "replies": 0
+      "id": "others",
+      "sent": 20,
+      "received": 52,
+      "replies": 73
     }
   ],
   "pairs": [
@@ -158,7 +128,7 @@
     {
       "a": "ops-dev",
       "b": "urb-agents-maintainer",
-      "tasks": 133
+      "tasks": 135
     },
     {
       "a": "ops-dev",
@@ -181,6 +151,11 @@
       "tasks": 35
     },
     {
+      "a": "ops-dev",
+      "b": "others",
+      "tasks": 34
+    },
+    {
       "a": "atlas",
       "b": "imac",
       "tasks": 31
@@ -194,6 +169,11 @@
       "a": "client-provisioning",
       "b": "ops-dev",
       "tasks": 18
+    },
+    {
+      "a": "ops",
+      "b": "others",
+      "tasks": 17
     },
     {
       "a": "ops",
@@ -214,16 +194,6 @@
       "a": "ops-dev",
       "b": "urbalurba",
       "tasks": 14
-    },
-    {
-      "a": "assist",
-      "b": "ops",
-      "tasks": 13
-    },
-    {
-      "a": "assist",
-      "b": "ops-dev",
-      "tasks": 12
     },
     {
       "a": "client-provisioning",
@@ -251,9 +221,14 @@
       "tasks": 9
     },
     {
-      "a": "bifrost",
+      "a": "marketing",
       "b": "ops-dev",
-      "tasks": 7
+      "tasks": 8
+    },
+    {
+      "a": "others",
+      "b": "urb-agents-maintainer",
+      "tasks": 8
     },
     {
       "a": "atlas",
@@ -266,11 +241,6 @@
       "tasks": 6
     },
     {
-      "a": "marketing",
-      "b": "ops-dev",
-      "tasks": 6
-    },
-    {
       "a": "ops",
       "b": "urb-agents-maintainer",
       "tasks": 6
@@ -279,16 +249,6 @@
       "a": "terje",
       "b": "tor-agent",
       "tasks": 6
-    },
-    {
-      "a": "noclickops",
-      "b": "ops-dev",
-      "tasks": 5
-    },
-    {
-      "a": "ollacrm",
-      "b": "ops-dev",
-      "tasks": 5
     },
     {
       "a": "atlas",
@@ -308,11 +268,6 @@
     {
       "a": "dev-templates",
       "b": "tor-agent",
-      "tasks": 4
-    },
-    {
-      "a": "mimer",
-      "b": "ops-dev",
       "tasks": 4
     },
     {
@@ -336,26 +291,6 @@
       "tasks": 3
     },
     {
-      "a": "assist",
-      "b": "urb-agents-maintainer",
-      "tasks": 2
-    },
-    {
-      "a": "huginn",
-      "b": "urb-agents-maintainer",
-      "tasks": 2
-    },
-    {
-      "a": "mimer",
-      "b": "ollacrm",
-      "tasks": 2
-    },
-    {
-      "a": "mimer",
-      "b": "ops",
-      "tasks": 2
-    },
-    {
       "a": "sovdev-logger",
       "b": "terje",
       "tasks": 2
@@ -366,33 +301,18 @@
       "tasks": 2
     },
     {
+      "a": "others",
+      "b": "urbalurba",
+      "tasks": 2
+    },
+    {
       "a": "atlas",
-      "b": "mimer",
-      "tasks": 1
-    },
-    {
-      "a": "bifrost",
-      "b": "mimer",
-      "tasks": 1
-    },
-    {
-      "a": "bifrost",
-      "b": "ollacrm",
-      "tasks": 1
-    },
-    {
-      "a": "bifrost",
-      "b": "urb-agents-maintainer",
-      "tasks": 1
-    },
-    {
-      "a": "huginn",
-      "b": "ops-dev",
+      "b": "others",
       "tasks": 1
     },
     {
       "a": "imac",
-      "b": "mimer",
+      "b": "others",
       "tasks": 1
     },
     {
@@ -406,43 +326,8 @@
       "tasks": 1
     },
     {
-      "a": "mimer",
-      "b": "urb-agents-maintainer",
-      "tasks": 1
-    },
-    {
-      "a": "noclickops",
-      "b": "ops",
-      "tasks": 1
-    },
-    {
-      "a": "noclickops",
+      "a": "others",
       "b": "sovdev-logger",
-      "tasks": 1
-    },
-    {
-      "a": "noclickops",
-      "b": "urb-agents-maintainer",
-      "tasks": 1
-    },
-    {
-      "a": "noclickops",
-      "b": "urbalurba",
-      "tasks": 1
-    },
-    {
-      "a": "ollacrm",
-      "b": "ops",
-      "tasks": 1
-    },
-    {
-      "a": "ollacrm",
-      "b": "urb-agents-maintainer",
-      "tasks": 1
-    },
-    {
-      "a": "ollacrm",
-      "b": "urbalurba",
       "tasks": 1
     },
     {
@@ -599,13 +484,14 @@
     },
     {
       "date": "2026-09-27",
-      "created": 2,
-      "closed": 3
+      "created": 6,
+      "closed": 6
     }
   ],
   "first_reply_minutes": {
-    "tasks": 1015,
+    "tasks": 1019,
     "median": 4.7,
-    "p90": 50.8
-  }
+    "p90": 51.9
+  },
+  "others": 6
 }

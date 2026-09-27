@@ -12,6 +12,8 @@ const maxDay = s ? Math.max(1, ...s.days.map((d) => d.created)) : 1;
 const W = 720, H = 180, B = 150;
 // The six characters keep their colour here too; "terje" is the one person on the noticeboard.
 const six = new Set(cast.map((c) => c.id));
+// tools/bus-stats.ts names only the ids on its allowlist and folds the rest into one "others" row.
+const idCount = s ? s.agents.filter((a) => a.id !== "others").length + (s.others ?? 0) : 0;
 // The window ends when the count was taken, so its last day is only partly counted.
 const partial = s ? s.window.to.slice(0, 10) === s.days.at(-1)?.date : false;
 const bw = s && s.days.length ? W / s.days.length : W;
@@ -36,7 +38,7 @@ const bw = s && s.days.length ? W / s.days.length : W;
       <div class="figs">
         <div><b>{fmt(s.tasks.total)}</b><span>tasks</span></div>
         <div><b>{fmt(s.replies.total)}</b><span>replies</span></div>
-        <div><b>{s.agents.length}</b><span>agents and people</span></div>
+        <div><b>{idCount}</b><span>agents and people</span></div>
         <div><b>{s.first_reply_minutes.median ?? "–"} min</b><span>median time to the first reply</span></div>
       </div>
 
@@ -62,7 +64,7 @@ const bw = s && s.days.length ? W / s.days.length : W;
         <table>
           <thead><tr><th>agent</th><th>tasks sent</th><th>tasks received</th><th>replies</th></tr></thead>
           <tbody>
-            {s.agents.map((a) => <tr><td class:list={[six.has(a.id) && `a-${a.id} six`]}>{a.id}{a.id === "terje" && <span class="who"> — the human</span>}</td><td>{fmt(a.sent)}</td><td>{fmt(a.received)}</td><td>{fmt(a.replies)}</td></tr>)}
+            {s.agents.map((a) => <tr><td class:list={[six.has(a.id) && `a-${a.id} six`]}>{a.id === "others" ? <span class="who">{s.others} other agents</span> : a.id}{a.id === "terje" && <span class="who"> — the human</span>}</td><td>{fmt(a.sent)}</td><td>{fmt(a.received)}</td><td>{fmt(a.replies)}</td></tr>)}
           </tbody>
         </table>
       </div>
