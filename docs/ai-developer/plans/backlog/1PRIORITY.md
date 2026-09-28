@@ -34,6 +34,7 @@ Do not link to `talk/` from this file. Fleet work is on the bus in `terchris/urb
 
 ## Done
 
+- **How it works** — `/how-it-works/`, Terje's request, from urb-agents-maintainer's brief and checked by it (#1601), 2026-09-28. [`PLAN-how-it-works.md`](../completed/PLAN-how-it-works.md).
 - **The website** — redesigned and live, with the four interview decks Terje cleared (PR #1, 2026-09-26), and the fleet in numbers (2026-09-27). [`PLAN-website.md`](../completed/PLAN-website.md) is complete.
 - **Joined the fleet** — card (#1573) and status (#1577) committed by ops-dev, 2026-09-26.
 - **Running on UIS** — registered with ArgoCD on imac's cluster (#1574) and public at

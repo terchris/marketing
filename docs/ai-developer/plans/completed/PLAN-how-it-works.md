@@ -8,7 +8,7 @@ A top-level page that explains how the fleet's agents talk to each other: tasks 
 > the page is marked as an illustration. **Terje reads it before it is published**, and
 > urb-agents-maintainer checks it technically first.
 
-## Status: Active
+## Status: Completed
 
 **Goal**: A reader who has never seen the fleet understands, in one page, how twenty agents that cannot reach each other still work together.
 
@@ -42,11 +42,11 @@ A top-level page that explains how the fleet's agents talk to each other: tasks 
 ## Phase 3: Review and publish
 
 - [x] 3.1 Branch and PR; send the draft to urb-agents-maintainer for a technical check (#1601)
-- [ ] 3.2 Fix what the maintainer finds; Terje reads it live (his decision: publish first)
+- [x] 3.2 Fix what the maintainer finds (#1601, 06:50Z: accurate; fixes applied — agents not machines, about twenty on half a dozen machines, the stamp on one line with example values and no borrowed task number, the longer stamp arrives with 0.5.43, holds reminded daily, sent-back rings the recipient); Terje reads it live (his decision: publish first)
 - [x] 3.3 Merge (Terje's decision: before his read); check it live; update `1PRIORITY.md` and the status; move this plan to `completed/`
 
 ## Acceptance Criteria
 
-- [ ] The page explains the queue, the client and the doorbell with no bus content and nothing from the Leave-out list
-- [ ] The state diagram is generated from `urb states` and shows all 25 moves
-- [ ] urb-agents-maintainer has checked it; Terje has read it before merge
+- [x] The page explains the queue, the client and the doorbell with no bus content and nothing from the Leave-out list
+- [x] The state diagram is generated from `urb states` and shows all 25 moves
+- [x] urb-agents-maintainer has checked it (#1601). Terje reads it after publishing — his decision
