@@ -1,0 +1,148 @@
+---
+// The bus's state machine, drawn from src/data/bus-states.json (written by `npm run bus-states`
+// from `urb states --json`). Positions are chosen here; the states and every move come from the
+// data, so a move the protocol adds or removes appears or disappears on the next run.
+import type { BusStates } from "../lib/bus-states";
+interface Props { data: BusStates }
+const { data } = Astro.props;
+
+const W = 1000, H = 600;
+const at: Record<string, [number, number]> = {
+  submitted: [115, 300], working: [385, 300], done: [640, 150], "input-required": [640, 450], "auth-required": [385, 530],
+  completed: [885, 70], failed: [885, 225], canceled: [885, 380], rejected: [885, 535],
+};
+// Anything the layout does not know yet goes in a spare row, so a new state is never dropped.
+let spare = 0;
+for (const s of data.states) if (!at[s.state]) at[s.state] = [115, 80 + 70 * spare++];
+
+const RX = 92, RY = 24; // the pill, as an ellipse for trimming lines to its edge
+const trim = ([x1, y1]: number[], [x2, y2]: number[]): [number, number] => {
+  const dx = x2 - x1, dy = y2 - y1, t = 1 / Math.sqrt((dx / RX) ** 2 + (dy / RY) ** 2);
+  return [x1 + dx * t, y1 + dy * t];
+};
+const f = (n: number) => n.toFixed(1);
+// Every move bends to its own right, so A→B and B→A never lie on top of each other.
+const edges = Object.entries(data.transitions).flatMap(([from, tos]) => tos.map((to) => {
+  const a = at[from], b = at[to];
+  const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  const k = Math.min(60, len * 0.14);
+  const cx = (a[0] + b[0]) / 2 + (-(b[1] - a[1]) / len) * k, cy = (a[1] + b[1]) / 2 + ((b[0] - a[0]) / len) * k;
+  const s = trim(a, [cx, cy]), e = trim(b, [cx, cy]);
+  return { from, to, d: `M${f(s[0])} ${f(s[1])} Q${f(cx)} ${f(cy)} ${f(e[0])} ${f(e[1])}` };
+}));
+const kind = (s: BusStates["states"][number]) => (s.hold ? "hold" : s.terminal ? (s.state === "completed" ? "good" : "end") : "open");
+const wakes = { recipient: "the recipient", sender: "the sender", human: "no agent — it waits for a person", none: "nobody" };
+const byState = Object.fromEntries(data.states.map((s) => [s.state, { ...s, to: data.transitions[s.state] ?? [], wakes: wakes[s.rings] }]));
+---
+<div class="sm" id="state-machine">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="sm-title" class="diagram">
+    <title id="sm-title">The task states and the {edges.length} moves between them</title>
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="head" /></marker>
+      <marker id="arrow-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="head on" /></marker>
+    </defs>
+    <g class="edges">
+      {edges.map((e) => <path d={e.d} data-from={e.from} data-to={e.to} marker-end="url(#arrow)" />)}
+    </g>
+    <g class="nodes">
+      {data.states.map((s) => (
+        <g class={`node ${kind(s)}`} data-state={s.state} tabindex="0" role="button" aria-label={`${s.state}: show its moves`} transform={`translate(${at[s.state][0]} ${at[s.state][1]})`}>
+          <rect x={-RX} y={-RY} width={RX * 2} height={RY * 2} rx={RY} />
+          <text y="5" text-anchor="middle">{s.state}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <aside class="card info" aria-live="polite">
+    <p class="hint">Click a state to see where it can go.</p>
+    <div class="detail" hidden>
+      <h3 class="name"></h3>
+      <p class="desc"></p>
+      <p class="meta"><b>Wakes:</b> <span class="wakes"></span></p>
+      <p class="meta"><b>Can move to:</b> <span class="to"></span></p>
+    </div>
+  </aside>
+</div>
+<p class="legend"><span class="k open">open</span><span class="k hold">held for a person</span><span class="k good">accepted</span><span class="k end">ended otherwise</span></p>
+<p class="counted">{data.states.length} states, {edges.length} moves — generated from <code>urb states</code>{data.urb ? ` (urb ${data.urb})` : ""}, not drawn by hand.</p>
+
+<details class="table">
+  <summary>The same moves as a table</summary>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>from</th><th>can move to</th><th>wakes</th></tr></thead>
+      <tbody>
+        {data.states.map((s) => <tr><td><code>{s.state}</code></td><td>{(data.transitions[s.state] ?? []).length ? (data.transitions[s.state] ?? []).join(", ") : "— (final)"}</td><td>{wakes[s.rings]}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+</details>
+
+<script is:inline define:vars={{ byState }}>
+  const root = document.getElementById("state-machine");
+  const svg = root.querySelector("svg"), info = root.querySelector(".info");
+  const pick = (name) => {
+    const s = byState[name];
+    const same = svg.dataset.focus === name;
+    svg.dataset.focus = same ? "" : name;
+    svg.querySelectorAll(".node").forEach((n) => n.classList.toggle("on", !same && n.dataset.state === name));
+    svg.querySelectorAll(".node").forEach((n) => n.classList.toggle("target", !same && s.to.includes(n.dataset.state)));
+    svg.querySelectorAll(".edges path").forEach((p) => p.classList.toggle("on", !same && p.dataset.from === name));
+    info.querySelector(".hint").hidden = !same;
+    const d = info.querySelector(".detail"); d.hidden = same;
+    if (same) return;
+    d.querySelector(".name").textContent = name;
+    d.querySelector(".desc").textContent = s.description;
+    d.querySelector(".wakes").textContent = s.wakes;
+    d.querySelector(".to").textContent = s.to.length ? s.to.join(", ") : "nothing — this is where a task ends";
+  };
+  svg.querySelectorAll(".node").forEach((n) => {
+    n.addEventListener("click", () => pick(n.dataset.state));
+    n.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(n.dataset.state); } });
+  });
+</script>
+
+<style>
+  .sm { display: grid; gap: 16px; align-items: start; }
+  @media (min-width: 960px) { .sm { grid-template-columns: 1fr 280px; } }
+  .diagram { width: 100%; height: auto; display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); color: var(--faint); }
+  .head { fill: var(--faint); }
+  .head.on { fill: var(--i-ops); }
+  .edges path { fill: none; stroke: currentColor; stroke-width: 1.6; opacity: .55; transition: opacity .15s, stroke .15s, stroke-width .15s; }
+  [data-focus]:not([data-focus=""]) .edges path { opacity: .12; }
+  [data-focus]:not([data-focus=""]) .edges path.on { opacity: 1; stroke: var(--i-ops); stroke-width: 2.6; marker-end: url(#arrow-on); }
+  .node { cursor: pointer; outline: none; }
+  .node rect { stroke-width: 2; transition: transform .15s; }
+  .node text { font-family: var(--mono); font-size: 16px; font-weight: 600; pointer-events: none; }
+  .node.open rect { fill: color-mix(in srgb, var(--c-ops) 16%, var(--surface)); stroke: var(--c-ops); }
+  .node.open text { fill: var(--i-ops); }
+  .node.hold rect { fill: color-mix(in srgb, var(--human) 14%, var(--surface)); stroke: var(--human); }
+  .node.hold text { fill: var(--human); }
+  .node.good rect { fill: color-mix(in srgb, var(--c-imac) 18%, var(--surface)); stroke: var(--c-imac); }
+  .node.good text { fill: var(--i-imac); }
+  .node.end rect { fill: var(--surface-2); stroke: var(--faint); }
+  .node.end text { fill: var(--muted); }
+  .node:hover rect, .node:focus-visible rect, .node.on rect { stroke-width: 4; }
+  .node.target rect { stroke-dasharray: 5 3; stroke-width: 3; }
+  .node:focus-visible rect { stroke: var(--ink); }
+  .info { padding: 18px 20px; min-height: 120px; }
+  .info h3 { font-family: var(--mono); font-size: 1.1rem; }
+  .info p { margin: 8px 0 0; }
+  .hint { color: var(--muted); margin: 0 !important; }
+  .desc { color: var(--quote); }
+  .meta { font-size: .95rem; color: var(--muted); }
+  .meta b { color: var(--ink); }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 14px 0 0; font-size: .88rem; color: var(--muted); }
+  .k::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 6px; margin-right: 6px; vertical-align: -1px; border: 2px solid; }
+  .k.open::before { border-color: var(--c-ops); background: color-mix(in srgb, var(--c-ops) 16%, var(--surface)); }
+  .k.hold::before { border-color: var(--human); background: color-mix(in srgb, var(--human) 14%, var(--surface)); }
+  .k.good::before { border-color: var(--c-imac); background: color-mix(in srgb, var(--c-imac) 18%, var(--surface)); }
+  .k.end::before { border-color: var(--faint); background: var(--surface-2); }
+  .counted { color: var(--muted); font-size: .9rem; margin-top: 12px; }
+  .table { margin-top: 8px; }
+  .table summary { cursor: pointer; font-weight: 700; color: var(--i-ops); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: .95rem; }
+  th { text-align: left; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); padding: 6px 12px 6px 0; }
+  td { border-bottom: 1px solid var(--line); padding: 8px 12px 8px 0; vertical-align: top; }
+</style>

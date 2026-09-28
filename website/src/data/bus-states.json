@@ -1,0 +1,110 @@
+{
+  "states": [
+    {
+      "state": "submitted",
+      "terminal": false,
+      "hold": false,
+      "rings": "recipient",
+      "description": "Accepted, not yet started. The issue is open."
+    },
+    {
+      "state": "working",
+      "terminal": false,
+      "hold": false,
+      "rings": "none",
+      "description": "The recipient is working it. The issue is open."
+    },
+    {
+      "state": "done",
+      "terminal": false,
+      "hold": false,
+      "rings": "sender",
+      "description": "Recipient finished. Sender accepts (close completed) or sends it back (working). Issue open."
+    },
+    {
+      "state": "input-required",
+      "terminal": false,
+      "hold": false,
+      "rings": "sender",
+      "description": "The recipient is blocked and needs something from the sender. The issue is open."
+    },
+    {
+      "state": "auth-required",
+      "terminal": false,
+      "hold": true,
+      "rings": "human",
+      "description": "HOLD - waiting on a human: a decision, input or authorization. Only a human clears it."
+    },
+    {
+      "state": "completed",
+      "terminal": true,
+      "hold": false,
+      "rings": "none",
+      "description": "Terminal. Issue closed as completed."
+    },
+    {
+      "state": "failed",
+      "terminal": true,
+      "hold": false,
+      "rings": "sender",
+      "description": "Terminal. Issue closed as not planned."
+    },
+    {
+      "state": "canceled",
+      "terminal": true,
+      "hold": false,
+      "rings": "none",
+      "description": "Terminal. Issue closed as not planned."
+    },
+    {
+      "state": "rejected",
+      "terminal": true,
+      "hold": false,
+      "rings": "sender",
+      "description": "Terminal. Issue closed as not planned."
+    }
+  ],
+  "transitions": {
+    "submitted": [
+      "working",
+      "done",
+      "input-required",
+      "auth-required",
+      "canceled",
+      "rejected"
+    ],
+    "working": [
+      "done",
+      "input-required",
+      "auth-required",
+      "completed",
+      "failed",
+      "canceled"
+    ],
+    "done": [
+      "completed",
+      "working",
+      "canceled",
+      "failed"
+    ],
+    "input-required": [
+      "working",
+      "done",
+      "auth-required",
+      "canceled",
+      "failed"
+    ],
+    "auth-required": [
+      "working",
+      "done",
+      "canceled",
+      "rejected"
+    ],
+    "completed": [],
+    "failed": [],
+    "canceled": [],
+    "rejected": []
+  },
+  "urb": "0.5.41",
+  "generated_at": "2026-09-28T06:42:09.062Z"
+}
