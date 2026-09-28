@@ -1,0 +1,136 @@
+---
+// One page per agent (Terje's task, #1622): its avatar, what it does in marketing's words from its
+// card, its figures from the noticeboard, and the talks it appears in.
+import Base from "../../layouts/Base.astro";
+import Avatar from "../../components/Avatar.astro";
+import DeckCard from "../../components/DeckCard.astro";
+import { withPage, agent, type Agent } from "../../data/agents";
+import { cast } from "../../data/cast";
+import { decks } from "../../data/decks";
+import type { BusStats } from "../../lib/bus-stats";
+
+export function getStaticPaths() {
+  return withPage.map((a) => ({ params: { id: a.id }, props: { a } }));
+}
+const { a } = Astro.props as { a: Agent };
+const found = import.meta.glob<BusStats>("../../data/bus-stats.json", { eager: true, import: "default" });
+const s = Object.values(found)[0];
+const mine = s?.agents.find((x) => x.id === a.id);
+// Who it works with most: only agents that have a page here, so a partner is named because it was
+// reviewed for the site, never because a stats refresh put it there (sovdev-logger, #1634). Ties
+// break by id, so the order does not depend on the file.
+const partners = s
+  ? s.pairs.map((p) => ({ id: p.a === a.id ? p.b : p.b === a.id ? p.a : "", tasks: p.tasks }))
+      .filter((p) => p.id && agent(p.id)?.page)
+      .sort((x, y) => y.tasks - x.tasks || x.id.localeCompare(y.id)).slice(0, 4)
+  : [];
+const talks = decks.filter((d) => d.cast?.includes(a.id));
+const own = cast.find((c) => c.id === a.id);
+const fmt = (n: number) => n.toLocaleString("en-GB");
+const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+---
+<Base title={`${a.id} · The fleet · Urbalurba`} description={`${a.id}, ${a.role}: ${a.summary}`}>
+  <p class="crumb"><a href="/fleet/">The fleet</a> <span aria-hidden="true">/</span> {a.id}</p>
+  <section class={`hero a-${a.id}`}>
+    <div class="art"><Avatar id={a.id} size={220} label /></div>
+    <div class="copy">
+      <p class="eyebrow">{a.role}</p>
+      <h1>{a.id}</h1>
+      <p class="lead">{a.summary}</p>
+      {own && <blockquote>“{own.does}”<cite>— {a.id}, in its interview</cite></blockquote>}
+      <div class="links">
+        {a.product && <a class="btn" href={a.product.href}>{a.product.label} <span aria-hidden="true">↗</span></a>}
+        {a.repository && <a class="btn ghost" href={a.repository}>Source code <span aria-hidden="true">↗</span></a>}
+      </div>
+    </div>
+  </section>
+
+  <div class={`body a-${a.id}`}>
+    <section class="card block">
+      <h2>What it does</h2>
+      <ul class="does">{a.does?.map((d) => <li>{d}</li>)}</ul>
+      {a.skills && <p class="skills">{a.skills.map((k) => <span>{k}</span>)}</p>}
+      <p class="drawn">Its avatar holds {a.holds}.</p>
+    </section>
+
+    {mine && (
+      <section class="card block">
+        <h2>On the noticeboard</h2>
+        <div class="figs">
+          <div><b>{fmt(mine.sent)}</b><span>tasks sent</span></div>
+          <div><b>{fmt(mine.received)}</b><span>tasks received</span></div>
+          <div><b>{fmt(mine.replies)}</b><span>replies</span></div>
+        </div>
+        {partners.length > 0 && (
+          <>
+            <h3>Works most with</h3>
+            <ul class="partners">
+              {partners.map((p) => {
+                return (
+                  <li class={`a-${p.id}`}>
+                    <Avatar id={p.id} size={36} />
+                    <a href={`/fleet/${p.id}/`}>{p.id}</a>
+                    <span class="n">{fmt(p.tasks)} tasks</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        )}
+        <p class="small">Counted with <code>urb stats</code> {s!.window.from ? `since ${day(s!.window.from)}` : ""}, at {s!.generated_at.slice(0, 16).replace("T", " ")} UTC. <a href="/fleet/">The whole fleet →</a></p>
+      </section>
+    )}
+  </div>
+
+  {talks.length > 0 && (
+    <section class="section">
+      <header><h2>Talks and interviews</h2></header>
+      <div class="grid">{talks.map((d) => <DeckCard deck={d} />)}</div>
+    </section>
+  )}
+
+  <p class="note">
+    {a.id === "marketing"
+      ? `Written, and its avatar drawn, by marketing, an AI agent, from its own description of itself${a.checked ? `, on ${day(a.checked.date)}` : ""}.`
+      : a.checked
+        ? <>Written by <a href="/fleet/marketing/">marketing</a> and checked by {a.id} — both AI agents — from {a.id}'s own description of itself, on {day(a.checked.date)}. The avatar was drawn by marketing.</>
+        : <>Written, and its avatar drawn, by <a href="/fleet/marketing/">marketing</a>, an AI agent, from {a.id}'s own description of itself. Waiting for {a.id} to check it.</>}
+  </p>
+</Base>
+<style>
+  .crumb { margin: 0; padding-top: 28px; font-family: var(--mono); font-size: .78rem; color: var(--muted); }
+  .crumb a { color: var(--muted); }
+  .hero { display: grid; gap: 28px; align-items: center; padding-block: 24px 8px; }
+  @media (min-width: 820px) { .hero { grid-template-columns: 240px 1fr; gap: 48px; } }
+  .art { justify-self: center; }
+  .art :global(.av) { width: min(220px, 56vw); height: auto; box-shadow: 0 0 0 8px var(--surface), 0 0 0 10px var(--ac), 0 30px 50px -28px rgba(22,33,58,.6); }
+  .copy { display: grid; gap: 14px; }
+  .copy p { margin: 0; }
+  h1 { font-family: var(--mono); font-weight: 700; letter-spacing: -.03em; color: var(--ai); font-size: clamp(2.2rem, 7vw, 4rem); overflow-wrap: anywhere; }
+  .eyebrow { color: var(--ai); margin: 0; }
+  blockquote { margin: 4px 0 0; padding: 12px 16px; border-left: 4px solid var(--ac); background: var(--surface); border-radius: 0 12px 12px 0; font-size: 1.1rem; color: var(--quote); max-width: 60ch; }
+  cite { display: block; font-style: normal; font-size: .85rem; color: var(--muted); margin-top: 4px; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .btn { background: var(--ai); color: var(--surface); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+
+  .body { display: grid; gap: 16px; margin-top: clamp(32px, 6vw, 56px); }
+  @media (min-width: 900px) { .body { grid-template-columns: 1.2fr 1fr; align-items: start; } }
+  .block { padding: clamp(20px, 3vw, 28px); border-top: 4px solid var(--ac); }
+  .block h2 { font-size: 1.5rem; margin-bottom: 12px; }
+  .block h3 { font-size: 1rem; margin: 20px 0 8px; font-family: var(--mono); letter-spacing: .02em; color: var(--muted); font-weight: 600; }
+  .does { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  .skills { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 0; }
+  .skills span { font-family: var(--mono); font-size: .76rem; padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--ac) 14%, transparent); color: var(--ai); border: 1px solid color-mix(in srgb, var(--ac) 50%, transparent); }
+  .drawn { color: var(--muted); font-size: .9rem; margin: 16px 0 0; }
+  .figs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .figs div { background: var(--ground); border-radius: 12px; padding: 12px; }
+  .figs b { display: block; font-family: var(--display); font-size: 1.8rem; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .figs span { font-size: .82rem; color: var(--muted); }
+  .partners { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .partners li { display: flex; align-items: center; gap: 10px; font-family: var(--mono); }
+  .partners a, .partners span { color: var(--ai); }
+  .partners .n { margin-left: auto; color: var(--muted); font-size: .85rem; }
+  .small { color: var(--muted); font-size: .85rem; margin: 16px 0 0; }
+  .note { color: var(--muted); font-size: .9rem; margin-top: 40px; }
+</style>

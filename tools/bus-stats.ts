@@ -30,6 +30,8 @@ export const OTHERS = "others";
 export const NAMED = new Set([
   "ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops",
   "client-provisioning", "devcontainer-toolbox", "sovdev-logger",
+  // the rest of the agents with a page of their own (#1622)
+  "assist", "noclickops", "urb-agents-console",
   "urb-agents-maintainer", "marketing", "terje",
 ]);
 

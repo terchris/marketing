@@ -4,6 +4,16 @@
 // no single accent — each agent brings its own colour. Light first, with a designed dark theme
 // and a toggle that remembers the reader's choice.
 import avatars from "../../../presentations/shared/cast/avatars.html?raw";
+import { agents } from "../data/agents";
+// The six characters' colours are written out below, as the decks have them; every other agent's
+// comes from data/agents.ts, so a new agent needs one line there and none here.
+const SIX = ["ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops"];
+const extra = agents.filter((a) => !SIX.includes(a.id));
+const agentCss =
+  `:root{${extra.map((a) => `--c-${a.id}:${a.colour[0]};--i-${a.id}:${a.colour[1]};`).join("")}}` +
+  `@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${extra.map((a) => `--i-${a.id}:${a.colour[2]};`).join("")}}}` +
+  `:root[data-theme="dark"]{${extra.map((a) => `--i-${a.id}:${a.colour[2]};`).join("")}}` +
+  extra.map((a) => `.a-${a.id}{--ac:var(--c-${a.id});--ai:var(--i-${a.id});}`).join("");
 interface Props { title: string; description?: string; wide?: boolean }
 const { title, description = "Open tools for digital sovereignty, built by a fleet of AI agents — the stories, the talks and the numbers.", wide = false } = Astro.props;
 const path = Astro.url.pathname;
@@ -29,6 +39,7 @@ const nav = [
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&display=swap" />
     <title>{title}</title>
+    <style is:inline set:html={agentCss}></style>
     <script is:inline>
       try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
     </script>
@@ -44,10 +55,10 @@ const nav = [
         </a>
         <nav aria-label="Main">
           {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
-          <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch theme">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
-          </button>
         </nav>
+        <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch theme">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+        </button>
       </div>
     </header>
     <main id="main" class:list={{ wide }}><slot /></main>
@@ -136,16 +147,17 @@ const nav = [
   .brand .sep { color: var(--faint); }
   .dots { display: inline-grid; grid-template-columns: repeat(3, 7px); gap: 3px; }
   .dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--ac); }
-  nav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
-  nav a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px; border-radius: 999px; }
-  nav a:hover { color: var(--ink); background: var(--surface-2); }
-  nav a[aria-current="page"] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+  .bar nav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+  .bar nav a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px; border-radius: 999px; }
+  .bar nav a:hover { color: var(--ink); background: var(--surface-2); }
+  .bar nav a[aria-current="page"] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
   .theme { appearance: none; border: 1px solid var(--line); background: var(--surface); color: var(--muted); width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; margin-left: 6px; }
   .theme:hover { color: var(--ink); }
-  @media (max-width: 520px) {
-    .bar { gap: 6px; }
-    nav { gap: 0; width: 100%; justify-content: space-between; margin-inline: -8px; width: calc(100% + 16px); }
-    nav a { padding: 8px; font-size: .68rem; letter-spacing: .05em; }
+  .bar .brand { margin-right: auto; }
+  @media (max-width: 720px) {
+    .bar { gap: 6px 10px; }
+    .bar nav { order: 3; gap: 0; justify-content: space-between; margin-inline: -8px; width: calc(100% + 16px); }
+    .bar nav a { padding: 8px; font-size: .66rem; letter-spacing: .04em; }
     .theme { width: 32px; height: 32px; margin-left: 0; }
   }
 
