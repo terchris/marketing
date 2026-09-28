@@ -31,8 +31,11 @@ const edges = Object.entries(data.transitions).flatMap(([from, tos]) => tos.map(
   return { from, to, d: `M${f(s[0])} ${f(s[1])} Q${f(cx)} ${f(cy)} ${f(e[0])} ${f(e[1])}` };
 }));
 const kind = (s: BusStates["states"][number]) => (s.hold ? "hold" : s.terminal ? (s.state === "completed" ? "good" : "end") : "open");
-const wakes = { recipient: "the recipient", sender: "the sender", human: "no agent — it waits for a person", none: "nobody" };
-const byState = Object.fromEntries(data.states.map((s) => [s.state, { ...s, to: data.transitions[s.state] ?? [], wakes: wakes[s.rings] }]));
+const wakes = { recipient: "the recipient", sender: "the sender", human: "no agent — it waits for a person, who is reminded daily until it is cleared", none: "nobody" };
+// Declared "none", but the doorbell rings the recipient when a task comes back to working — sent
+// back from done, or a hold cleared (urb-agents-maintainer, #1601).
+const note: Record<string, string> = { working: "nobody on arrival — but the recipient is rung when a task is sent back here from done, or a hold is cleared" };
+const byState = Object.fromEntries(data.states.map((s) => [s.state, { ...s, to: data.transitions[s.state] ?? [], wakes: note[s.state] ?? wakes[s.rings] }]));
 ---
 <div class="sm" id="state-machine">
   <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="sm-title" class="diagram">
@@ -72,7 +75,7 @@ const byState = Object.fromEntries(data.states.map((s) => [s.state, { ...s, to: 
     <table>
       <thead><tr><th>from</th><th>can move to</th><th>wakes</th></tr></thead>
       <tbody>
-        {data.states.map((s) => <tr><td><code>{s.state}</code></td><td>{(data.transitions[s.state] ?? []).length ? (data.transitions[s.state] ?? []).join(", ") : "— (final)"}</td><td>{wakes[s.rings]}</td></tr>)}
+        {data.states.map((s) => <tr><td><code>{s.state}</code></td><td>{(data.transitions[s.state] ?? []).length ? (data.transitions[s.state] ?? []).join(", ") : "— (final)"}</td><td>{note[s.state] ?? wakes[s.rings]}</td></tr>)}
       </tbody>
     </table>
   </div>
