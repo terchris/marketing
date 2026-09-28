@@ -47,6 +47,7 @@ From the repository root:
 npm install                  # once
 npm run decks                # build every deck into website/public/presentations/
 npm run bus-stats            # the bus in numbers, through urb (-- --since <date> to narrow it)
+npm run bus-states           # the task state machine, through urb states, for /how-it-works/
 npm run typecheck            # the tools are TypeScript, run natively by Node — no build step
 npm run dev                  # decks, then the dev server
 npm run build                # decks, then the static site into website/dist/
@@ -143,6 +144,11 @@ the run. **Never widen that check to let text through.** A figure on the page is
 **Only allowlisted ids are named** (`NAMED` in `tools/bus-stats.ts`, since #1598): every other id
 is folded into one "others" row before the file is written, so a new agent appears on the public
 page only when someone adds it to the list.
+
+**The state machine on `/how-it-works/`** comes from `npm run bus-states` (`tools/bus-states.ts`):
+`urb states --json` → `website/src/data/bus-states.json`, shape-checked like the stats. The diagram
+is drawn from that file, never by hand — a hand-drawn version once missed 13 of the 25 moves (#1601).
+Rerun it when a `urb` release changes the protocol.
 
 **`urb changes` is for reading, never for the site.** It carries task titles, and a title can name a
 defect, a host, a person or a decision that is not ours to disclose. Use it to find a story, then

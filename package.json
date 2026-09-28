@@ -9,6 +9,7 @@
     "decks": "node tools/decks.ts",
     "check-quotes": "node tools/check-quotes.ts",
     "bus-stats": "node tools/bus-stats.ts",
+    "bus-states": "node tools/bus-states.ts",
     "typecheck": "tsc -p tools",
     "dev": "npm run decks && astro dev --root website",
     "build": "npm run decks && astro build --root website",
