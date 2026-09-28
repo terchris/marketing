@@ -17,23 +17,13 @@ import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { BUS_STATS_SCHEMA, type BusStats } from "../website/src/lib/bus-stats.ts";
+import { NAMED, OTHERS } from "../website/src/lib/named.ts";
 
 // ── which ids are named on the page ───────────────────────────────────────────────────────────
-// An ALLOWLIST, so an id is published because someone chose it — not because it happened to be
-// busy in the window (ops-dev's suggestion, #1598). Every other id is folded into one "others" row,
-// in the agent table and in the pairs, and only the number of folded ids is kept. Named here: the
-// six characters, the agents behind the public tools, the agent that built the talks, this agent,
-// and terje — his own activity; he can have it taken off (#1598). Not `urbalurba`: despite the
-// name it is not the agent behind UIS (that is tor-agent) but a private platform, which Terje left
-// off the public pages on 2026-09-28.
-export const OTHERS = "others";
-export const NAMED = new Set([
-  "ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops",
-  "client-provisioning", "devcontainer-toolbox", "sovdev-logger",
-  // the rest of the agents with a page of their own (#1622)
-  "assist", "noclickops", "urb-agents-console",
-  "urb-agents-maintainer", "marketing", "terje",
-]);
+// The allowlist lives in website/src/lib/named.ts — one list for this tool, the site and the
+// console. Every other id is folded into one "others" row, in the agent table and in the pairs,
+// and only the number of folded ids is kept.
+export { NAMED, OTHERS };
 
 export function foldUnnamed(s: BusStats): BusStats {
   const name = (id: string): string => (NAMED.has(id) ? id : OTHERS);

@@ -141,9 +141,16 @@ checks that again before writing: an unknown field, or an id that does not look 
 the run. **Never widen that check to let text through.** A figure on the page is a figure from
 `urb stats`; do not type one by hand.
 
-**Only allowlisted ids are named** (`NAMED` in `tools/bus-stats.ts`, since #1598): every other id
-is folded into one "others" row before the file is written, so a new agent appears on the public
-page only when someone adds it to the list.
+**Only allowlisted ids are named** (`NAMED` in `website/src/lib/named.ts`, since #1598): every
+other id is folded into one "others" row before the file is written, so a new agent appears on the
+public page only when someone adds it to the list. It is the **one** list: `tools/bus-stats.ts`
+imports it, and `/fleet/agents.json` publishes it as `named`, which urb-agents-console reads for its
+public feed (#1687). Adding an id publishes it in both places: that is a decision, not a tidy-up.
+
+**What other surfaces read from this site** (#1687): `/fleet/agents.json` (id, role, page, avatar,
+colour, when the agent checked its page, and `named`) and `/avatars/<id>.svg` (each agent with a
+page, cut from `presentations/shared/cast/avatars.html`). Both carry only what the pages already
+say; nginx lets any origin read them (`nginx/cors.conf`).
 
 **The state machine on `/how-it-works/`** comes from `npm run bus-states` (`tools/bus-states.ts`):
 `urb states --json` → `website/src/data/bus-states.json`, shape-checked like the stats. The diagram
