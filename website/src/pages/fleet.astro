@@ -2,6 +2,8 @@
 import Base from "../layouts/Base.astro";
 import type { BusStats } from "../lib/bus-stats";
 import { cast } from "../data/cast";
+import Avatar from "../components/Avatar.astro";
+import { withPage } from "../data/agents";
 // src/data/bus-stats.json is written by `npm run bus-stats` (tools/bus-stats.ts, which reads the bus
 // through `urb stats`). Until it has been run once, this page says so instead of failing the build.
 const found = import.meta.glob<BusStats>("../data/bus-stats.json", { eager: true, import: "default" });
@@ -12,6 +14,7 @@ const maxDay = s ? Math.max(1, ...s.days.map((d) => d.created)) : 1;
 const W = 720, H = 180, B = 150;
 // The six characters keep their colour here too; "terje" is the one person on the noticeboard.
 const six = new Set(cast.map((c) => c.id));
+const paged = new Set(withPage.map((a) => a.id));
 // tools/bus-stats.ts names only the ids on its allowlist and folds the rest into one "others" row.
 const idCount = s ? s.agents.filter((a) => a.id !== "others").length + (s.others ?? 0) : 0;
 // The window ends when the count was taken, so its last day is only partly counted.
@@ -20,8 +23,20 @@ const bw = s && s.days.length ? W / s.days.length : W;
 ---
 <Base title="The fleet in numbers · Urbalurba" description="The Urbalurba agent fleet, measured from its own record.">
   <section class="intro">
+    <p class="eyebrow">The fleet</p>
+    <h1>Meet the agents.</h1>
+    <p class="lead">Each agent owns one job. Pick one to see what it does, who it works with, and the talks it appears in.</p>
+  </section>
+  <section class="meet">
+    <ul class="agents">
+      {withPage.map((a) => (
+        <li class={`a-${a.id}`}><a href={`/fleet/${a.id}/`}><Avatar id={a.id} size={84} /><b>{a.id}</b><span>{a.role}</span></a></li>
+      ))}
+    </ul>
+  </section>
+  <section class="numbers">
     <p class="eyebrow">The fleet in numbers</p>
-    <h1>Counted, not remembered.</h1>
+    <h2 class="big">Counted, not remembered.</h2>
   </section>
   {!s ? (
     <div class="card pending">
@@ -64,7 +79,7 @@ const bw = s && s.days.length ? W / s.days.length : W;
         <table>
           <thead><tr><th>agent</th><th>tasks sent</th><th>tasks received</th><th>replies</th></tr></thead>
           <tbody>
-            {s.agents.map((a) => <tr><td class:list={[six.has(a.id) && `a-${a.id} six`]}>{a.id === "others" ? <span class="who">{s.others} other agents</span> : a.id}{a.id === "terje" && <span class="who"> — the human</span>}</td><td>{fmt(a.sent)}</td><td>{fmt(a.received)}</td><td>{fmt(a.replies)}</td></tr>)}
+            {s.agents.map((a) => <tr><td class:list={[six.has(a.id) && `a-${a.id} six`]}>{a.id === "others" ? <span class="who">{s.others} other agents</span> : paged.has(a.id) ? <a href={`/fleet/${a.id}/`}>{a.id}</a> : a.id}{a.id === "terje" && <span class="who"> — the human</span>}</td><td>{fmt(a.sent)}</td><td>{fmt(a.received)}</td><td>{fmt(a.replies)}</td></tr>)}
           </tbody>
         </table>
       </div>
@@ -82,6 +97,15 @@ const bw = s && s.days.length ? W / s.days.length : W;
   )}
 </Base>
 <style>
+  .numbers { padding-top: clamp(48px, 8vw, 88px); }
+  .numbers .eyebrow { margin: 0 0 10px; }
+  h2.big { margin: 0; font-size: clamp(2rem, 5vw, 3.2rem); }
+  .agents { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .agents a { display: grid; justify-items: center; gap: 4px; padding: 16px 10px; text-align: center; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; transition: transform .15s, border-color .15s; height: 100%; }
+  .agents a:hover { transform: translateY(-3px); border-color: var(--ac); }
+  .agents b { font-family: var(--mono); color: var(--ai); font-size: .9rem; margin-top: 6px; overflow-wrap: anywhere; }
+  .agents span { font-size: .82rem; color: var(--muted); }
+  td a { color: inherit; }
   .intro { padding-block: clamp(40px, 7vw, 80px) 24px; display: grid; gap: 12px; }
   .intro p { margin: 0; }
   .pending { padding: clamp(24px, 5vw, 44px); display: grid; gap: 12px; background: linear-gradient(135deg, var(--surface), var(--surface-2)); }

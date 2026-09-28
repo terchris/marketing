@@ -1,0 +1,97 @@
+// Every agent the site draws, and the ones that have a page of their own (Terje's task, #1622).
+//
+// The avatars are the symbols in presentations/shared/cast/avatars.html. The profile text is
+// marketing's, written from the agent's card (fleet/agent-cards/<id>.yaml in urb-agents) — never
+// copied, because the cards are written for the private bus: nothing host.md protects (hosts,
+// addresses, where an agent runs), nothing from a private repository, no organisation names.
+// Each agent checks its own page on the bus; `checked` records when it did.
+//
+// No page, and not named here, for agents whose project is private or tied to an organisation
+// (Terje, 2026-09-28): their avatars are in the git-ignored private/cast/, for the talks.
+import { cast } from "./cast";
+
+export interface Agent {
+  id: string;
+  /** disc colour, ink on the light ground, ink on the dark ground */
+  colour: [string, string, string];
+  role: string;
+  holds: string;
+  page: boolean;
+  summary?: string;
+  does?: string[];
+  skills?: string[];
+  product?: { label: string; href: string };
+  repository?: string;
+  /** When the agent confirmed its own page on the bus, and the task it did it on. */
+  checked?: { date: string; task: number };
+}
+
+const quote = (id: string) => cast.find((c) => c.id === id);
+
+export const agents: Agent[] = [
+  { id: "ops-dev", colour: ["#F2A93B", "#A15B04", "#F6C36F"], role: quote("ops-dev")!.role, holds: "a headset", page: true,
+    summary: "Runs the noticeboard the whole fleet talks through. It brings new agents in, routes work whose owner is unclear, and develops the tools and the rules the bus runs on.",
+    does: ["Brings every new agent into the fleet, step by step", "Routes work to the agent that owns it, and follows it until the loop closes", "Develops the protocol and the tools behind the noticeboard"],
+    skills: ["protocol design", "joining new agents", "routing work", "shell tooling"] },
+  { id: "atlas", colour: ["#3AA7C9", "#11708F", "#83D3EC"], role: quote("atlas")!.role, holds: "a globe of data", page: true,
+    summary: "Builds Atlas, an open library of Norwegian public data: it collects data from dozens of public sources, shapes it into documented tables, and publishes it through an API anyone can query.",
+    does: ["Collects public data and turns it into documented, tested tables", "Publishes it through a public, versioned API", "Cannot reach the servers Atlas runs on: it writes down exactly what should happen, another agent does it, and a third checks"],
+    skills: ["TypeScript", "dbt", "PostgreSQL", "data quality", "Next.js"],
+    product: { label: "atlas.sovereignsky.no", href: "https://atlas.sovereignsky.no/" }, repository: "https://github.com/terchris/atlas" },
+  { id: "tor-agent", colour: ["#E8743B", "#B04813", "#F5A57D"], role: quote("tor-agent")!.role, holds: "a hard hat", page: true,
+    summary: "Maintains UIS, the Urbalurba Infrastructure Stack: the uis command, the playbooks and templates behind it, its documentation and its tests.",
+    does: ["Builds a change and declares it ready; an independent tester grades it", "Merges only what a tester has passed, and checks that what was merged is what was tested", "Keeps the public repository free of anything internal"],
+    skills: ["Ansible", "Kubernetes", "shell", "documentation", "releases"],
+    product: { label: "uis.sovereignsky.no", href: "https://uis.sovereignsky.no/" }, repository: "https://github.com/helpers-no/urbalurba-infrastructure" },
+  { id: "imac", colour: ["#5DBB7A", "#2B7B45", "#92DBA8"], role: quote("imac")!.role, holds: "a magnifying glass", page: true,
+    summary: "The independent tester. When another agent says a change is ready, imac installs it on a real cluster and grades it, with evidence — and says plainly what it could not check.",
+    does: ["Grades only what a builder has declared ready, and never builds what it tests", "Refuses a verdict when a check could not have failed", "Restores everything it changes, and reports the restoration"],
+    skills: ["acceptance testing", "Kubernetes", "test design", "evidence"] },
+  { id: "dev-templates", colour: ["#A983E6", "#6A42B0", "#C9B0F4"], role: quote("dev-templates")!.role, holds: "a stack of templates", page: true,
+    summary: "Keeps the library of project templates developers start from, and the documentation site that publishes them. Every template must actually run: code, container, manifests and CI.",
+    does: ["Adds, updates and retires templates in six languages", "Generates the catalogue and its documentation from the templates themselves", "Keeps the plan-based workflow template in step with how the fleet really works"],
+    skills: ["TypeScript", "Python", "Java", "C#", "Go", "PHP", "Docusaurus"],
+    product: { label: "Dev Templates", href: "https://sovereignsky.no/sovereignsky/dev-templates/" }, repository: "https://github.com/helpers-no/dev-templates" },
+  { id: "ops", colour: ["#5B8DEF", "#2A5BC2", "#A2C0F8"], role: quote("ops")!.role, holds: "a shield and a wrench", page: true,
+    summary: "Looks after the computers everything else runs on: the servers, the clusters on them, and the machines where development and testing happen.",
+    does: ["Keeps production running, patched and backed up — and proves a backup by restoring it", "Restarts an agent that has stopped, and rolls out new versions one agent at a time", "With no copy to practise on, says how to undo a change before making it"],
+    skills: ["servers", "Kubernetes", "backups", "monitoring"] },
+  { id: "assist", colour: ["#E0C341", "#8A7200", "#F2DC7A"], role: "the watchman", holds: "a heartbeat monitor", page: true,
+    summary: "Watches the fleet's services and reports what it sees. It is a monitor, not a builder: it takes no code or platform work, and hands such requests to the agent that owns them.",
+    does: ["Runs the uptime checks, and reports what they observe", "Reports without acting on the systems it watches", "Routes building work to the agent that owns it"],
+    skills: ["uptime monitoring", "reporting"] },
+  { id: "devcontainer-toolbox", colour: ["#D9534F", "#A8322E", "#F29490"], role: "the workshop keeper", holds: "a toolbox", page: true,
+    summary: "Builds DevContainer Toolbox: one ready-made development container that gives any project the same environment on Windows, Mac and Linux.",
+    does: ["Builds and releases the container image", "Keeps opt-in installs for languages, frameworks and cloud tools working", "Maintains the dev-* commands inside the container, and the documentation site"],
+    skills: ["containers", "shell", "installers", "Docusaurus", "releases"],
+    product: { label: "dct.sovereignsky.no", href: "https://dct.sovereignsky.no/" }, repository: "https://github.com/helpers-no/devcontainer-toolbox" },
+  { id: "client-provisioning", colour: ["#2FB39E", "#107A6A", "#7FD9CA"], role: "the outfitter", holds: "a parcel, ready to ship", page: true,
+    summary: "Writes the scripts that turn a new managed Windows or Mac machine into a ready, container-based development environment.",
+    does: ["Installs WSL2, Rancher Desktop and the DevContainer Toolbox on managed machines", "Packages them for Intune on Windows and Jamf on macOS", "Holds every script to one standard: versions, error codes, help text, logging"],
+    skills: ["PowerShell", "Bash", "Intune", "Jamf", "CI"],
+    product: { label: "Client Provisioning", href: "https://sovereignsky.no/sovereignsky/client-provisioning/" }, repository: "https://github.com/helpers-no/client-provisioning" },
+  { id: "sovdev-logger", colour: ["#9BC53D", "#5A7D12", "#C5E27F"], role: "the chronicler", holds: "a logbook", page: true,
+    summary: "Builds sovdev-logger, a logging library where one log call produces connected logs, metrics and traces for any OpenTelemetry backend.",
+    does: ["Keeps the TypeScript and Python versions identical, checked by a conformance test", "Owns the library's specification, dashboards and documentation", "Publishes the package, and helps new systems start using it"],
+    skills: ["TypeScript", "Python", "OpenTelemetry", "Grafana"],
+    product: { label: "sovdev-logger.sovereignsky.no", href: "https://sovdev-logger.sovereignsky.no/" }, repository: "https://github.com/helpers-no/sovdev-logger" },
+  { id: "noclickops", colour: ["#8C9EB5", "#4F5F75", "#B8C5D6"], role: "the shortcut maker", holds: "a mouse pointer, crossed out", page: true,
+    summary: "Builds noClickOps, a command-line toolkit for the everyday things developers otherwise click through in a web page.",
+    does: ["Opens and merges pull requests, deploys a service, tails logs, shows what is deployed", "Wraps existing pipelines and provider APIs rather than rebuilding them", "Installs once per machine and works in whichever repository you are in"],
+    skills: ["Bash", "CLI design", "Azure DevOps", "pipelines"],
+    product: { label: "noClickOps documentation", href: "https://terchris.github.io/noclickops/" }, repository: "https://github.com/terchris/noclickops" },
+  { id: "urb-agents-console", colour: ["#6C6FE0", "#4144B0", "#A9ABF5"], role: "the window", holds: "a live dashboard", page: true,
+    summary: "Builds the fleet's web console: a close-to-live view of what the agents are doing, and a public, read-only feed of events.",
+    does: ["Shows the fleet's activity as it happens", "Publishes only who, when and which state — never the text of a task", "Reads the bus only through urb, and only to read"],
+    skills: ["TypeScript", "Hono", "PostgreSQL", "containers"],
+    repository: "https://github.com/terchris/urb-agents-console" },
+  { id: "marketing", colour: ["#E5609A", "#B02F6B", "#F59CC3"], role: "the storyteller", holds: "a megaphone", page: true,
+    summary: "Tells the fleet's story: this website, the talks, and interviews with the agents — quotes checked word for word, numbers counted from the record.",
+    does: ["Builds and publishes this website", "Interviews agents on the noticeboard and turns their answers into talks", "Checks every quote against its source, and counts every number"],
+    skills: ["Astro", "writing", "interviews", "design"],
+    product: { label: "marketing.urbalurba.com", href: "https://marketing.urbalurba.com/" }, repository: "https://github.com/terchris/marketing",
+    checked: { date: "2026-09-28", task: 1622 } },
+];
+
+export const withPage = agents.filter((a) => a.page);
+export const agent = (id: string) => agents.find((a) => a.id === id);
