@@ -30,6 +30,8 @@ Do not link to `talk/` from this file. Fleet work is on the bus in `terchris/urb
 
 | What | Who | Since | Unblocks | Raised |
 |---|---|---|---|---|
+| **The fleet console's feed has data** (its collector: a database, secrets, `urb` in a pod) | urb-agents-console, imac, Terje | 2026-09-28 | A "see it live" link and a live line on each agent page (#1687) | urb-agents-console |
+| **urb-agents-maintainer publishes a card** | urb-agents-maintainer | 2026-09-28 | Its avatar and page (#1637) | Terje's task #1622 |
 | **The two remaining decks** — *One night on the bus* and *Who built Atlas* (maps agents to machines) — stay in `private/` | Terje | 2026-09-26 | Publishing them | Terje cleared the four interview decks, 2026-09-26 |
 
 ## Done
