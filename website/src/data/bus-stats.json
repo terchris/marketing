@@ -1,63 +1,63 @@
 {
   "schema": "urb-stats/1",
-  "generated_at": "2026-09-27T17:05:26.901Z",
+  "generated_at": "2026-09-28T08:34:14.472Z",
   "window": {
     "from": "2026-09-01T00:00:00.000Z",
-    "to": "2026-09-27T17:05:26.901Z"
+    "to": "2026-09-28T08:34:14.472Z"
   },
   "tasks": {
-    "total": 1154,
-    "open": 42,
-    "closed": 1112,
+    "total": 1168,
+    "open": 38,
+    "closed": 1130,
     "closed_as": {
-      "completed": 1055,
+      "completed": 1072,
       "failed": 2,
-      "canceled": 49,
+      "canceled": 50,
       "rejected": 6,
       "unlabelled": 0
     },
     "open_in": {
-      "working": 7,
-      "done": 7,
-      "submitted": 16,
-      "auth-required": 11,
+      "done": 3,
+      "submitted": 17,
+      "auth-required": 12,
+      "working": 5,
       "input-required": 1
     }
   },
   "replies": {
-    "total": 4384,
-    "stamped": 3157
+    "total": 4432,
+    "stamped": 3187
   },
   "agents": [
     {
       "id": "ops-dev",
-      "sent": 710,
-      "received": 187,
-      "replies": 1220
+      "sent": 719,
+      "received": 191,
+      "replies": 1232
     },
     {
       "id": "atlas",
       "sent": 104,
       "received": 228,
-      "replies": 476
+      "replies": 477
     },
     {
       "id": "imac",
       "sent": 46,
-      "received": 199,
-      "replies": 404
+      "received": 200,
+      "replies": 405
     },
     {
       "id": "tor-agent",
       "sent": 58,
-      "received": 171,
-      "replies": 320
+      "received": 172,
+      "replies": 321
     },
     {
       "id": "urb-agents-maintainer",
-      "sent": 95,
-      "received": 89,
-      "replies": 268
+      "sent": 98,
+      "received": 90,
+      "replies": 271
     },
     {
       "id": "dev-templates",
@@ -68,13 +68,13 @@
     {
       "id": "ops",
       "sent": 49,
-      "received": 49,
-      "replies": 119
+      "received": 50,
+      "replies": 122
     },
     {
       "id": "terje",
       "sent": 12,
-      "received": 34,
+      "received": 35,
       "replies": 44
     },
     {
@@ -82,12 +82,6 @@
       "sent": 24,
       "received": 9,
       "replies": 61
-    },
-    {
-      "id": "urbalurba",
-      "sent": 4,
-      "received": 14,
-      "replies": 7
     },
     {
       "id": "devcontainer-toolbox",
@@ -104,14 +98,14 @@
     {
       "id": "marketing",
       "sent": 4,
-      "received": 5,
-      "replies": 11
+      "received": 6,
+      "replies": 16
     },
     {
       "id": "others",
-      "sent": 20,
-      "received": 52,
-      "replies": 73
+      "sent": 26,
+      "received": 70,
+      "replies": 84
     }
   ],
   "pairs": [
@@ -123,22 +117,27 @@
     {
       "a": "imac",
       "b": "ops-dev",
-      "tasks": 150
+      "tasks": 151
     },
     {
       "a": "ops-dev",
       "b": "urb-agents-maintainer",
-      "tasks": 135
+      "tasks": 138
     },
     {
       "a": "ops-dev",
       "b": "tor-agent",
-      "tasks": 123
+      "tasks": 124
     },
     {
       "a": "dev-templates",
       "b": "ops-dev",
       "tasks": 100
+    },
+    {
+      "a": "ops-dev",
+      "b": "others",
+      "tasks": 54
     },
     {
       "a": "imac",
@@ -148,12 +147,7 @@
     {
       "a": "ops",
       "b": "ops-dev",
-      "tasks": 35
-    },
-    {
-      "a": "ops-dev",
-      "b": "others",
-      "tasks": 34
+      "tasks": 36
     },
     {
       "a": "atlas",
@@ -173,7 +167,7 @@
     {
       "a": "ops",
       "b": "others",
-      "tasks": 17
+      "tasks": 18
     },
     {
       "a": "ops",
@@ -191,11 +185,6 @@
       "tasks": 15
     },
     {
-      "a": "ops-dev",
-      "b": "urbalurba",
-      "tasks": 14
-    },
-    {
       "a": "client-provisioning",
       "b": "terje",
       "tasks": 11
@@ -203,6 +192,11 @@
     {
       "a": "devcontainer-toolbox",
       "b": "ops-dev",
+      "tasks": 10
+    },
+    {
+      "a": "ops-dev",
+      "b": "terje",
       "tasks": 10
     },
     {
@@ -216,18 +210,13 @@
       "tasks": 9
     },
     {
-      "a": "ops-dev",
-      "b": "terje",
+      "a": "others",
+      "b": "urb-agents-maintainer",
       "tasks": 9
     },
     {
       "a": "marketing",
       "b": "ops-dev",
-      "tasks": 8
-    },
-    {
-      "a": "others",
-      "b": "urb-agents-maintainer",
       "tasks": 8
     },
     {
@@ -291,6 +280,11 @@
       "tasks": 3
     },
     {
+      "a": "marketing",
+      "b": "urb-agents-maintainer",
+      "tasks": 2
+    },
+    {
       "a": "sovdev-logger",
       "b": "terje",
       "tasks": 2
@@ -298,11 +292,6 @@
     {
       "a": "terje",
       "b": "urb-agents-maintainer",
-      "tasks": 2
-    },
-    {
-      "a": "others",
-      "b": "urbalurba",
       "tasks": 2
     },
     {
@@ -321,11 +310,6 @@
       "tasks": 1
     },
     {
-      "a": "marketing",
-      "b": "urb-agents-maintainer",
-      "tasks": 1
-    },
-    {
       "a": "others",
       "b": "sovdev-logger",
       "tasks": 1
@@ -336,18 +320,8 @@
       "tasks": 1
     },
     {
-      "a": "ops",
-      "b": "urbalurba",
-      "tasks": 1
-    },
-    {
       "a": "sovdev-logger",
       "b": "urb-agents-maintainer",
-      "tasks": 1
-    },
-    {
-      "a": "urb-agents-maintainer",
-      "b": "urbalurba",
       "tasks": 1
     }
   ],
@@ -485,13 +459,18 @@
     {
       "date": "2026-09-27",
       "created": 6,
-      "closed": 6
+      "closed": 7
+    },
+    {
+      "date": "2026-09-28",
+      "created": 14,
+      "closed": 17
     }
   ],
   "first_reply_minutes": {
-    "tasks": 1019,
-    "median": 4.7,
-    "p90": 51.9
+    "tasks": 1032,
+    "median": 4.6,
+    "p90": 51.4
   },
-  "others": 6
+  "others": 8
 }

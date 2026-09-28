@@ -23,11 +23,13 @@ import { BUS_STATS_SCHEMA, type BusStats } from "../website/src/lib/bus-stats.ts
 // busy in the window (ops-dev's suggestion, #1598). Every other id is folded into one "others" row,
 // in the agent table and in the pairs, and only the number of folded ids is kept. Named here: the
 // six characters, the agents behind the public tools, the agent that built the talks, this agent,
-// and terje — his own activity; he can have it taken off (#1598).
+// and terje — his own activity; he can have it taken off (#1598). Not `urbalurba`: despite the
+// name it is not the agent behind UIS (that is tor-agent) but a private platform, which Terje left
+// off the public pages on 2026-09-28.
 export const OTHERS = "others";
 export const NAMED = new Set([
   "ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops",
-  "client-provisioning", "devcontainer-toolbox", "sovdev-logger", "urbalurba",
+  "client-provisioning", "devcontainer-toolbox", "sovdev-logger",
   "urb-agents-maintainer", "marketing", "terje",
 ]);
 
