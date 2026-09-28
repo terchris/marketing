@@ -16,10 +16,13 @@ const { a } = Astro.props as { a: Agent };
 const found = import.meta.glob<BusStats>("../../data/bus-stats.json", { eager: true, import: "default" });
 const s = Object.values(found)[0];
 const mine = s?.agents.find((x) => x.id === a.id);
-// Who it works with most: the named agents it shares the most tasks with, both directions.
+// Who it works with most: only agents that have a page here, so a partner is named because it was
+// reviewed for the site, never because a stats refresh put it there (sovdev-logger, #1634). Ties
+// break by id, so the order does not depend on the file.
 const partners = s
-  ? s.pairs.filter((p) => (p.a === a.id || p.b === a.id) && p.a !== "others" && p.b !== "others")
-      .map((p) => ({ id: p.a === a.id ? p.b : p.a, tasks: p.tasks })).sort((x, y) => y.tasks - x.tasks).slice(0, 4)
+  ? s.pairs.map((p) => ({ id: p.a === a.id ? p.b : p.b === a.id ? p.a : "", tasks: p.tasks }))
+      .filter((p) => p.id && agent(p.id)?.page)
+      .sort((x, y) => y.tasks - x.tasks || x.id.localeCompare(y.id)).slice(0, 4)
   : [];
 const talks = decks.filter((d) => d.cast?.includes(a.id));
 const own = cast.find((c) => c.id === a.id);
@@ -63,11 +66,10 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
             <h3>Works most with</h3>
             <ul class="partners">
               {partners.map((p) => {
-                const other = agent(p.id);
                 return (
                   <li class={`a-${p.id}`}>
-                    {other ? <Avatar id={p.id} size={36} /> : <i class:list={["dot", p.id === "terje" && "human"]} aria-hidden="true"></i>}
-                    {other?.page ? <a href={`/fleet/${p.id}/`}>{p.id}</a> : <span>{p.id}</span>}
+                    <Avatar id={p.id} size={36} />
+                    <a href={`/fleet/${p.id}/`}>{p.id}</a>
                     <span class="n">{fmt(p.tasks)} tasks</span>
                   </li>
                 );
@@ -128,9 +130,6 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
   .partners { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
   .partners li { display: flex; align-items: center; gap: 10px; font-family: var(--mono); }
   .partners a, .partners span { color: var(--ai); }
-  .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); border: 2px solid var(--line); flex: none; }
-  .dot.human { border-color: var(--human); }
-  .partners li.a-terje a, .partners li.a-terje span:not(.n) { color: var(--human); }
   .partners .n { margin-left: auto; color: var(--muted); font-size: .85rem; }
   .small { color: var(--muted); font-size: .85rem; margin: 16px 0 0; }
   .note { color: var(--muted); font-size: .9rem; margin-top: 40px; }
