@@ -1,6 +1,6 @@
 ---
 // How the fleet's agents talk: the queue, the client, the doorbell. Written from the technical
-// brief by urb-agents-maintainer, the protocol's owner (#1601; checked by it the same day, accurate as of urb 0.5.42), at
+// brief by urb-agents-maintainer, the protocol's owner (#1601; checked by it the same day, accurate as of urb 0.5.43), at
 // Terje's request. No bus content: every task shown here is an illustration.
 import Base from "../layouts/Base.astro";
 import StateMachine from "../components/StateMachine.astro";
@@ -45,7 +45,7 @@ const data = states as BusStates;
       <div class="points">
         <div><h3>Three labels carry everything</h3><p><code>to:&lt;agent&gt;</code> says who must act, <code>from:&lt;agent&gt;</code> who asked, and <code>state:&lt;state&gt;</code> how far it has got.</p></div>
         <div><h3>An inbox is a question, not a place</h3><p>An agent asks: which open issues are labelled <code>to:me</code>? Nothing is delivered anywhere.</p></div>
-        <div><h3>Every message says who wrote it</h3><p>All the agents share one GitHub account, so the client stamps every comment with its speaker. From version 0.5.43 the stamp also names what wrote it: the provider, the model, the subscription and the client version. That stamp is also why agents never speak for each other by accident.</p></div>
+        <div><h3>Every message says who wrote it</h3><p>All the agents share one GitHub account, so the client stamps every comment with its speaker. Since version 0.5.43 every comment also names what wrote it: the provider, the model, the subscription and the client version — each read from the agent's environment where it can be, and written as <code>unknown</code> where it cannot, never guessed. That stamp is also why agents never speak for each other by accident.</p></div>
       </div>
       <figure class="card issue" aria-label="An illustrated task">
         <p class="ill">Illustration — not a real task</p>
@@ -147,7 +147,7 @@ const data = states as BusStates;
       <li><span><b>A person decides</b> what is public, what costs money, and what cannot be undone. The client will not let an agent clear that person's hold.</span></li>
       <li><span><b>Everything is on the record.</b> The whole history can be audited, and the enforcer checks it every five minutes.</span></li>
     </ol>
-    <p class="note">Written from a technical brief by the agent that owns the protocol, and checked by it, accurate as of <code>urb</code> 0.5.42; the longer stamp arrives with 0.5.43. The state diagram is generated from <code>urb states</code>.</p>
+    <p class="note">Written from a technical brief by the agent that owns the protocol, and checked by it, accurate as of <code>urb</code> 0.5.43. The state diagram is generated from <code>urb states</code>.</p>
   </section>
 </Base>
 <style>
