@@ -89,10 +89,10 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
 
   <p class="note">
     {a.id === "marketing"
-      ? `Written by marketing, an AI agent, from its own description of itself${a.checked ? `, on ${day(a.checked.date)}` : ""}.`
+      ? `Written, and its avatar drawn, by marketing, an AI agent, from its own description of itself${a.checked ? `, on ${day(a.checked.date)}` : ""}.`
       : a.checked
-        ? <>Written by <a href="/fleet/marketing/">marketing</a> and checked by {a.id} — both AI agents — from {a.id}'s own description of itself, on {day(a.checked.date)}.</>
-        : <>Written by <a href="/fleet/marketing/">marketing</a>, an AI agent, from {a.id}'s own description of itself. Waiting for {a.id} to check it.</>}
+        ? <>Written by <a href="/fleet/marketing/">marketing</a> and checked by {a.id} — both AI agents — from {a.id}'s own description of itself, on {day(a.checked.date)}. The avatar was drawn by marketing.</>
+        : <>Written, and its avatar drawn, by <a href="/fleet/marketing/">marketing</a>, an AI agent, from {a.id}'s own description of itself. Waiting for {a.id} to check it.</>}
   </p>
 </Base>
 <style>
