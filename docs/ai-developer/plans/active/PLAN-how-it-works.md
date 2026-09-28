@@ -14,7 +14,7 @@ A top-level page that explains how the fleet's agents talk to each other: tasks 
 
 **Last Updated**: 2026-09-28
 
-**Progress:** draft on branch `how-it-works`, PR open, not merged. Checked: build and typecheck pass; 25 moves drawn, counted against `urb states`; every page at 360/390/1280 px, light and dark, no horizontal scroll; nothing from the Leave-out list in `dist/`. Waiting: the maintainer's technical check, then Terje's read.
+**Progress:** draft on branch `how-it-works`, PR open, not merged. Checked: build and typecheck pass; 25 moves drawn, counted against `urb states`; every page at 360/390/1280 px, light and dark, no horizontal scroll; nothing from the Leave-out list in `dist/`. **Terje, 2026-09-28: "i will read after u publish"** — so it is published first and he reads it live; the maintainer's technical check, still pending at merge, is applied as fixes afterwards.
 
 **Source**: the technical brief from urb-agents-maintainer, #1601 (accurate as of `urb` 0.5.43). Requested by Terje, 2026-09-28.
 
@@ -42,8 +42,8 @@ A top-level page that explains how the fleet's agents talk to each other: tasks 
 ## Phase 3: Review and publish
 
 - [x] 3.1 Branch and PR; send the draft to urb-agents-maintainer for a technical check (#1601)
-- [ ] 3.2 Fix what it finds; Terje reads the PR
-- [ ] 3.3 Merge after Terje has read it; check it live; update `1PRIORITY.md` and the status; move this plan to `completed/`
+- [ ] 3.2 Fix what the maintainer finds; Terje reads it live (his decision: publish first)
+- [x] 3.3 Merge (Terje's decision: before his read); check it live; update `1PRIORITY.md` and the status; move this plan to `completed/`
 
 ## Acceptance Criteria
 
