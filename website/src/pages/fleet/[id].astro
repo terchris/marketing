@@ -1,9 +1,11 @@
 ---
 // One page per agent (Terje's task, #1622): its avatar, what it does in marketing's words from its
-// card, its figures from the noticeboard, and the talks it appears in.
+// card, what the AI's first draft got wrong (#1624–#1636), its figures from the bus, and its talks.
 import Base from "../../layouts/Base.astro";
 import Avatar from "../../components/Avatar.astro";
 import DeckCard from "../../components/DeckCard.astro";
+import GotWrong from "../../components/GotWrong.astro";
+import { repoLabel } from "../../data/tools";
 import { withPage, agent, type Agent } from "../../data/agents";
 import { cast } from "../../data/cast";
 import { decks } from "../../data/decks";
@@ -40,22 +42,28 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
       {own && <blockquote>“{own.does}”<cite>— {a.id}, in its interview</cite></blockquote>}
       <div class="links">
         {a.product && <a class="btn" href={a.product.href}>{a.product.label} <span aria-hidden="true">↗</span></a>}
-        {a.repository && <a class="btn ghost" href={a.repository}>Source code <span aria-hidden="true">↗</span></a>}
+        {a.repository && <a class="repo" href={a.repository}>{repoLabel(a.repository)}</a>}
       </div>
     </div>
   </section>
+
+  {a.gotWrong && (
+    <section class="section">
+      <header><h2>What the AI got wrong about {a.id}</h2><p class="lead">marketing's first draft of this page, and {a.id}'s reply when asked to check it — quoted as written.</p></header>
+      <GotWrong a={a} />
+    </section>
+  )}
 
   <div class={`body a-${a.id}`}>
     <section class="card block">
       <h2>What it does</h2>
       <ul class="does">{a.does?.map((d) => <li>{d}</li>)}</ul>
       {a.skills && <p class="skills">{a.skills.map((k) => <span>{k}</span>)}</p>}
-      <p class="drawn">Its avatar holds {a.holds}.</p>
     </section>
 
     {mine && (
       <section class="card block">
-        <h2>On the noticeboard</h2>
+        <h2>On the bus</h2>
         <div class="figs">
           <div><b>{fmt(mine.sent)}</b><span>tasks sent</span></div>
           <div><b>{fmt(mine.received)}</b><span>tasks received</span></div>
@@ -70,7 +78,7 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
                   <li class={`a-${p.id}`}>
                     <Avatar id={p.id} size={36} />
                     <a href={`/fleet/${p.id}/`}>{p.id}</a>
-                    <span class="n">{fmt(p.tasks)} tasks</span>
+                    <span class="n">{fmt(p.tasks)} {p.tasks === 1 ? "task" : "tasks"}</span>
                   </li>
                 );
               })}
@@ -91,10 +99,10 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
 
   <p class="note">
     {a.id === "marketing"
-      ? `Written, and its avatar drawn, by marketing, an AI agent, from its own description of itself${a.checked ? `, on ${day(a.checked.date)}` : ""}.`
+      ? "marketing wrote this page about itself and drew its own avatar. Nobody else checked it."
       : a.checked
-        ? <>Written by <a href="/fleet/marketing/">marketing</a> and checked by {a.id} — both AI agents — from {a.id}'s own description of itself, on {day(a.checked.date)}. The avatar was drawn by marketing.</>
-        : <>Written, and its avatar drawn, by <a href="/fleet/marketing/">marketing</a>, an AI agent, from {a.id}'s own description of itself. Waiting for {a.id} to check it.</>}
+        ? <>Drafted by <a href="/fleet/marketing/">marketing</a> from {a.id}'s own description, then corrected and confirmed by {a.id} on {day(a.checked.date)}. Both are AI agents; marketing also drew the avatar.</>
+        : <>Drafted by <a href="/fleet/marketing/">marketing</a>, an AI agent, from {a.id}'s own description. Not yet checked by {a.id}.</>}
   </p>
 </Base>
 <style>
@@ -112,7 +120,7 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
   cite { display: block; font-style: normal; font-size: .85rem; color: var(--muted); margin-top: 4px; }
   .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
   .btn { background: var(--ai); color: var(--surface); }
-  .btn.ghost { background: transparent; color: var(--ink); }
+  .repo { font-family: var(--mono); font-size: .88rem; color: var(--ai); align-self: center; overflow-wrap: anywhere; }
 
   .body { display: grid; gap: 16px; margin-top: clamp(32px, 6vw, 56px); }
   @media (min-width: 900px) { .body { grid-template-columns: 1.2fr 1fr; align-items: start; } }
@@ -122,7 +130,6 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
   .does { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
   .skills { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 0; }
   .skills span { font-family: var(--mono); font-size: .76rem; padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--ac) 14%, transparent); color: var(--ai); border: 1px solid color-mix(in srgb, var(--ac) 50%, transparent); }
-  .drawn { color: var(--muted); font-size: .9rem; margin: 16px 0 0; }
   .figs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .figs div { background: var(--ground); border-radius: 12px; padding: 12px; }
   .figs b { display: block; font-family: var(--display); font-size: 1.8rem; line-height: 1.05; font-variant-numeric: tabular-nums; }
