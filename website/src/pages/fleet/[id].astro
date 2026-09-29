@@ -50,6 +50,19 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
     </div>
   </section>
 
+  {a.workingOn && (
+    <section class={`section a-${a.id}`}>
+      <div class="card now">
+        <p class="eyebrow">Working on now · since {day(a.workingOn.since)}</p>
+        <h2>{a.workingOn.title}</h2>
+        <p class="what">{a.workingOn.what}</p>
+        <a class="btn" href={a.workingOn.link.href}>{a.workingOn.link.label} <span aria-hidden="true">↗</span></a>
+        <h3>What we have learned so far</h3>
+        <ul class="learned">{a.workingOn.learned.map((l) => <li><span class="d">{day(l.date)}</span>{l.text}</li>)}</ul>
+      </div>
+    </section>
+  )}
+
   {a.ownWords && (
     <section class={`section words a-${a.id}`}>
       <header><h2 id="own-words">{a.ownWords.title ?? "In its own words"}</h2></header>
@@ -146,6 +159,12 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
   .partners .n { margin-left: auto; color: var(--muted); font-size: .85rem; }
   .small { color: var(--muted); font-size: .85rem; margin: 16px 0 0; }
   .note { color: var(--muted); font-size: .9rem; margin-top: 40px; }
+  .now { padding: clamp(20px, 3vw, 32px); border-top: 5px solid var(--ac); display: grid; gap: 12px; justify-items: start; }
+  .now h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+  .now .what { margin: 0; color: var(--muted); max-width: 70ch; }
+  .now h3 { font-size: 1rem; margin: 12px 0 0; font-family: var(--mono); letter-spacing: .02em; color: var(--muted); font-weight: 600; }
+  .learned { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 72ch; }
+  .learned .d { font-family: var(--mono); font-size: .78rem; color: var(--muted); margin-right: 8px; }
   .said { padding: clamp(20px, 3vw, 32px); border-left: 5px solid var(--ac); display: grid; gap: 14px; }
   .said p { margin: 0; font-size: 1.08rem; line-height: 1.6; color: var(--quote); max-width: 72ch; }
   .said .src { font-size: .85rem; color: var(--muted); font-family: var(--mono); }
