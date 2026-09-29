@@ -14,4 +14,4 @@ in progress.
 
 | Item | What it does | Priority |
 |---|---|---|
-| *(none yet — add INVESTIGATE/PLAN files beside this index)* | | |
+| [`INVESTIGATE-notebook-video.md`](INVESTIGATE-notebook-video.md) | A 3-minute video made in Google's notebook tool, on how the agents develop the applications; source and instruction drafted in `docs/video/` | Terje asked, 2026-09-29 |
