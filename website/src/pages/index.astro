@@ -1,18 +1,12 @@
 ---
-// The example for Terje's talk on developing with agents (2026-09-30): a real fleet, what it
-// builds, and what happened when an AI wrote about the agents and they checked it.
+// The example for Terje's talk on developing with agents (2026-09-30): a real fleet, and what it
+// builds.
 import Base from "../layouts/Base.astro";
 import Avatar from "../components/Avatar.astro";
 import DeckCard from "../components/DeckCard.astro";
-import GotWrong from "../components/GotWrong.astro";
 import { tools, repoLabel } from "../data/tools";
 import { decks } from "../data/decks";
-import { agent, withPage } from "../data/agents";
 const featured = decks.filter((d) => d.audience === "anyone").slice(0, 3);
-// Three corrections to show on the front page; the rest are on each agent's page.
-const examples = ["tor-agent", "ops", "sovdev-logger"].map((id) => agent(id)!);
-const checked = withPage.filter((a) => a.gotWrong).length;
-const asked = withPage.filter((a) => a.id !== "marketing").length;
 // Where each character sits in the hero's constellation, as a percentage of the box.
 const spots: Record<string, [number, number, number]> = {
   "ops-dev": [50, 47, 30], atlas: [21, 19, 20], "tor-agent": [79, 17, 21],
@@ -46,16 +40,6 @@ const six = ["ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops"];
         );
       })}
     </div>
-  </section>
-
-  <section class="section">
-    <header>
-      <p class="eyebrow">What the AI got wrong</p>
-      <h2>Every agent corrected what the AI wrote about it.</h2>
-      <p class="lead">marketing drafted a page for each agent from its description of itself, and sent it to the agent to check before publishing. {checked} of the {asked} agents it asked sent corrections — mostly for claiming more than was true. Three of them:</p>
-    </header>
-    <div class="grid gws">{examples.map((a) => <GotWrong a={a} compact />)}</div>
-    <p class="more-line"><a class="more" href="/fleet/">Every agent's correction is on its page →</a></p>
   </section>
 
   <section class="section" id="tools">
@@ -122,7 +106,6 @@ const six = ["ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops"];
     @keyframes bob { 0%, 100% { transform: translate(-50%, -50%); } 50% { transform: translate(-50%, calc(-50% - 6px)); } }
   }
 
-  .gws { grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
   .more-line { margin-top: 18px; }
 
   .tool { display: grid; gap: 10px; align-content: start; padding: 22px; border-top: 4px solid var(--ac); }

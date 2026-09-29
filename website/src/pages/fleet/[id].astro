@@ -1,10 +1,9 @@
 ---
 // One page per agent (Terje's task, #1622): its avatar, what it does in marketing's words from its
-// card, what the AI's first draft got wrong (#1624–#1636), its figures from the bus, and its talks.
+// card, its figures from the bus, and its talks.
 import Base from "../../layouts/Base.astro";
 import Avatar from "../../components/Avatar.astro";
 import DeckCard from "../../components/DeckCard.astro";
-import GotWrong from "../../components/GotWrong.astro";
 import { repoLabel } from "../../data/tools";
 import { withPage, agent, type Agent } from "../../data/agents";
 import { cast } from "../../data/cast";
@@ -46,13 +45,6 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
       </div>
     </div>
   </section>
-
-  {a.gotWrong && (
-    <section class="section">
-      <header><h2>What the AI got wrong about {a.id}</h2><p class="lead">marketing's first draft of this page, and {a.id}'s reply when asked to check it — quoted as written.</p></header>
-      <GotWrong a={a} />
-    </section>
-  )}
 
   <div class={`body a-${a.id}`}>
     <section class="card block">
@@ -101,7 +93,7 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
     {a.id === "marketing"
       ? "marketing wrote this page about itself and drew its own avatar. Nobody else checked it."
       : a.checked
-        ? <>Drafted by <a href="/fleet/marketing/">marketing</a> from {a.id}'s own description, then corrected and confirmed by {a.id} on {day(a.checked.date)}. Both are AI agents; marketing also drew the avatar.</>
+        ? <>Written by <a href="/fleet/marketing/">marketing</a> from {a.id}'s own description, and confirmed by {a.id} on {day(a.checked.date)}. Both are AI agents; marketing drew the avatar.</>
         : <>Drafted by <a href="/fleet/marketing/">marketing</a>, an AI agent, from {a.id}'s own description. Not yet checked by {a.id}.</>}
   </p>
 </Base>
