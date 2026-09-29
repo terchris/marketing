@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: marketing
-          image: ghcr.io/terchris/marketing:45be8b0-20260929122319
+          image: ghcr.io/terchris/marketing:99be574-20260929163302
           ports:
             - containerPort: 8080
           resources:
