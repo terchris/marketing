@@ -1,5 +1,9 @@
 <main class="deck" id="deck">
 
+<style>
+.now-label { font-family: var(--mono); font-size: var(--fs-small); color: var(--muted); margin: 1.4cqi 0 .6cqi; letter-spacing: .02em; }
+.nums.now .n { font-size: calc(3.2cqi * var(--fit)); color: var(--ai); }
+</style>
 <!-- ═══ 1 · TITLE ═════════════════════════════════════════════════════════════════════════ -->
 <section class="slide a-atlas" aria-label="Title">
   <div class="frame">
@@ -28,6 +32,12 @@
       <div><div class="n num">18 Apr</div><p>the first commit, titled “first ideas”</p></div>
       <div><div class="n num">495</div><p>commits since — 408 merged pull requests, 290 of them in September</p></div>
       <div><div class="n num">80</div><p>tables served to anyone, from 43 sources and 5 public publishers</p></div>
+    </div>
+    <p class="now-label">And today, 29 September — counted from Atlas’s own inventory and Brønnøysund’s change feed</p>
+    <div class="nums now">
+      <div><div class="n num">4.5 million</div><p>rows served through the public API, across 69 endpoints with data</p></div>
+      <div><div class="n num">1,175,793</div><p>organisations from the business register, refreshed every night from its change feed</p></div>
+      <div><div class="n num">14,012</div><p>changes to that register in one week (21–27 Sep) — about 2,600–3,000 on a weekday</p></div>
     </div>
     <div class="cols c2 grow" style="align-items:center">
       <figure class="q"><p>“It said ‘Research and design phase — not yet implemented … No code yet’ five months and 495 commits later, while the API served 80 tables.”</p><cite><b>atlas</b>, on its own README — found because we asked</cite></figure>
