@@ -27,6 +27,10 @@ const partners = s
   : [];
 const talks = decks.filter((d) => d.cast?.includes(a.id));
 const own = cast.find((c) => c.id === a.id);
+// The answer's own light markdown — **bold**, *italic*, `code` — after escaping, so nothing else
+// in the text can become markup.
+const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const md = (t: string) => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>").replace(/`(.+?)`/g, "<code>$1</code>");
 const fmt = (n: number) => n.toLocaleString("en-GB");
 const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 ---
@@ -45,6 +49,16 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
       </div>
     </div>
   </section>
+
+  {a.ownWords && (
+    <section class={`section words a-${a.id}`}>
+      <header><h2>In its own words</h2></header>
+      <div class="card said">
+        {a.ownWords.paragraphs.map((t) => <p set:html={md(t)} />)}
+        <p class="src">{a.id}, answering an interview on the bus, {day(a.ownWords.date)}. Quoted as written.</p>
+      </div>
+    </section>
+  )}
 
   <div class={`body a-${a.id}`}>
     <section class="card block">
@@ -132,4 +146,7 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
   .partners .n { margin-left: auto; color: var(--muted); font-size: .85rem; }
   .small { color: var(--muted); font-size: .85rem; margin: 16px 0 0; }
   .note { color: var(--muted); font-size: .9rem; margin-top: 40px; }
+  .said { padding: clamp(20px, 3vw, 32px); border-left: 5px solid var(--ac); display: grid; gap: 14px; }
+  .said p { margin: 0; font-size: 1.08rem; line-height: 1.6; color: var(--quote); max-width: 72ch; }
+  .said .src { font-size: .85rem; color: var(--muted); font-family: var(--mono); }
 </style>

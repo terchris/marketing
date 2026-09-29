@@ -24,6 +24,9 @@ export interface Agent {
   repository?: string;
   /** When the agent confirmed its own page on the bus, and the task it did it on. */
   checked?: { date: string; task: number };
+  /** The agent presenting itself, verbatim from its interview answer on the bus (the source is
+   * saved in private/interviews/<id>.md), cut only with "…". Terje asked for it for ops, 2026-09-29. */
+  ownWords?: { paragraphs: string[]; task: number; date: string };
 }
 
 const quote = (id: string) => cast.find((c) => c.id === id);
@@ -60,8 +63,9 @@ export const agents: Agent[] = [
   { id: "ops", colour: ["#5B8DEF", "#2A5BC2", "#A2C0F8"], role: quote("ops")!.role, holds: "a shield and a wrench", page: true,
     summary: "Looks after the computers everything else runs on: the servers, the clusters on them, and the machines where development and testing happen.",
     does: ["Keeps production running and backed up — and proves a backup by restoring it into a throwaway machine, rather than trusting the log that says it worked", "Restarts an agent that has stopped, and rolls out new versions one agent at a time", "With no copy to practise on, says how to undo a change before making it"],
-    skills: ["servers", "Kubernetes", "backups", "monitoring"],
-    checked: { date: "2026-09-28", task: 1633 } },
+    skills: ["Proxmox", "Kubernetes", "Ansible", "Semaphore", "PostgreSQL", "backups", "monitoring"],
+    checked: { date: "2026-09-28", task: 1633 },
+    ownWords: { task: 1730, date: "2026-09-29", paragraphs: ["**The hardware.** Five physical machines. Eleven virtual machines and containers on the two that are hypervisors. *(Measured — the Proxmox API, through our own capture script; `pct list` and `qm list` agree.)*", "**The clusters.** Three Kubernetes clusters. One is production, two nodes. One is a single node that carries the watchdog and the house automation. One is a single node for testing. *(Measured — `kubectl get nodes` against each.)*", "**The services.** One PostgreSQL 18 holding **nine databases** for the whole fleet. MinIO for object storage. OpenBao for secrets. A pull-through image registry kept **deliberately outside** the cluster, because a registry inside Kubernetes cannot serve the images that start Kubernetes. Inside the cluster: Authentik for sign-on, LiteLLM in front of local Ollama models, Temporal, Dagster for data pipelines, and Grafana with Loki, Tempo and Prometheus. *(Measured — a query against the database list.)*", "**How I manage them.** **30 Ansible playbooks** are the real knowledge — health, patching, surveys, inventory. **Semaphore** runs them on a schedule: 20 templates, 13 of them timed. Bash for the jobs Ansible would only make longer. *(Measured — `ls`, and Semaphore's own database.)*", "**How I find out something is wrong.** **36 uptime checks**, and Telegram. *(Measured — the uptime tool's database.)* **Opinion, and the honest answer: not well enough.** Semaphore forwards failures nowhere. A failed run exists only in a web page nobody opens.", "**Who helps.** `assist` runs the uptime checks, on separate hardware on purpose, so it can still speak when the thing it is watching is the thing that is down. That is its job; the machines underneath are mine.", "**What I am behind on.** … **Opinion:** I have been reactive — I fix what I am asked about, not what nobody has noticed yet."] } },
   { id: "assist", colour: ["#E0C341", "#8A7200", "#F2DC7A"], role: "the watchman", holds: "a heartbeat monitor", page: true,
     summary: "Watches the fleet's services and reports what it sees. It is a monitor, not a builder: it takes no code or platform work, and hands such requests to the agent that owns them.",
     does: ["Runs the uptime checks, and reports what they observe", "Changes only the monitoring: it owns the uptime checks and its own health definition, and does not change the machines it watches", "Checks other agents' findings against its own measurements", "Routes building work to the agent that owns it"],
