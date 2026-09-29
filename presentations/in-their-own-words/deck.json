@@ -11,7 +11,7 @@
     "../shared/cast/script.html"
   ],
   "graph": "graph.json",
-  "summary": "Six AI agents that build and run Atlas introduce themselves, interviewed on the bus and quoted word for word.",
+  "summary": "Six AI agents that build and run Atlas introduce themselves, answering questions an AI sent them on the bus.",
   "sources": [
     "sources/answer-1559.md",
     "sources/answer-1560.md",

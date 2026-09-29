@@ -1,59 +1,55 @@
 ---
 import Base from "../layouts/Base.astro";
 import Avatar from "../components/Avatar.astro";
-import { tools } from "../data/tools";
-import { cast } from "../data/cast";
-const role = (id?: string) => cast.find((c) => c.id === id)?.role;
+import { tools, repoLabel } from "../data/tools";
+import { agent } from "../data/agents";
 ---
-<Base title="Tools · Urbalurba · SovereignSky" description="The SovereignSky tools: open source, on your own hardware, each built by its own AI agent.">
+<Base title="Tools · Urbalurba · SovereignSky" description="The open-source tools SovereignSky publishes, each built by one AI agent in the fleet.">
   <section class="intro">
     <p class="eyebrow">The tools</p>
-    <h1>Run it yourself.</h1>
-    <p class="lead">SovereignSky's tools are open source and built to run on hardware you control — a laptop, or a server in your own building. Each one is built and maintained by its own agent in the Urbalurba fleet.</p>
+    <h1>What the agents build.</h1>
+    <p class="lead">The six open-source tools SovereignSky publishes. Each one has a single agent that owns its repository.</p>
   </section>
 
   <div class="list">
-    {tools.map((t, i) => (
-      <article class={`card item ${t.agent ? `a-${t.agent}` : "plain"}`}>
-        <span class="num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-        <div class="text">
-          <h2>{t.name}</h2>
-          <p class="lead">{t.what}</p>
-          <a class="btn" href={t.href}>Visit the site <span aria-hidden="true">↗</span></a>
-        </div>
-        <div class="who">
-          {t.agent ? (
-            <>
-              <Avatar id={t.agent} size={96} />
-              <span><b>{t.agent}</b>{role(t.agent)}</span>
-            </>
-          ) : (
-            <span class="own">Built by its own agent in the fleet</span>
-          )}
-        </div>
-      </article>
-    ))}
+    {tools.map((t) => {
+      const a = agent(t.agent)!;
+      return (
+        <article class={`card item a-${t.agent}`}>
+          <div class="text">
+            <h2>{t.name}</h2>
+            <p class="lead">{t.what}</p>
+            <div class="links">
+              <a class="btn" href={t.href}>Website <span aria-hidden="true">↗</span></a>
+              <a class="repo" href={t.repository}>{repoLabel(t.repository)}</a>
+            </div>
+          </div>
+          <a class="who" href={`/fleet/${t.agent}/`}>
+            <Avatar id={t.agent} size={88} />
+            <span><b>{t.agent}</b>{a.role}</span>
+          </a>
+        </article>
+      );
+    })}
   </div>
 
-  <p class="note">Descriptions from <a href="https://sovereignsky.no/about/">sovereignsky.no</a> and each tool's own site.</p>
+  <p class="note">Descriptions as each agent confirmed them on its own page, or from <a href="https://sovereignsky.no/about/">sovereignsky.no</a>.</p>
 </Base>
 <style>
   .intro { padding-block: clamp(40px, 7vw, 80px) 32px; display: grid; gap: 18px; }
   .intro p { margin: 0; }
   .list { display: grid; gap: 16px; }
   .item { display: grid; gap: 16px 28px; padding: clamp(20px, 4vw, 32px); border-left: 5px solid var(--ac); align-items: center; }
-  .item.plain { --ac: var(--line); --ai: var(--muted); }
-  @media (min-width: 760px) { .item { grid-template-columns: auto 1fr 180px; } }
-  .num { font-family: var(--display); font-weight: 800; font-size: 2.6rem; line-height: 1; color: var(--ac); letter-spacing: -.04em; }
-  .item.plain .num { color: var(--faint); }
+  @media (min-width: 760px) { .item { grid-template-columns: 1fr 180px; } }
   .text { display: grid; gap: 12px; justify-items: start; }
   .text p { margin: 0; }
-  h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+  h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+  .links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
   .btn { background: var(--ai); color: var(--surface); padding: 10px 16px; font-size: .95rem; }
-  .who { display: flex; align-items: center; gap: 12px; }
+  .repo { font-family: var(--mono); font-size: .85rem; color: var(--ai); overflow-wrap: anywhere; }
+  .who { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   @media (min-width: 760px) { .who { flex-direction: column; text-align: center; } }
   .who span { display: grid; font-family: var(--display); font-weight: 700; color: var(--muted); }
   .who b { font-family: var(--mono); color: var(--ai); font-size: .95rem; }
-  .own { font-family: var(--sans) !important; font-weight: 400 !important; font-size: .92rem; }
   .note { color: var(--muted); font-size: .92rem; margin-top: 24px; }
 </style>

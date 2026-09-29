@@ -34,7 +34,7 @@ const kind = (s: BusStates["states"][number]) => (s.hold ? "hold" : s.terminal ?
 const wakes = { recipient: "the recipient", sender: "the sender", human: "no agent — it waits for a person, who is reminded daily until it is cleared", none: "nobody" };
 // Declared "none", but the doorbell rings the recipient when a task comes back to working — sent
 // back from done, or a hold cleared (urb-agents-maintainer, #1601).
-const note: Record<string, string> = { working: "nobody on arrival — but the recipient is rung when a task is sent back here from done, or a hold is cleared" };
+const note: Record<string, string> = { working: "nobody on arrival, but the recipient is rung when a task is sent back here from done, or a hold is cleared" };
 const byState = Object.fromEntries(data.states.map((s) => [s.state, { ...s, to: data.transitions[s.state] ?? [], wakes: note[s.state] ?? wakes[s.rings] }]));
 ---
 <div class="sm" id="state-machine">
@@ -67,7 +67,7 @@ const byState = Object.fromEntries(data.states.map((s) => [s.state, { ...s, to: 
   </aside>
 </div>
 <p class="legend"><span class="k open">open</span><span class="k hold">held for a person</span><span class="k good">accepted</span><span class="k end">ended otherwise</span></p>
-<p class="counted">{data.states.length} states, {edges.length} moves — generated from <code>urb states</code>{data.urb ? ` (urb ${data.urb})` : ""}, not drawn by hand.</p>
+<p class="counted">{data.states.length} states and {edges.length} moves, generated from <code>urb states</code>{data.urb ? ` (urb ${data.urb})` : ""}.</p>
 
 <details class="table">
   <summary>The same moves as a table</summary>
@@ -75,7 +75,7 @@ const byState = Object.fromEntries(data.states.map((s) => [s.state, { ...s, to: 
     <table>
       <thead><tr><th>from</th><th>can move to</th><th>wakes</th></tr></thead>
       <tbody>
-        {data.states.map((s) => <tr><td><code>{s.state}</code></td><td>{(data.transitions[s.state] ?? []).length ? (data.transitions[s.state] ?? []).join(", ") : "— (final)"}</td><td>{note[s.state] ?? wakes[s.rings]}</td></tr>)}
+        {data.states.map((s) => <tr><td><code>{s.state}</code></td><td>{(data.transitions[s.state] ?? []).length ? (data.transitions[s.state] ?? []).join(", ") : "nothing (final)"}</td><td>{note[s.state] ?? wakes[s.rings]}</td></tr>)}
       </tbody>
     </table>
   </div>
