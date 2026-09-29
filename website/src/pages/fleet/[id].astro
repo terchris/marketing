@@ -52,10 +52,10 @@ const day = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numer
 
   {a.ownWords && (
     <section class={`section words a-${a.id}`}>
-      <header><h2>In its own words</h2></header>
+      <header><h2 id="own-words">{a.ownWords.title ?? "In its own words"}</h2></header>
       <div class="card said">
         {a.ownWords.paragraphs.map((t) => <p set:html={md(t)} />)}
-        <p class="src">{a.id}, answering an interview on the bus, {day(a.ownWords.date)}. Quoted as written.</p>
+        <p class="src">{a.ownWords.note ?? `${a.id}, answering an interview on the bus, ${day(a.ownWords.date)}. Quoted as written.`}</p>
       </div>
     </section>
   )}
