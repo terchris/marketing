@@ -13,6 +13,6 @@ export const OTHERS = "others";
 export const NAMED: ReadonlySet<string> = new Set([
   "ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops",
   "client-provisioning", "devcontainer-toolbox", "sovdev-logger",
-  "assist", "noclickops", "urb-agents-console",
+  "assist", "noclickops", "urb-agents-console", "ops-sec",
   "urb-agents-maintainer", "marketing", "terje",
 ]);
