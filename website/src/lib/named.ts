@@ -10,9 +10,16 @@
 // a private platform, which Terje left off the public pages on 2026-09-28. Adding an id here
 // publishes it on the next build and the next console refresh: that is a decision, not a tidy-up.
 export const OTHERS = "others";
+// Ids whose PAIR data — who they work with, and the counts — is never published, even though the
+// agent itself is named and its own totals (sent/received/replies) are shown. ops-sec asked for
+// this (#1784): its pairs would signal, publicly and before a fix ships, which agent has an open
+// security finding. Filtered out of bus-stats.json itself, not just off the page, since the file
+// is public too.
+export const NO_PAIRS: ReadonlySet<string> = new Set(["ops-sec"]);
+
 export const NAMED: ReadonlySet<string> = new Set([
   "ops-dev", "atlas", "tor-agent", "imac", "dev-templates", "ops",
   "client-provisioning", "devcontainer-toolbox", "sovdev-logger",
-  "assist", "noclickops", "urb-agents-console",
+  "assist", "noclickops", "urb-agents-console", "ops-sec",
   "urb-agents-maintainer", "marketing", "terje",
 ]);
